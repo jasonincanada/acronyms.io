@@ -11,6 +11,11 @@ class User(AbstractUser):
 class Room(models.Model):
   slug = models.CharField(max_length=50)
 
+  class Meta:
+    constraints = [ models.UniqueConstraint(name='slug_unique',
+                                            fields=['slug'])
+                  ]
+
 
 class Game(models.Model):
   room     = models.ForeignKey(Room, on_delete=models.CASCADE)
