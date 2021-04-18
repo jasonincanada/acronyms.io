@@ -5,7 +5,7 @@ from django.contrib.auth.models import AbstractUser
 #   https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project
 
 class User(AbstractUser):
-    pass
+  display_name = models.CharField(max_length=50, null=False, blank=True)
 
 
 class Room(models.Model):

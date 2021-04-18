@@ -11,8 +11,9 @@ class SignUpForm(UserCreationForm):
   first_name = forms.CharField(max_length=30, required=False, help_text='Optional')
   last_name  = forms.CharField(max_length=30, required=False, help_text='Optional')
   email      = forms.EmailField(max_length=254, help_text='Please provide a valid email address')
+  display_name = forms.CharField(max_length=50, required=False, help_text='How to display your name on this site')
 
   class Meta:
     model = User
-    fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
+    fields = ('username', 'first_name', 'last_name', 'email', 'display_name', 'password1', 'password2', )
 
