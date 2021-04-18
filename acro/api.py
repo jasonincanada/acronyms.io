@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db   import IntegrityError, transaction
 from django.http import JsonResponse
 
 from .models import ActiveGame, Game, Room
@@ -10,34 +11,30 @@ import string
 @login_required
 def new_game(request, room_id):
 
-  # see if we have a game already going on
-  count = ActiveGame.objects.filter(room_id=room_id).count()
-
-  if count > 0:
-    return JsonResponse({ 'error': 'Game already in progress' })
-
-  # TODO: race condition here, creating game some time after checking if we can
-
-
   # TODO: check access permission
-
 
   acronym = generate_acronym();
 
-  game = Game.objects.create(room_id=room_id,
-                             acronym=acronym,
-                             phase=Game.GATHER)
+  try:
+    with transaction.atomic():
+      game = Game.objects.create(room_id=room_id,
+                                 acronym=acronym)
 
-  active_game = ActiveGame.objects.create(room_id=room_id,
-                                          game_id=game.id)
+      active_game = ActiveGame.objects.create(room_id=room_id,
+                                              game=game,
+                                              phase=ActiveGame.GATHER)
 
-  data = {
-    'room_id': room_id,
-    'game_id': game.id,
-    'acronym': acronym
-  }
+      response = {
+        'game_id': game.id,
+        'acronym': acronym
+      }
 
-  return JsonResponse(data)
+  except IntegrityError:
+    response = {
+      'error': 'Game already in progress',
+    }
+
+  return JsonResponse(response)
 
 
 def generate_acronym():
