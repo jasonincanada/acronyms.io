@@ -30,7 +30,7 @@ class SignUpView(generic.View):
       user = authenticate(username=username, password=password)
       login(request, user)
 
-      return redirect('index')
+      return redirect('home')
 
     else:
       return render(request, 'acro/signup.html', { 'form': form })
