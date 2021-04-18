@@ -23,6 +23,7 @@ class Room(models.Model):
 class Game(models.Model):
   room     = models.ForeignKey(Room, on_delete=models.CASCADE)
   acronym  = models.CharField(max_length=50)
+  started  = models.DateTimeField(auto_now_add=True)
 
   # Game phases
   GATHER   = 'G'
