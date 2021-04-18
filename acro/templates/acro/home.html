@@ -3,7 +3,10 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-  <div>Welcome to acronyms.io, {{ user.username }}</div>
+  <div>
+    Welcome to acronyms.io, {{ user.username }}.
+    <a href="{% url 'logout' %}">log out</a>
+  </div>
 {% else %}
   <div>
     Welcome to acronyms.io.
