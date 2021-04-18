@@ -47,7 +47,7 @@ class ActiveGame(models.Model):
   class Meta:
 
     # this uniqueness constraint enforces a max of 1 active game per room
-    constraints = [ models.UniqueConstraint(name='active_game_unique',
-                                            fields=['room', 'game'])
+    constraints = [ models.UniqueConstraint(name='one_active_game_per_room',
+                                            fields=['room'])
                   ]
 
