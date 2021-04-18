@@ -1,5 +1,4 @@
 from django.contrib.auth import authenticate, login
-from django.http      import HttpResponse
 from django.shortcuts import redirect, render
 from django.views     import generic
 
@@ -7,8 +6,8 @@ from .models import Room
 from .forms  import SignUpForm
 
 
-def index(request):
-  return HttpResponse("acro game main page")
+class HomeView(generic.TemplateView):
+  template_name = 'acro/home.html'
 
 
 class RoomView(generic.DetailView):
