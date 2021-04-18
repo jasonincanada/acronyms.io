@@ -5,7 +5,7 @@
 - [ ] python/django version on existing vps
   - [ ] Minimum initial deployment
     - [x] Set up dev environment
-    - [ ] User registration / login
+    - [x] User registration / login
     - [ ] Show users in room
     - [ ] Three-phase rounds
       - [ ] User submissions
