@@ -39,3 +39,15 @@ class Game(models.Model):
                               choices=phases,
                               default=GATHER)
 
+
+class ActiveGame(models.Model):
+  room     = models.ForeignKey(Room, on_delete=models.CASCADE)
+  game     = models.ForeignKey(Game, on_delete=models.CASCADE)
+
+  class Meta:
+
+    # this uniqueness constraint enforces a max of 1 active game per room
+    constraints = [ models.UniqueConstraint(name='active_game_unique',
+                                            fields=['room', 'game'])
+                  ]
+
