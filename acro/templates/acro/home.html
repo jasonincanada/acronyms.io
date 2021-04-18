@@ -2,7 +2,15 @@
 
 {% block content %}
 
-<div>Welcome to acronyms.io</div>
+{% if user.is_authenticated %}
+  <div>Welcome to acronyms.io, {{ user.username }}</div>
+{% else %}
+  <div>
+    Welcome to acronyms.io.
+    Please <a href="{% url 'login'  %}">log in</a>
+        or <a href="{% url 'signup' %}">sign up</a>.
+  </div>
+{% endif %}
 
 {% endblock %}
 
