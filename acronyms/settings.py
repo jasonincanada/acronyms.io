@@ -131,6 +131,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'acro.User'
 
-LOGIN_REDIRECT_URL  = '/acro/'
-LOGOUT_REDIRECT_URL = '/acro/'
+LOGIN_REDIRECT_URL  = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 
