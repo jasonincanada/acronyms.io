@@ -60,7 +60,7 @@ def get_room(request, room_id):
   active_game = ActiveGame.objects.filter(room_id=room_id).all()
 
   if active_game:
-    response.update({ 'acronym': active_game[0].game.acronym.acronym})
+    response.update({ 'acronym': active_game[0].acronym.acronym})
 
   return JsonResponse(response)
 
