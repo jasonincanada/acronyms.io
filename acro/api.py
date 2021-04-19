@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.db   import IntegrityError, transaction
 from django.http import JsonResponse
 
-from .models import Acronym, ActiveGame, Game, Room
+from .models import Acronym, ActiveGame, Room
 
 import random
 import string
@@ -16,11 +16,9 @@ def new_game(request, room_id):
   try:
     with transaction.atomic():
       acronym = generate_acronym();
-      game = Game.objects.create(room_id=room_id,
-                                 acronym=acronym)
 
       active_game = ActiveGame.objects.create(room_id=room_id,
-                                              game=game,
+                                              acronym=acronym,
                                               phase=ActiveGame.GATHER)
 
       response = {

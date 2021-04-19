@@ -29,17 +29,17 @@ class Acronym(models.Model):
                                             fields=['acronym'])
                   ]
 
-class Game(models.Model):
+class FinishedGame(models.Model):
   room     = models.ForeignKey(Room, on_delete=models.CASCADE)
   acronym  = models.ForeignKey(Acronym, on_delete=models.RESTRICT)
-  started  = models.DateTimeField(auto_now_add=True)
-  finished = models.DateTimeField(null=True)
-
+  started  = models.DateTimeField(null=False)
+  finished = models.DateTimeField(null=False)
 
 
 class ActiveGame(models.Model):
   room     = models.ForeignKey(Room, on_delete=models.CASCADE)
-  game     = models.ForeignKey(Game, on_delete=models.CASCADE)
+  acronym  = models.ForeignKey(Acronym, on_delete=models.RESTRICT)
+  started  = models.DateTimeField(auto_now_add=True)
 
   # Game phases
   GATHER   = 'G'
