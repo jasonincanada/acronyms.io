@@ -85,3 +85,16 @@ class FinalPhrase(models.Model):
     constraints = [ models.UniqueConstraint(name='final_phrase_one_per_game_user',
                                             fields=['game', 'user']) ]
 
+
+# a single vote by a user for a phrase for a finished game
+#
+class Vote(models.Model):
+  voter     = models.ForeignKey(User, on_delete=models.CASCADE)
+  game      = models.ForeignKey(FinishedGame, on_delete=models.CASCADE)
+  phrase    = models.ForeignKey(FinalPhrase, on_delete=models.CASCADE)
+  voted_on  = models.DateTimeField(null=False)
+
+  class Meta:
+    constraints = [ models.UniqueConstraint(name='vote_one_per_game_voter',
+                                            fields=['game', 'voter']) ]
+
