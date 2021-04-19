@@ -20,6 +20,11 @@ class Room(models.Model):
                   ]
 
 
+class Acronym(models.Model):
+  acronym  = models.CharField(max_length=50)
+  added    = models.DateTimeField(auto_now_add=True)
+
+
 class Game(models.Model):
   room     = models.ForeignKey(Room, on_delete=models.CASCADE)
   acronym  = models.CharField(max_length=50)
