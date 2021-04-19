@@ -57,6 +57,18 @@ class ActiveGame(models.Model):
 
     # this uniqueness constraint enforces a max of 1 active game per room
     constraints = [ models.UniqueConstraint(name='one_active_game_per_room',
-                                            fields=['room'])
-                  ]
+                                            fields=['room']) ]
+
+
+# most recent phrase sent by a user during a game's gathering round
+#
+class LatestPhrase(models.Model):
+  game    = models.ForeignKey(ActiveGame, on_delete=models.CASCADE)
+  user    = models.ForeignKey(User, on_delete=models.CASCADE)
+  sent    = models.DateTimeField(null=False)
+  phrase  = models.CharField(max_length=50, null=False, blank=False)
+
+  class Meta:
+    constraints = [ models.UniqueConstraint(name='latest_phrase_one_per_game_user',
+                                            fields=['game', 'user']) ]
 
