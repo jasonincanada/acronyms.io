@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.db   import IntegrityError, transaction
 from django.http import JsonResponse
 
-from .models import ActiveGame, Game, Room
+from .models import Acronym, ActiveGame, Game, Room
 
 import random
 import string
@@ -13,10 +13,9 @@ def new_game(request, room_id):
 
   # TODO: check access permission
 
-  acronym = generate_acronym();
-
   try:
     with transaction.atomic():
+      acronym = generate_acronym();
       game = Game.objects.create(room_id=room_id,
                                  acronym=acronym)
 
@@ -26,7 +25,7 @@ def new_game(request, room_id):
 
       response = {
         'game_id': game.id,
-        'acronym': acronym
+        'acronym': acronym.acronym
       }
 
   except IntegrityError:
@@ -37,11 +36,17 @@ def new_game(request, room_id):
   return JsonResponse(response)
 
 
+# generate and return a new Acronym object if it's a newly-seen acronym
+# or return the record of the existing one
 def generate_acronym():
   length   = random.randint(4, 8)
   alphabet = string.ascii_lowercase
 
-  return ( ''.join(random.choice(alphabet) for i in range(length)) )
+  acronym = ( ''.join(random.choice(alphabet) for i in range(length)) )
+
+  obj, created = Acronym.objects.get_or_create(acronym=acronym)
+
+  return obj
 
 
 @login_required
@@ -57,7 +62,7 @@ def get_room(request, room_id):
   active_game = ActiveGame.objects.filter(room_id=room_id).all()
 
   if active_game:
-    response.update({ 'acronym': active_game[0].game.acronym})
+    response.update({ 'acronym': active_game[0].game.acronym.acronym})
 
   return JsonResponse(response)
 

@@ -31,7 +31,7 @@ class Acronym(models.Model):
 
 class Game(models.Model):
   room     = models.ForeignKey(Room, on_delete=models.CASCADE)
-  acronym  = models.CharField(max_length=50)
+  acronym  = models.ForeignKey(Acronym, on_delete=models.RESTRICT)
   started  = models.DateTimeField(auto_now_add=True)
   finished = models.DateTimeField(null=True)
 
