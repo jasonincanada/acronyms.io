@@ -33,7 +33,7 @@ class FinishedGame(models.Model):
   room     = models.ForeignKey(Room, on_delete=models.CASCADE)
   acronym  = models.ForeignKey(Acronym, on_delete=models.RESTRICT)
   started  = models.DateTimeField(null=False)
-  finished = models.DateTimeField(null=False)
+  finished = models.DateTimeField(null=False,auto_now_add=True)
 
 
 class ActiveGame(models.Model):
