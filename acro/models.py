@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+MAX_PHRASE_LENGTH = 500
+
+
 # Custom user model:
 #   https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#using-a-custom-user-model-when-starting-a-project
 
@@ -66,7 +69,7 @@ class LatestPhrase(models.Model):
   game    = models.ForeignKey(ActiveGame, on_delete=models.CASCADE)
   user    = models.ForeignKey(User, on_delete=models.CASCADE)
   sent    = models.DateTimeField(null=False)
-  phrase  = models.CharField(max_length=500, null=False, blank=False)
+  phrase  = models.CharField(max_length=MAX_PHRASE_LENGTH, null=False, blank=False)
 
   class Meta:
     constraints = [ models.UniqueConstraint(name='latest_phrase_one_per_game_user',
@@ -76,7 +79,7 @@ class LatestPhrase(models.Model):
 class FinalPhrase(models.Model):
   game    = models.ForeignKey(FinishedGame, on_delete=models.CASCADE)
   user    = models.ForeignKey(User, on_delete=models.CASCADE)
-  phrase  = models.CharField(max_length=500, null=False, blank=False)
+  phrase  = models.CharField(max_length=MAX_PHRASE_LENGTH, null=False, blank=False)
 
   class Meta:
     constraints = [ models.UniqueConstraint(name='final_phrase_one_per_game_user',
