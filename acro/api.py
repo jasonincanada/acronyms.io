@@ -43,3 +43,21 @@ def generate_acronym():
 
   return ( ''.join(random.choice(alphabet) for i in range(length)) )
 
+
+@login_required
+def get_room(request, room_id):
+
+  # TODO: permissions
+
+  room = Room.objects.get(pk=room_id)
+
+  response = { 'id': room.id }
+
+  # add details of the active game if any
+  active_game = ActiveGame.objects.filter(room_id=room_id).all()
+
+  if active_game:
+    response.update({ 'acronym': active_game[0].game.acronym})
+
+  return JsonResponse(response)
+
