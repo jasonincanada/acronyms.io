@@ -24,6 +24,10 @@ class Acronym(models.Model):
   acronym  = models.CharField(max_length=50)
   added    = models.DateTimeField(auto_now_add=True)
 
+  class Meta:
+    constraints = [ models.UniqueConstraint(name='unique_acronyms',
+                                            fields=['acronym'])
+                  ]
 
 class Game(models.Model):
   room     = models.ForeignKey(Room, on_delete=models.CASCADE)
