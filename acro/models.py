@@ -72,3 +72,13 @@ class LatestPhrase(models.Model):
     constraints = [ models.UniqueConstraint(name='latest_phrase_one_per_game_user',
                                             fields=['game', 'user']) ]
 
+
+class FinalPhrase(models.Model):
+  game    = models.ForeignKey(FinishedGame, on_delete=models.CASCADE)
+  user    = models.ForeignKey(User, on_delete=models.CASCADE)
+  phrase  = models.CharField(max_length=500, null=False, blank=False)
+
+  class Meta:
+    constraints = [ models.UniqueConstraint(name='final_phrase_one_per_game_user',
+                                            fields=['game', 'user']) ]
+
