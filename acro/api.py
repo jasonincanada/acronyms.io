@@ -74,10 +74,16 @@ def post_phrase(request, game_id):
 
   if result == 'ok':
 
-    latest = LatestPhrase.objects.create(game    = game,
-                                         user_id = request.user.id,
-                                         sent    = timezone.now(),
-                                         phrase  = phrase)
+    try:
+      latest = LatestPhrase.objects.create(game    = game,
+                                           user_id = request.user.id,
+                                           sent    = timezone.now(),
+                                           phrase  = phrase)
+
+    # occasionally the phrase will be sent just after the game ended
+    # and the foreign key constraint game_id won't be satisfied
+    except ValueError:
+      return JsonResponse({'result': 'no game'})
 
     return JsonResponse({'result': 'ok'})
 
