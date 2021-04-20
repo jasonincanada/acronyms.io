@@ -5,7 +5,7 @@ from .models import User
 
 # https://stackoverflow.com/questions/22457557/how-to-test-login-process/22463756#22463756
 class LoginTestCase(TestCase):
-  fixtures = ['basic.json']
+  fixtures = ['user.json']
 
   def setUp(self):
     self.credentials = {
@@ -24,7 +24,7 @@ class LoginTestCase(TestCase):
 
 
 class PostPhraseTestCase(TestCase):
-  fixtures = ['acronyms.json', 'active-games.json', 'basic.json', 'rooms.json']
+  fixtures = ['acronyms.json', 'active-games.json', 'user.json', 'rooms.json']
 
   def setUp(self):
 
