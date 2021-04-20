@@ -11,8 +11,6 @@ import string
 @login_required
 def new_game(request, room_id):
 
-  # TODO: check access permission
-
   try:
     with transaction.atomic():
       acronym = generate_acronym();
@@ -49,8 +47,6 @@ def generate_acronym():
 
 @login_required
 def get_room(request, room_id):
-
-  # TODO: permissions
 
   room = Room.objects.get(pk=room_id)
 
