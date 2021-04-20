@@ -65,30 +65,29 @@ def post_phrase(request, game_id):
 
   try:
     game = ActiveGame.objects.get(pk=game_id)
-  except ActiveGame.DoesNotExist:
-    return JsonResponse({'result': 'no game'})
 
-  acro   = game.acronym.acronym
-  phrase = request.POST['phrase']
-  result = valid_phrase_for(acro, phrase)
+    acro   = game.acronym.acronym
+    phrase = request.POST['phrase']
+    result = valid_phrase_for(acro, phrase)
 
-  if result == 'ok':
-
-    try:
+    if result == 'ok':
       latest = LatestPhrase.objects.create(game    = game,
                                            user_id = request.user.id,
                                            sent    = timezone.now(),
                                            phrase  = phrase)
 
-    # occasionally the phrase will be sent just after the game ended
-    # and the foreign key constraint game_id won't be satisfied
-    except ValueError:
-      return JsonResponse({'result': 'no game'})
+      return JsonResponse({'result': 'ok'})
 
-    return JsonResponse({'result': 'ok'})
+    else:
+      return JsonResponse({'result': result})
 
-  else:
-    return JsonResponse({'result': result})
+
+  # ActiveGame.DoesNotExist will be thrown if the initial game fetch fails
+  # ValueError will be thrown if the initial fetch succeeds but the game ends
+  # before the create() call runs
+  except (ActiveGame.DoesNotExist, ValueError):
+    return JsonResponse({'result': 'no game'})
+
 
 
 def valid_phrase_for(acro, phrase):
