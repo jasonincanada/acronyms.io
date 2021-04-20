@@ -1,0 +1,21 @@
+[
+{
+  "model": "acro.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$m13ECPylwMuFBIKEGt5tAw$qs+KY++7GTtOWUwbntQRChohlZp4RExekuSpv/EnqiY=",
+    "last_login": "2021-04-18T01:58:47.214Z",
+    "is_superuser": false,
+    "username": "test",
+    "first_name": "Test",
+    "last_name": "User",
+    "email": "nirgle@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2021-04-18T00:19:32.552Z",
+    "display_name": "test",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]
