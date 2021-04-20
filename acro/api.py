@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required
-from django.db   import IntegrityError, transaction
-from django.http import JsonResponse
+from django.db    import IntegrityError, transaction
+from django.http  import JsonResponse
+from django.utils import timezone
 
-from .models import Acronym, ActiveGame, Room
+from .models import Acronym, ActiveGame, LatestPhrase, Room
 
 import random
 import string
@@ -73,7 +74,10 @@ def post_phrase(request, game_id):
 
   if result == 'ok':
 
-    # TODO: store
+    latest = LatestPhrase.objects.create(game    = game,
+                                         user_id = request.user.id,
+                                         sent    = timezone.now(),
+                                         phrase  = phrase)
 
     return JsonResponse({'result': 'ok'})
 

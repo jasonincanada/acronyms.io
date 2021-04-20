@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from .models import User
+from .models import LatestPhrase, User
 
 # https://stackoverflow.com/questions/22457557/how-to-test-login-process/22463756#22463756
 class LoginTestCase(TestCase):
@@ -45,6 +45,13 @@ class PostPhraseTestCase(TestCase):
       str(response.content, encoding='utf8'),
       {'result': 'ok'}
     )
+
+    obj = LatestPhrase.objects           \
+                      .filter(game_id=1) \
+                      .filter(user_id=1) \
+                      .get()
+
+    self.assertTrue(obj.phrase == 'aa bb cc dd ee ff')
 
 
   def test_post_invalid_phrase(self):
