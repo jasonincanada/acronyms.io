@@ -40,7 +40,7 @@ class FinishedGame(models.Model):
 
 
 class ActiveGame(models.Model):
-  room     = models.ForeignKey(Room, on_delete=models.CASCADE)
+  room     = models.OneToOneField(Room, on_delete=models.CASCADE)
   acronym  = models.ForeignKey(Acronym, on_delete=models.RESTRICT)
   started  = models.DateTimeField(auto_now_add=True)
 
