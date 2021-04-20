@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.urls import reverse
 
 from .models import User
 
@@ -13,11 +14,11 @@ class LoginTestCase(TestCase):
     }
 
   def test_valid_login(self):
-    response = self.client.post('/accounts/login/', self.credentials, follow=True)
+    response = self.client.post(reverse('login'), self.credentials, follow=True)
     self.assertTrue(response.context['user'].is_authenticated)
 
   def test_invalid_login(self):
     self.credentials.update({'password': 'wrongpassword'})
-    response = self.client.post('/accounts/login/', self.credentials, follow=True)
+    response = self.client.post(reverse('login'), self.credentials, follow=True)
     self.assertFalse(response.context['user'].is_authenticated)
 
