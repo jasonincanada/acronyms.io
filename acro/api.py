@@ -38,8 +38,7 @@ def new_game(request, room_id):
 def generate_acronym():
   length   = random.randint(4, 8)
   alphabet = string.ascii_lowercase
-
-  acronym = ( ''.join(random.choice(alphabet) for i in range(length)) )
+  acronym  = (''.join(random.choice(alphabet) for i in range(length)))
 
   obj, created = Acronym.objects.get_or_create(acronym=acronym)
 
@@ -51,11 +50,11 @@ def get_room(request, room_id):
 
   room = Room.objects.get(pk=room_id)
 
-  response = { 'id': room.id }
+  response = {'id': room.id}
 
   # add details of the active game if any
   if room.activegame:
-    response.update({ 'acronym': room.activegame.acronym.acronym})
+    response.update({'acronym': room.activegame.acronym.acronym})
 
   return JsonResponse(response)
 
@@ -64,8 +63,7 @@ def get_room(request, room_id):
 def post_phrase(request, game_id):
 
   try:
-    game = ActiveGame.objects.get(pk=game_id)
-
+    game   = ActiveGame.objects.get(pk=game_id)
     acro   = game.acronym.acronym
     phrase = request.POST['phrase']
     result = valid_phrase_for(acro, phrase)
@@ -80,7 +78,6 @@ def post_phrase(request, game_id):
 
     else:
       return JsonResponse({'result': result})
-
 
   # ActiveGame.DoesNotExist will be thrown if the initial game fetch fails
   # ValueError will be thrown if the initial fetch succeeds but the game ends

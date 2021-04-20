@@ -19,8 +19,7 @@ class Room(models.Model):
 
   class Meta:
     constraints = [ models.UniqueConstraint(name='slug_unique',
-                                            fields=['slug'])
-                  ]
+                                            fields=['slug']) ]
 
 
 class Acronym(models.Model):
@@ -29,8 +28,8 @@ class Acronym(models.Model):
 
   class Meta:
     constraints = [ models.UniqueConstraint(name='unique_acronyms',
-                                            fields=['acronym'])
-                  ]
+                                            fields=['acronym']) ]
+
 
 class FinishedGame(models.Model):
   room     = models.ForeignKey(Room, on_delete=models.CASCADE)
@@ -49,8 +48,7 @@ class ActiveGame(models.Model):
   VOTE     = 'V'
 
   phases   = [ (GATHER,   "Gathering expansions")
-             , (VOTE,     "Voting on expansions")
-             ]
+             , (VOTE,     "Voting on expansions") ]
 
   phase    = models.CharField(max_length=1,
                               choices=phases,
