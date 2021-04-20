@@ -58,3 +58,40 @@ def get_room(request, room_id):
 
   return JsonResponse(response)
 
+
+@login_required
+def post_phrase(request, game_id):
+
+  try:
+    game = ActiveGame.objects.get(pk=game_id)
+  except ActiveGame.DoesNotExist:
+    return JsonResponse({'result': 'no game'})
+
+  acro   = game.acronym.acronym
+  phrase = request.POST['phrase']
+  result = valid_phrase_for(acro, phrase)
+
+  if result == 'ok':
+
+    # TODO: store
+
+    return JsonResponse({'result': 'ok'})
+
+  else:
+    return JsonResponse({'result': result})
+
+
+def valid_phrase_for(acro, phrase):
+
+  words = phrase.split()
+
+  if len(words) == 0       : return 'no words'
+  if len(words) < len(acro): return 'not enough words'
+  if len(words) > len(acro): return 'too many words'
+
+  for i, letter in enumerate(acro):
+    if letter.lower() != words[i][0].lower():
+      return 'invalid for ' + letter
+
+  return 'ok'
+

@@ -1,0 +1,15 @@
+[
+{
+  "model": "acro.room",
+  "pk": 1,
+  "fields": {
+    "slug": "room-no-game"
+  }
+},{
+  "model": "acro.room",
+  "pk": 2,
+  "fields": {
+    "slug": "room-with-game"
+  }
+}
+]

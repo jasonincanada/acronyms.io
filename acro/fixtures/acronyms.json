@@ -1,0 +1,10 @@
+[
+{
+  "model": "acro.acronym",
+  "pk": 1,
+  "fields": {
+    "acronym": "abcdef",
+    "added": "2021-04-19T21:29:16.537Z"
+  }
+}
+]
