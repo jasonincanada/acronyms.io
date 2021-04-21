@@ -5,4 +5,5 @@
   - [ ] api.new_game
   - [ ] api.get_room
   - [ ] api.post_phrase
+  - [ ] api.vote (can only vote on games you took part in)
 
