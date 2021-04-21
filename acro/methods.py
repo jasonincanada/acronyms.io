@@ -19,7 +19,6 @@ def close_game(game_id):
     # move the phrases into FinalPhrases
     phrases = LatestPhrase.objects           \
                           .filter(game=game) \
-                          .all()
 
     for latest in phrases:
       FinalPhrase.objects.create(game   = finished,
