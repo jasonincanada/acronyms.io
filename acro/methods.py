@@ -28,5 +28,5 @@ def close_game(game_id):
 
 
     # the active game no longer exists
-    ActiveGame.objects.get(pk=game_id).delete()
+    game.delete()
 
