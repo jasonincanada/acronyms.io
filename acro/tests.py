@@ -87,12 +87,15 @@ class CloseGameTestCase(TestCase):
     self.assertEqual(1, ActiveGame  .objects.filter(pk=game_id).count())
     self.assertEqual(2, LatestPhrase.objects.count()             )
 
+    started = ActiveGame.objects.get(pk=game_id).started
+
     methods.close_game(game_id)
 
     # the ActiveGame was moved to a FinishedGame
     self.assertEqual(0, ActiveGame  .objects.filter(pk=game_id).count())
     self.assertEqual(1, FinishedGame.objects.filter(room_id=2)                 \
                                             .filter(acronym__acronym='abcdef') \
+                                            .filter(started=started)    \
                                             .count())
 
     # the LatestPhrases are now FinalPhrases
