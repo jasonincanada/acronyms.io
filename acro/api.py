@@ -17,8 +17,7 @@ def new_game(request, room_id):
       acronym = generate_acronym();
 
       active_game = ActiveGame.objects.create(room_id=room_id,
-                                              acronym=acronym,
-                                              phase=ActiveGame.GATHER)
+                                              acronym=acronym)
 
       response = {
         'game_id': game.id,

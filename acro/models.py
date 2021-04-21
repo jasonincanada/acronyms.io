@@ -43,17 +43,6 @@ class ActiveGame(models.Model):
   acronym  = models.ForeignKey(Acronym, on_delete=models.RESTRICT)
   started  = models.DateTimeField(auto_now_add=True)
 
-  # Game phases
-  GATHER   = 'G'
-  VOTE     = 'V'
-
-  phases   = [ (GATHER,   "Gathering expansions")
-             , (VOTE,     "Voting on expansions") ]
-
-  phase    = models.CharField(max_length=1,
-                              choices=phases,
-                              default=GATHER)
-
   class Meta:
 
     # this uniqueness constraint enforces a max of 1 active game per room
