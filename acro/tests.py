@@ -7,7 +7,7 @@ from .       import methods
 
 # https://stackoverflow.com/questions/22457557/how-to-test-login-process/22463756#22463756
 class LoginTestCase(TestCase):
-  fixtures = ['user.json']
+  fixtures = ['users.json']
 
   def setUp(self):
     self.credentials = {
@@ -26,7 +26,7 @@ class LoginTestCase(TestCase):
 
 
 class PostPhraseTestCase(TestCase):
-  fixtures = ['acronyms.json', 'active-games.json', 'user.json', 'rooms.json']
+  fixtures = ['acronyms.json', 'active-games.json', 'rooms.json', 'users.json']
 
   def setUp(self):
 
@@ -76,8 +76,8 @@ class PostPhraseTestCase(TestCase):
 
 
 class CloseGameTestCase(TestCase):
-  fixtures = ['acronyms.json', 'active-games.json', 'latest-phrase.json',
-              'user.json', 'rooms.json']
+  fixtures = ['acronyms.json', 'active-games.json', 'latest-phrases.json',
+              'rooms.json', 'users.json']
 
   def test_close_game(self):
     game_id = 1
@@ -118,7 +118,7 @@ class CloseGameTestCase(TestCase):
 
 class VoteTestCase(TestCase):
   fixtures = ['acronyms.json', 'final-phrases.json', 'finished-games.json',
-              'user.json', 'rooms.json']
+              'rooms.json', 'users.json']
 
   def setUp(self):
 
