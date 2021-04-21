@@ -1,0 +1,11 @@
+fixtures:
+  acronym.json
+  active-games.json
+  user.json
+  rooms.json
+  latest-phrase.json
+
+2021-04-19T22:35:38: Game 1 starts with acro "abcdef"
+             :36:00: User 1 posts "a b c d e f"
+             :36:05: User 2 posts "alpha bravo charlie delta echo foxtrot"
+

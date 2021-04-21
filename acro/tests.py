@@ -1,7 +1,9 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from .models import LatestPhrase, User
+from .models import ActiveGame, FinishedGame, LatestPhrase, FinalPhrase, User
+from .       import methods
+
 
 # https://stackoverflow.com/questions/22457557/how-to-test-login-process/22463756#22463756
 class LoginTestCase(TestCase):
@@ -70,4 +72,42 @@ class PostPhraseTestCase(TestCase):
         str(response.content, encoding='utf8'),
         {'result': result}
       )
+
+
+
+class CloseGameTestCase(TestCase):
+  fixtures = ['acronyms.json', 'active-games.json', 'latest-phrase.json',
+              'user.json', 'rooms.json']
+
+  def test_close_game(self):
+    game_id = 1
+
+    self.assertEqual(0, FinishedGame.objects.count())
+    self.assertEqual(0, FinalPhrase .objects.count())
+    self.assertEqual(1, ActiveGame  .objects.filter(pk=game_id).count())
+    self.assertEqual(2, LatestPhrase.objects.count()             )
+
+    methods.close_game(game_id)
+
+    # the ActiveGame was moved to a FinishedGame
+    self.assertEqual(0, ActiveGame  .objects.filter(pk=game_id).count())
+    self.assertEqual(1, FinishedGame.objects.filter(room_id=2)                 \
+                                            .filter(acronym__acronym='abcdef') \
+                                            .count())
+
+    # the LatestPhrases are now FinalPhrases
+    self.assertEqual(0, LatestPhrase.objects.count())
+    self.assertEqual(2, FinalPhrase .objects.filter(game_id=game_id).count())
+
+    self.assertEqual(1, FinalPhrase.objects           \
+                                   .filter(game_id=1) \
+                                   .filter(user_id=1) \
+                                   .filter(phrase='a b c d e f') \
+                                   .count())
+
+    self.assertEqual(1, FinalPhrase.objects           \
+                                   .filter(game_id=1) \
+                                   .filter(user_id=2) \
+                                   .filter(phrase__startswith='alpha bravo charlie') \
+                                   .count())
 

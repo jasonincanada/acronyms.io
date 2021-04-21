@@ -1,0 +1,21 @@
+[
+{
+  "model": "acro.latestphrase",
+  "pk": 1,
+  "fields": {
+    "game": 1,
+    "user": 1,
+    "sent": "2021-04-19T22:36:00.000Z",
+    "phrase": "a b c d e f"
+  }
+},{
+  "model": "acro.latestphrase",
+  "pk": 2,
+  "fields": {
+    "game": 1,
+    "user": 2,
+    "sent": "2021-04-19T22:36:05.000Z",
+    "phrase": "alpha bravo charlie delta echo foxtrot"
+  }
+}
+]
