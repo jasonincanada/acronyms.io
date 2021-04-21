@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from .models import ActiveGame, FinishedGame, LatestPhrase, FinalPhrase, User
+from .models import ActiveGame, FinishedGame, LatestPhrase, FinalPhrase, User, Vote
 from .       import methods
 
 
@@ -110,4 +110,35 @@ class CloseGameTestCase(TestCase):
                                    .filter(user_id=2) \
                                    .filter(phrase__startswith='alpha bravo charlie') \
                                    .count())
+
+
+
+class VoteTestCase(TestCase):
+  fixtures = ['acronyms.json', 'final-phrases.json', 'finished-games.json',
+              'user.json', 'rooms.json']
+
+  def setUp(self):
+
+    # log in
+    self.credentials = {
+      'username': 'test',
+      'password': 'testtest123'
+    }
+
+    self.client.post(reverse('login'), self.credentials, follow=True)
+
+
+  def test_vote(self):
+
+    self.assertEquals(0, Vote.objects.count())
+
+    response = self.client.post('/acro/api/game/1/vote/',
+                               {'phrase': 2})
+
+    self.assertEquals(1, Vote.objects
+                             .filter(voter__username='test')
+                             .filter(game_id=1)
+                             .filter(phrase__phrase__startswith="alpha bravo charlie")
+                             .filter(voted_on__isnull=False)
+                             .count())
 

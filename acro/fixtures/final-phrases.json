@@ -1,0 +1,19 @@
+[
+{
+  "model": "acro.finalphrase",
+  "pk": 1,
+  "fields": {
+    "game": 1,
+    "user": 1,
+    "phrase": "a b c d e f"
+  }
+},{
+  "model": "acro.finalphrase",
+  "pk": 2,
+  "fields": {
+    "game": 1,
+    "user": 2,
+    "phrase": "alpha bravo charlie delta echo foxtrot"
+  }
+}
+]

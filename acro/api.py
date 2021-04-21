@@ -3,7 +3,9 @@ from django.db    import IntegrityError, transaction
 from django.http  import JsonResponse
 from django.utils import timezone
 
-from .models import Acronym, ActiveGame, LatestPhrase, Room
+from .models import ActiveGame, FinishedGame,  \
+                    LatestPhrase, FinalPhrase, \
+                    Acronym, Room, Vote
 
 import random
 import string
@@ -99,4 +101,18 @@ def valid_phrase_for(acro, phrase):
       return 'invalid for ' + letter
 
   return 'ok'
+
+
+@login_required
+def vote(request, game_id):
+
+  game   = FinishedGame.objects.get(pk=game_id)
+  phrase = FinalPhrase.objects.get(pk=request.POST['phrase'])
+
+  Vote.objects.create(voter    = request.user,
+                      game     = game,
+                      phrase   = phrase,
+                      voted_on = timezone.now())
+
+  return JsonResponse({'result': 'ok'})
 

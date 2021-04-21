@@ -1,0 +1,12 @@
+[
+{
+  "model": "acro.finishedgame",
+  "pk": 1,
+  "fields": {
+    "room": 2,
+    "acronym": 1,
+    "started": "2021-04-19T22:35:38.312Z",
+    "finished": "2021-04-19T22:36:39.000Z"
+  }
+}
+]
