@@ -7,11 +7,9 @@ from .models   import ActiveGame, FinishedGame, LatestPhrase, FinalPhrase
 # triggers (django_background_tasks) and not from a user-accessible API
 #
 def close_game(game_id):
-
   game = ActiveGame.objects.get(pk=game_id)
 
   with transaction.atomic():
-
     finished = FinishedGame.objects.create(room    = game.room,
                                            acronym = game.acronym,
                                            started = game.started)
@@ -25,7 +23,6 @@ def close_game(game_id):
                                  user   = latest.user,
                                  phrase = latest.phrase)
       latest.delete()
-
 
     # the active game no longer exists
     game.delete()
