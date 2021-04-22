@@ -4,5 +4,17 @@
 
 <h2>Room r/{{ room.slug }}</h2>
 
+{% if room.activegame %}
+  <div>Acronym: {{ room.activegame.acronym.acronym }}</div>
+
+  <div>
+    Your phrase: <input type="text" />
+                 <input type="button" value="Post" />
+  </div>
+
+{% else %}
+  <div>no game in progress</div>
+{% endif %}
+
 {% endblock %}
 
