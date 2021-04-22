@@ -7,8 +7,10 @@
 {% if room.activegame %}
   <div>Acronym: {{ room.activegame.acronym.acronym }}</div>
 
+  <div>Your latest phrase: <span>{{ my.phrase }}</span></div>
+
   <div>
-    Your phrase: <input type="text" />
+    New phrase:  <input type="text" />
                  <input type="button" value="Post" />
   </div>
 

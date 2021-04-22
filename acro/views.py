@@ -1,8 +1,9 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
 from django.views     import generic
 
-from .models import Room
+from .models import LatestPhrase, Room
 from .forms  import SignUpForm
 
 
@@ -10,11 +11,27 @@ class HomeView(generic.TemplateView):
   template_name = 'acro/home.html'
 
 
-class RoomView(generic.DetailView):
+class RoomView(LoginRequiredMixin, generic.DetailView):
   model = Room
   template_name = 'acro/room.html'
   context_object_name = 'room'
   slug_field = 'slug'
+
+  def get_context_data(self, **kwargs):
+    context = super(RoomView, self).get_context_data(**kwargs)
+
+    # return the latest phrase for this user if any
+    context['my'] = { 'phrase': '' }
+
+    room = self.get_object()
+
+    if hasattr(room, 'activegame'):
+      phrase = LatestPhrase.objects.filter(game=room.activegame,
+                                           user=self.request.user).all()
+      if phrase.count() > 0:
+        context['my'] = { 'phrase': phrase[0].phrase }
+
+    return context
 
 
 class SignUpView(generic.View):
