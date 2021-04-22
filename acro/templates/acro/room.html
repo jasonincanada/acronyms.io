@@ -5,9 +5,9 @@
 <h2>Room r/{{ room.slug }}</h2>
 
 {% if room.activegame %}
-  <div>Acronym: {{ room.activegame.acronym.acronym }}</div>
+  <div>Acronym: <span id="acronym" /></div>
 
-  <div>Your latest phrase: <span>{{ my.phrase }}</span></div>
+  <div>Your latest phrase: <span id="phrase" /></div>
 
   <div>
     New phrase:  <input type="text" />
@@ -18,6 +18,10 @@
   <div>no game in progress</div>
 {% endif %}
 
+
+<script type="text/javascript">
+  window.room_id = {{ room.id }}
+</script>
 
 {% load static %}
 

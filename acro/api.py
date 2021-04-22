@@ -54,8 +54,18 @@ def get_room(request, room_id):
   response = {'id': room.id}
 
   # add details of the active game if any
-  if room.activegame:
+  if hasattr(room, 'activegame'):
     response.update({'acronym': room.activegame.acronym.acronym})
+
+    latest = LatestPhrase.objects \
+                         .filter(game=room.activegame,
+                                 user=request.user) \
+                         .first()
+
+    if latest:
+      response.update({
+        'phrase': latest.phrase
+      })
 
   return JsonResponse(response)
 
