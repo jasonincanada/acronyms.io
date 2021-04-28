@@ -92,3 +92,45 @@ npm start
 
 You should be able to hit the main frontend UI at `http://192.168.0.18:3000/`. This will replace what we've done so far with the view layer in the original django project
 
+
+### supervisord
+
+To use [supervisord](http://supervisord.org/) to control both the UI/API apps at the same time, update the `supervisord.conf` file to match your settings:
+
+```bash
+cd ~/acronyms.io
+
+# change to your server ip and account login
+sed -i 's/192.168.0.16/192.168.0.18/g' supervisord.conf
+sed -i 's/jason/yourlogin/g' supervisord.conf
+
+# load python virtual enviro
+source env/bin/activate
+
+# launch supervisord in the foreground and watch logs
+supervisord
+
+# to control it, in another window load supervisorctl
+source env/bin/activate
+supervisorctl
+```
+
+```
+(env) jason@ubuntu20s:~/acronyms.io$ supervisorctl
+acro-django-api                  RUNNING   pid 3817, uptime 1:55:03
+acro-react-web                   RUNNING   pid 3818, uptime 1:55:03
+
+supervisor> restart all
+acro-django-api: stopped
+acro-react-web: stopped
+acro-django-api: started
+acro-react-web: started
+
+supervisor> status
+acro-django-api                  RUNNING   pid 6334, uptime 0:00:04
+acro-react-web                   RUNNING   pid 6335, uptime 0:00:04
+supervisor>
+```
+
+Both servers will auto-detect changes though so this doesn't need to be done regularly
+
