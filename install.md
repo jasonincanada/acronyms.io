@@ -129,7 +129,6 @@ acro-react-web: started
 supervisor> status
 acro-django-api                  RUNNING   pid 6334, uptime 0:00:04
 acro-react-web                   RUNNING   pid 6335, uptime 0:00:04
-supervisor>
 ```
 
 Both servers will auto-detect changes though so this doesn't need to be done regularly
