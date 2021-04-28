@@ -5,3 +5,9 @@ notes.txt
 model.txt
 sessions
 
+node_modules
+env
+
+package-lock.json
+yarn.lock
+
