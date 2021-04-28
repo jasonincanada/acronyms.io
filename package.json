@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/jasonincanada/acronyms.io/issues"
   },
-  "homepage": "https://github.com/jasonincanada/acronyms.io#readme"
+  "homepage": "https://github.com/jasonincanada/acronyms.io#readme",
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.5.1"
+  }
 }
