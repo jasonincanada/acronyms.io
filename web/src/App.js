@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Link, Route, Switch, useParams } from 'react-router-dom'
 import './App.css';
 
 function App() {
@@ -43,8 +43,14 @@ const Home = () => {
 }
 
 const Room = () => {
+  let { slug } = useParams();
+
   return (
-    <div>This is a room page</div>
+    <div>
+      <h2>r/{slug}</h2>
+
+      <p>This is a room page</p>
+    </div>
   )
 }
 
