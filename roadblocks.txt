@@ -1,0 +1,27 @@
+
+Issue: CSRF error hitting the django api at :8000/accounts/login
+
+  The web API doesn't have the CSRF token it would normally get from that server
+  But an attempt to get the token via a custom endpoint fails due to the same error
+
+
+Ideas
+  - Allow specific host
+    - this didn't seem to work, the contrib.auth middleware (paths added at /accounts/
+      by django) seems to ignore it
+
+  - Disable CSRF altogether?
+    - not a security issue in dev and shouldn't be a problem by deployment since we'll
+      have merged the two sites into one by then (same-origin policy will be satisfied)
+
+  - Merge the two projects so that django uses the final prod build of .js resources
+    - however this requires us to run 'npm build' every time to get the new .js which 
+      takes too much time and likely removes the rich integration we get with the React
+      dev server
+    - but keeping the hot-reloading server separate at :3000 forces us to deal with CSRF
+
+  - Try to circumvent the need for CSRF altogether
+    - configure an nginx reverse proxy to host both projects from one ip:port, and
+      distinguish services based on path prefixes. hopefully this tricks the browser
+      into thinking the API call is going to the the same source the web page came from
+
