@@ -1,0 +1,14 @@
+## deployment checklist
+
+- [ ] Set up prod server
+  - [ ] https
+- [ ] Deploy acro code
+- [ ] migrate
+
+Update:
+  - [ ] acronyms/settings.py
+    - [ ] ALLOWED_HOSTS
+    - [ ] CORS_ALLOWED_ORIGINS
+  - [ ] user/userAPI.js
+    - [ ] url
+
