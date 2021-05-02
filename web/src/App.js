@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Link, Route, Switch, useParams } from 'react-router-dom'
 import './App.css';
+import Login from './features/user/Login'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <ul>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/r/test">Test Room</Link></li>
+            <li><Link to="/login">Login</Link></li>
             <li><Link to="/about">About</Link></li>
           </ul>
         </nav>
@@ -25,6 +27,9 @@ function App() {
           </Route>
           <Route path="/r/:slug">
             <Room />
+          </Route>
+          <Route path="/login">
+            <Login />
           </Route>
           <Route path="/about">
             <About />
