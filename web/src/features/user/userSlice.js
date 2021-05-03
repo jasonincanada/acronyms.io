@@ -13,6 +13,30 @@ const initialState = {
   errorMessage: '',
 }
 
+export const loginUser = createAsyncThunk(
+  'user/login',
+  async ({ username, password }, thunkAPI) => {
+    try {
+      const response = await login(username, password);
+
+      if (response.status === 200) {
+
+        if (response.data.result === 'ok') {
+          return { username }
+        } else {
+          return thunkAPI.rejectWithValue('error')
+        }
+
+      } else {
+        return thunkAPI.rejectWithValue('todo')
+      }
+    } catch (e) {
+      console.log('Error', e.response.data);
+      thunkAPI.rejectWithValue(e.response.data);
+    }
+  }
+)
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -39,28 +63,4 @@ export const userSlice = createSlice({
 })
 
 export const userSelector = (state) => state.user
-
-export const loginUser = createAsyncThunk(
-  'user/login',
-  async ({ username, password }, thunkAPI) => {
-    try {
-      const response = await login(username, password);
-
-      if (response.status === 200) {
-
-        if (response.data.result === 'ok') {
-          return { username }
-        } else {
-          return thunkAPI.rejectWithValue('error')
-        }
-
-      } else {
-        return thunkAPI.rejectWithValue('todo')
-      }
-    } catch (e) {
-      console.log('Error', e.response.data);
-      thunkAPI.rejectWithValue(e.response.data);
-    }
-  }
-)
 
