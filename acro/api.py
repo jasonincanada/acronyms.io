@@ -1,3 +1,4 @@
+from django.contrib.auth            import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.middleware.csrf         import get_token
 from django.db    import IntegrityError, transaction
@@ -131,4 +132,19 @@ def vote(request, game_id):
 def get_csrf(request):
   token = get_token(request)
   return JsonResponse({'token': token})
+
+
+def login_user(request):
+  if request.POST:
+    username = request.POST['username']
+    password = request.POST['password']
+
+    user = authenticate(username=username, password=password)
+
+    if user is not None:
+      if user.is_active:
+        login(request, user)
+        return JsonResponse({'result': 'ok'})
+
+    return JsonResponse({'result': 'error'})
 

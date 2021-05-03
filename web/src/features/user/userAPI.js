@@ -1,7 +1,8 @@
 import axios from 'axios'
+import qs from 'qs'
 
 // TODO: hard-coded endpoints
-const url_login = 'http://192.168.0.16:8000/accounts/login/'
+const url_login = 'http://192.168.0.16:8000/acro/api/login'
 const url_csrf  = 'http://192.168.0.16:8000/acro/api/csrf/get'
 
 async function login(username, password) {
@@ -29,7 +30,8 @@ async function login(username, password) {
     }
   };
 
-  const response = await axios.post(url_login, data, options);
+  const encoded = qs.stringify(data);
+  const response = await axios.post(url_login, encoded, options);
 
   return response;
 }

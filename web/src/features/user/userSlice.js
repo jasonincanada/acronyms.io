@@ -39,7 +39,7 @@ export const loginUser = createAsyncThunk(
       if (response.status === 200) {
 
         // TODO: user was successfully logged in?
-        if (response.data.logged_in) {
+        if (response.data.result === 'ok') {
           alert('logged in')
           return 'logged in'
         } else {
