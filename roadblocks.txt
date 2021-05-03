@@ -25,3 +25,20 @@ Ideas
       distinguish services based on path prefixes. hopefully this tricks the browser
       into thinking the API call is going to the the same source the web page came from
 
+
+Resolution
+
+  The nginx option didn't work, although I did get it to route to the separate ports based
+  on the path prefix, so that's good to know
+
+  I figured out how to configure the project for allowing a specific host (the React
+  server in this case) to make API calls:
+
+    - set "CORS_ALLOW_CREDENTIALS = True" and others in settings.py
+    - set axios.defaults.withCredentials = true to allow cookie setting/getting via axios
+    - also have to send the X-CSRFToken header with each request
+
+Resources
+
+  https://stackoverflow.com/questions/59543733/how-can-i-authenticate-a-post-request-in-django/59544178#59544178
+

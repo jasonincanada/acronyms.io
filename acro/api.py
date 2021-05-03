@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.middleware.csrf         import get_token
 from django.db    import IntegrityError, transaction
 from django.http  import JsonResponse
 from django.utils import timezone
@@ -125,4 +126,9 @@ def vote(request, game_id):
                       voted_on = timezone.now())
 
   return JsonResponse({'result': 'ok'})
+
+
+def get_csrf(request):
+  token = get_token(request)
+  return JsonResponse({'token': token})
 

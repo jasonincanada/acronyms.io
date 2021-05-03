@@ -35,11 +35,18 @@ export const loginUser = createAsyncThunk(
   async ({ username, password }, thunkAPI) => {
     try {
       const response = await login(username, password);
-      console.log('response', response);
 
       if (response.status === 200) {
-        localStorage.setItem('token', response.data.token);
-        return response.data
+
+        // TODO: user was successfully logged in?
+        if (response.data.logged_in) {
+          alert('logged in')
+          return 'logged in'
+        } else {
+          alert('not logged in')
+          return 'not logged in'
+        }
+
       } else {
         return thunkAPI.rejectWithValue('todo')
       }
