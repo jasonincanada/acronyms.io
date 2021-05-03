@@ -1,0 +1,31 @@
+Client-side state machine
+
+loop:
+
+  WAITING:
+    poll for active game
+    if none
+      loop
+    else
+      update state to start game
+      PLAYING
+
+  PLAYING:
+    if now < finished_time
+      loop
+    else
+      unset activegame
+      WAITING
+
+
+other loop:
+
+  REVIEW:
+    get-latest-finished-game:
+      site during voting period:
+        send phrases and votes only
+
+      site after voting period:
+        send phrases, authors, and votes
+
+    update scoreboard
