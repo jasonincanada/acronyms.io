@@ -17,34 +17,41 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    clearState: function(state) {
-      state.username = '';
-      state.displayname = '';
-      state.email = '';
-    }
   },
   extraReducers: {
+    [loginUser.fulfilled]: (state, {payload}) => {
+      state.username = payload.username;
+      state.displayname = 'TODO';
+      state.isFetching = false;
+      state.isSuccess = true;
+      state.isError = false;
+    },
+    [loginUser.rejected]: (state, {payload}) => {
+      state.isFetching = false;
+      state.isError = true;
+      state.errorMessage = 'generic error';
+    },
+    [loginUser.pending]: (state) => {
+      state.isFetching = true;
+      state.isError = false;
+    }
   },
 })
 
 export const userSelector = (state) => state.user
-export const clearState = () => { return { type: 'users/clearState' } }
 
 export const loginUser = createAsyncThunk(
-  'users/login',
+  'user/login',
   async ({ username, password }, thunkAPI) => {
     try {
       const response = await login(username, password);
 
       if (response.status === 200) {
 
-        // TODO: user was successfully logged in?
         if (response.data.result === 'ok') {
-          alert('logged in')
-          return 'logged in'
+          return { username }
         } else {
-          alert('not logged in')
-          return 'not logged in'
+          return thunkAPI.rejectWithValue('error')
         }
 
       } else {

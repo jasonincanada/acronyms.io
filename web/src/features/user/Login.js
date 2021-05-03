@@ -4,7 +4,7 @@ import React, { Fragment, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useSelector, useDispatch } from 'react-redux'
-import { loginUser, userSelector, clearState } from './userSlice'
+import { loginUser, userSelector } from './userSlice'
 import toast from 'react-hot-toast'
 
 const Login = () => {
@@ -21,18 +21,12 @@ const Login = () => {
   };
 
   useEffect(() => {
-    return () => {
-      dispatch(clearState());
-    };
-  }, []);
-
-  useEffect(() => {
     if (isError) {
+      // TODO: toast isn't actually showing a message anywhere
+      console.log(errorMessage);
       toast.error(errorMessage);
-      dispatch(clearState());
     }
     if (isSuccess) {
-      dispatch(clearState());
       history.push('/');
     }
   }, [isError, isSuccess]);
