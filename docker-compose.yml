@@ -63,7 +63,7 @@ services:
       - 'api'
       - 'web'
     ports:
-      - "80:80"
+      - '80:80'
     networks:
       acro_net:
         ipv4_address: 172.16.1.6
