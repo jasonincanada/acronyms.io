@@ -13,7 +13,6 @@ services:
       acro_net:
         ipv4_address: 172.16.1.2
 
-
   # database server
   postgres:
     image: postgres:9.6-alpine
@@ -26,7 +25,6 @@ services:
     networks:
       acro_net:
         ipv4_address: 172.16.1.3
-
 
   # python/django api
   api:
@@ -42,7 +40,6 @@ services:
       acro_net:
         ipv4_address: 172.16.1.4
 
-
   # react frontend ui
   web:
     build:
@@ -57,7 +54,6 @@ services:
     networks:
       acro_net:
         ipv4_address: 172.16.1.5
-
 
   # nginx web proxy
   nginx:
