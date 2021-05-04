@@ -84,7 +84,7 @@ DATABASES = {
         'NAME':     'acro_dev',
         'USER':     'acro_dev',
         'PASSWORD': 'acro_dev',
-        'HOST':     'localhost',
+        'HOST':     '172.16.1.3',
         'PORT':      5432
     }
 }
