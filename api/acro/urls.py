@@ -8,11 +8,11 @@ urlpatterns = [
   path('r/<slug>/', views.RoomView.as_view(), name='room'),
   path('signup/',   views.SignUpView.as_view(), name='signup'),
 
-  path('api/room/<int:room_id>/get',          api.get_room, name='api-get-room'),
-  path('api/room/<int:room_id>/new-game/',    api.new_game, name='api-new-game'),
-  path('api/game/<int:game_id>/post-phrase/', api.post_phrase, name='api-post-phrase'),
-  path('api/game/<int:game_id>/vote/',        api.vote, name='api-vote'),
-  path('api/csrf/get',                        api.get_csrf, name='api-get-csrf'),
-  path('api/login',                           api.login_user, name='api-login-user'),
+  path('room/<int:room_id>/get',          api.get_room, name='api-get-room'),
+  path('room/<int:room_id>/new-game/',    api.new_game, name='api-new-game'),
+  path('game/<int:game_id>/post-phrase/', api.post_phrase, name='api-post-phrase'),
+  path('game/<int:game_id>/vote/',        api.vote, name='api-vote'),
+  path('csrf/get',                        api.get_csrf, name='api-get-csrf'),
+  path('login',                           api.login_user, name='api-login-user'),
 ]
 
