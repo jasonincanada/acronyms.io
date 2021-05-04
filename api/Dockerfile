@@ -6,10 +6,10 @@ FROM python:3.8
 EXPOSE 8000
 
 # this is bind-mounted (in docker-compose.yml) to our local ~/acronyms.io/api
-WORKDIR /app 
+WORKDIR /api
 
 # set up django and install acro's dependencies
-COPY requirements.txt /app
+COPY requirements.txt /api
 RUN pip3 install -r requirements.txt --no-cache-dir
 
 # launch the api server and listen for connections

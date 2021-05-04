@@ -35,7 +35,7 @@ services:
     volumes:
       - type: bind
         source: ./api
-        target: /app
+        target: /api
     networks:
       acro_net:
         ipv4_address: 172.16.1.4
