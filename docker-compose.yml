@@ -32,6 +32,8 @@ services:
   api:
     build:
       context: api
+    depends_on:
+      - 'postgres'
     volumes:
       - type: bind
         source: ./api
@@ -45,6 +47,8 @@ services:
   web:
     build:
       context: web
+    depends_on:
+      - 'api'
     volumes:
       - type: bind
         source: ./web
