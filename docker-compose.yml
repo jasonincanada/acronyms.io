@@ -36,6 +36,9 @@ services:
       - type: bind
         source: ./api
         target: /app
+    networks:
+      acro_net:
+        ipv4_address: 172.16.1.4
 
 
 # define our subnet 172.16.1.*
