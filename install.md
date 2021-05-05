@@ -106,3 +106,5 @@ python manage.py loaddata acro/fixtures/users.json
 
 You should now be able to hit your server's IP in a web browser and see the dev home page. Click the login link and use `test`/`testtest123` to log in. You're in! You should be able to change code in `~/acronyms.io/web/src/App.js` (try changing the title) and see your changes reflect in the browser right away
 
+If you get an error in this last step, restart the network by hitting ^C in the docker window and running `docker-compose up` again. I've seen sporadic 502 Gateway errors with a fresh install but restarting the network seems to fix them
+
