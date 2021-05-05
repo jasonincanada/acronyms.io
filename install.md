@@ -36,7 +36,6 @@ sudo docker run hello-world
 Let's make it easier to call docker without `sudo`, using the [post-installation instructions](https://docs.docker.com/engine/install/linux-postinstall/):
 
 ```bash
-sudo groupadd docker
 sudo usermod -aG docker $USER
 newgrp docker
 
