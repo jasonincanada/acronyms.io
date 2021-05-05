@@ -138,7 +138,7 @@ After a while your instance will be ready. [Connect to it](https://docs.aws.amaz
 Once logged in, carry out the install procedures listed in the rest of this file above
 
 ### Notes
-- When you load the dev website, the new server's public IP will be the one you initially used to log in, *not* the one now shown in your PuTTY title bar and shell prompt, that's the private internal AWS IP and you won't be able to hit it from your browser
+- When you load the dev website, the new server's public IP will be the one you initially used to log in, not the one now shown in your PuTTY title bar and shell prompt, that's the private internal AWS IP and you won't be able to hit it from your browser
 - You'll probably want to [set a keepalive ping](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html#putty-ssh) in your SSH client to prevent your sessions from closing after a minute of inactivity
 - The initial website hit may show errors, just bring the `docker-compose` network down and back up and refresh your browser. This only seems to happen the first time `docker-compose` is called on a fresh install
 
