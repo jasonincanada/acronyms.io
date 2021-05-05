@@ -9,7 +9,7 @@ EXPOSE 3000
 # and not install them locally on the host
 WORKDIR /node_app
 COPY package*.json ./
-RUN npm install --no-optional && npm cache clean --force
+RUN npm install --no-optional
 
 # this is bind-mounted (in docker-compose.yml) to our local ~/acronyms.io/web
 WORKDIR /node_app/web
