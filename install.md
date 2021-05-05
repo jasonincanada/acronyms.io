@@ -108,3 +108,32 @@ You should now be able to hit your server's IP in a web browser and see the dev 
 
 If you get an error in this last step, restart the network by hitting ^C in the docker window and running `docker-compose up` again. I've seen sporadic 502 Gateway errors with a fresh install but restarting the network seems to fix them
 
+
+## Amazon EC2 Instance
+
+You can run this in the Amazon cloud as well. From your *EC2 Management Console* click **Launch Instance**:
+
+**1. Choose AMI** - Search for the **Ubuntu 20.04 LTS - Focal** image in the **AWS Marketplace** tab.
+**2. Choose Instance Type** - Choose `t2.micro`
+**3. Configure Instance** - Accept defaults
+**4. Add Storage** - Accept defaults
+**5. Add Tags** - Accept defaults
+**6. Configure Security Group**
+  - Select **Create a new security group**
+  - Keep the default rule for **SSH** but change the **Source** dropdown to **My IP**
+  - **Add Rule** and select the **HTTP** type, again change to **My IP**
+
+**7. Review and Launch**
+  - Create a new key pair, name it something like `acro-dev`
+  - Download the key pair file
+  - Run it through the PuTTYgen process described [here](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html#putty-prereqs) (in the **Convert your private key using PuTTYgen** section) to turn it into a `.ppk` file for PuTTY if that's the SSH client you're using.  Other clients will have different procedures
+
+After a while your instance will be ready. [Connect to it](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html#putty-ssh) with the PPK key you saved in the last step, getting the public IP from your EC2 console.  The login name for the new image is `ubuntu`
+
+Once logged in, carry out the install procedures listed in the rest of this file above
+
+### Notes
+- When you load the dev website, the new server's public IP will be the one you initially used to log in, *not* the one now shown in your PuTTY title bar and shell prompt, that's the private internal AWS IP and you won't be able to hit it from your browser
+- You'll probably want to [set a keepalive ping](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html#putty-ssh) in your SSH client to prevent your sessions from closing after a minute of inactivity
+- The initial website hit may show errors, just bring the `docker-compose` network down and back up and refresh your browser. This only seems to happen the first time `docker-compose` is called on a fresh install
+
