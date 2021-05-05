@@ -49,8 +49,7 @@ services:
     volumes:
       - type: bind
         source: ./web
-        target: /web
-      - /web/node_modules
+        target: /node_app/web
     networks:
       acro_net:
         ipv4_address: 172.16.1.5
