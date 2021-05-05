@@ -114,10 +114,15 @@ If you get an error in this last step, restart the network by hitting ^C in the 
 You can run this in the Amazon cloud as well. From your *EC2 Management Console* click **Launch Instance**:
 
 **1. Choose AMI** - Search for the **Ubuntu 20.04 LTS - Focal** image in the **AWS Marketplace** tab.
+
 **2. Choose Instance Type** - Choose `t2.micro`
+
 **3. Configure Instance** - Accept defaults
+
 **4. Add Storage** - Accept defaults
+
 **5. Add Tags** - Accept defaults
+
 **6. Configure Security Group**
   - Select **Create a new security group**
   - Keep the default rule for **SSH** but change the **Source** dropdown to **My IP**
