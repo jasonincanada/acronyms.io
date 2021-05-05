@@ -2,8 +2,8 @@ import axios from 'axios'
 import qs from 'qs'
 
 // TODO: hard-coded endpoints
-const url_login = 'http://192.168.0.16/api/login'
-const url_csrf  = 'http://192.168.0.16/api/csrf/get'
+const url_login = '/api/login'
+const url_csrf  = '/api/csrf/get'
 
 async function login(username, password) {
 
