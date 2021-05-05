@@ -49,7 +49,10 @@ services:
     volumes:
       - type: bind
         source: ./web
-        target: /node_app/web
+        target: /web
+
+      # host the container's node_modules as a local docker-managed volume
+      - nodemodules-hosted:/web/node_modules
     networks:
       acro_net:
         ipv4_address: 172.16.1.5
@@ -82,4 +85,5 @@ networks:
 # docker-managed local volumes that will persist between restarts of the containers
 volumes:
   postgres-data:
+  nodemodules-hosted:
 
