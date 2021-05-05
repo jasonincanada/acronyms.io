@@ -70,8 +70,11 @@ docker-compose up
 
 ### Django locally
 
-Our mini cloud infrastructure is ready. We'll set up a Python virtual environment on our
-local host too so we can run `manage.py` for various API development tasks. The PostgreSQL server running right now at `172.16.1.3` is your local copy of the project data, but it starts empty, so let's set up the tables and the first users:
+After a few minutes, you should have a color-coded display of the output interleaved from the various containers. `docker-compose` stays in the foreground until you press `^C` to bring down the network, so leave it in that window for the duration of the dev session.
+
+Our mini cloud infrastructure is ready!
+
+In a new window, we'll set up a Python virtual environment on our local host so we can run `manage.py` for various API development tasks. The PostgreSQL server running right now at `172.16.1.3` is your local copy of the project data, but it starts empty, so let's set up the tables and the first users:
 
 ```bash
 cd ~/acronyms.io/api
