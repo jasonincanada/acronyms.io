@@ -17,7 +17,7 @@ export const loginUser = createAsyncThunk(
   'user/login',
   async ({ username, password }, thunkAPI) => {
     try {
-      const response = await login(username, password);
+      const response = await login(username, password)
 
       if (response.status === 200) {
 
@@ -31,8 +31,8 @@ export const loginUser = createAsyncThunk(
         return thunkAPI.rejectWithValue('todo')
       }
     } catch (e) {
-      console.log('Error', e.response.data);
-      thunkAPI.rejectWithValue(e.response.data);
+      console.log('Error', e.response.data)
+      thunkAPI.rejectWithValue(e.response.data)
     }
   }
 )
@@ -44,20 +44,20 @@ export const userSlice = createSlice({
   },
   extraReducers: {
     [loginUser.fulfilled]: (state, {payload}) => {
-      state.username = payload.username;
-      state.displayname = 'TODO';
-      state.isFetching = false;
-      state.isSuccess = true;
-      state.isError = false;
+      state.username = payload.username
+      state.displayname = 'TODO'
+      state.isFetching = false
+      state.isSuccess = true
+      state.isError = false
     },
     [loginUser.rejected]: (state, {payload}) => {
-      state.isFetching = false;
-      state.isError = true;
-      state.errorMessage = 'generic error';
+      state.isFetching = false
+      state.isError = true
+      state.errorMessage = 'generic error'
     },
     [loginUser.pending]: (state) => {
-      state.isFetching = true;
-      state.isError = false;
+      state.isFetching = true
+      state.isError = false
     }
   },
 })

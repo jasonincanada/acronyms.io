@@ -7,13 +7,13 @@ const url_csrf  = '/api/csrf/get'
 
 async function login(username, password) {
 
-  axios.defaults.withCredentials = true;
+  axios.defaults.withCredentials = true
 
   // first fetch the csrf token
-  const csrf = await axios.get(url_csrf);
+  const csrf = await axios.get(url_csrf)
 
   if (csrf.status !== 200) {
-    throw new Error('error');
+    throw new Error('error')
   }
 
   // that fetch will have set the cookie
@@ -22,18 +22,18 @@ async function login(username, password) {
   const data = {
     username,
     password,
-  };
+  }
 
   const options = {
     headers: {
       'X-CSRFToken': csrf.data.token
     }
-  };
+  }
 
-  const encoded = qs.stringify(data);
-  const response = await axios.post(url_login, encoded, options);
+  const encoded = qs.stringify(data)
+  const response = await axios.post(url_login, encoded, options)
 
-  return response;
+  return response
 }
 
 export { login }

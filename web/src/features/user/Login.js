@@ -9,27 +9,27 @@ import toast from 'react-hot-toast'
 
 const Login = () => {
 
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const { register, errors, handleSubmit } = useForm();
+  const dispatch = useDispatch()
+  const history = useHistory()
+  const { register, errors, handleSubmit } = useForm()
   const { isSuccess, isError, errorMessage } = useSelector(
     userSelector
-  );
+  )
 
   const onSubmit = (data) => {
-    dispatch(loginUser(data));
-  };
+    dispatch(loginUser(data))
+  }
 
   useEffect(() => {
     if (isError) {
       // TODO: toast isn't actually showing a message anywhere
-      console.log(errorMessage);
-      toast.error(errorMessage);
+      console.log(errorMessage)
+      toast.error(errorMessage)
     }
     if (isSuccess) {
-      history.push('/');
+      history.push('/')
     }
-  }, [isError, isSuccess]);
+  }, [isError, isSuccess])
 
   return (
     <Fragment>
@@ -57,7 +57,7 @@ const Login = () => {
 
       </div>
     </Fragment>
-  );
-};
+  )
+}
 
 export default Login
