@@ -1,15 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react'
+import { createAction } from '@reduxjs/toolkit'
+import { useDispatch } from 'react-redux'
 import { BrowserRouter as Router, Link, Route, Switch, useParams } from 'react-router-dom'
 import './App.css';
 import Login from './features/user/Login'
+import User from './features/user/User'
+
+const appInit = createAction('app/init')
 
 function App() {
+  const dispatch = useDispatch()
+
+  // App initialization
+  useEffect(() => {
+    dispatch(appInit())
+  })
+
   return (
     <Router>
       <div className="App">
         <header className="App-header">
           acronyms.io
         </header>
+
+        <User />
 
         <nav>
           <ul>

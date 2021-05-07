@@ -4,7 +4,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { login } from './userAPI'
 
 const initialState = {
-  username: '',
+  username: null,
   displayname: '',
   email: '',
   isFetching: false,
@@ -49,6 +49,8 @@ export const userSlice = createSlice({
       state.isFetching = false
       state.isSuccess = true
       state.isError = false
+
+      localStorage.setItem('user.username', payload.username)
     },
     [loginUser.rejected]: (state, {payload}) => {
       state.isFetching = false
@@ -58,6 +60,14 @@ export const userSlice = createSlice({
     [loginUser.pending]: (state) => {
       state.isFetching = true
       state.isError = false
+    },
+
+    'app/init': (state) => {
+      const username = localStorage.getItem('user.username')
+
+      if (username) {
+        state.username = username;
+      }
     }
   },
 })
