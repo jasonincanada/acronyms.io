@@ -7,7 +7,7 @@ from django.utils import timezone
 
 from .models import ActiveGame, FinishedGame,  \
                     LatestPhrase, FinalPhrase, \
-                    Acronym, Room, Vote
+                    Acronym, Room, User, Vote
 
 import random
 import string
@@ -144,7 +144,12 @@ def login_user(request):
     if user is not None:
       if user.is_active:
         login(request, user)
-        return JsonResponse({'result': 'ok'})
+
+        # get our custom user that knows about the display name
+        user2 = User.objects.get(username=username)
+
+        return JsonResponse({'result': 'ok',
+                             'displayname': user2.display_name })
 
     return JsonResponse({'result': 'error'})
 

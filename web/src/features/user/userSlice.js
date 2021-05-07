@@ -5,7 +5,7 @@ import { login } from './userAPI'
 
 const initialState = {
   username: null,
-  displayname: '',
+  displayname: null,
   email: '',
   isFetching: false,
   isSuccess: false,
@@ -22,7 +22,8 @@ export const loginUser = createAsyncThunk(
       if (response.status === 200) {
 
         if (response.data.result === 'ok') {
-          return { username }
+          return { username,
+                   displayname: response.data.displayname }
         } else {
           return thunkAPI.rejectWithValue('error')
         }
@@ -45,12 +46,13 @@ export const userSlice = createSlice({
   extraReducers: {
     [loginUser.fulfilled]: (state, {payload}) => {
       state.username = payload.username
-      state.displayname = 'TODO'
+      state.displayname = payload.displayname
       state.isFetching = false
       state.isSuccess = true
       state.isError = false
 
       localStorage.setItem('user.username', payload.username)
+      localStorage.setItem('user.displayname', payload.displayname)
     },
     [loginUser.rejected]: (state, {payload}) => {
       state.isFetching = false
@@ -64,9 +66,11 @@ export const userSlice = createSlice({
 
     'app/init': (state) => {
       const username = localStorage.getItem('user.username')
+      const displayname = localStorage.getItem('user.displayname')
 
       if (username) {
-        state.username = username;
+        state.username = username
+        state.displayname = displayname
       }
     }
   },

@@ -1,12 +1,16 @@
+import { Fragment } from 'react'
 import { useSelector } from 'react-redux'
 import { userSelector } from './userSlice'
 
 const User = () => {
 
-  const { username } = useSelector(userSelector)
+  const { username, displayname } = useSelector(userSelector)
 
   return (
-    <div>Username: { username }</div>
+    <Fragment>
+      <div>Username: { username }</div>
+      <div>Display name: { displayname }</div>
+    </Fragment>
   )
 }
 
