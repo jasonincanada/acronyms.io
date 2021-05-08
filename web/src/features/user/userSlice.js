@@ -6,7 +6,6 @@ import { login } from './userAPI'
 const initialState = {
   username: null,
   displayname: null,
-  email: '',
   isFetching: false,
   isSuccess: false,
   isError: false,
