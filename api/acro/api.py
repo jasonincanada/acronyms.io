@@ -72,11 +72,17 @@ def get_activegame(request, slug):
 @login_required
 def get_room(request, slug):
 
-  room = Room.objects.get(slug=slug)
+  try:
+    room = Room.objects.get(slug=slug)
 
-  response = {'id': room.id}
+    response = {'result': 'ok',
+                'slug': room.slug,
+                'description': room.description}
 
-  return JsonResponse(response)
+    return JsonResponse(response)
+
+  except Room.DoesNotExist:
+    return JsonResponse({'result': 'no room'})
 
 
 @login_required

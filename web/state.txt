@@ -6,7 +6,6 @@ initialState = {
     myphrase:  ''
   },
   room: {
-    id: 0,
     slug: null,
     description: null
   },
