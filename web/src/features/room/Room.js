@@ -1,6 +1,10 @@
 import React, { Fragment, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { createAction } from '@reduxjs/toolkit'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import ActiveGame from '../game/ActiveGame'
+
+const roomInit = createAction('room/init')
 
 const Room = () => {
 
@@ -9,6 +13,7 @@ const Room = () => {
 
   useEffect(() => {
     console.log('room init')
+    dispatch(roomInit(slug))
   })
 
   return (
@@ -17,6 +22,8 @@ const Room = () => {
         <h2>r/{slug}</h2>
 
         <p>This is a room page</p>
+
+        <ActiveGame />
       </div>
     </Fragment>
   )
