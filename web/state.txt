@@ -7,7 +7,8 @@ initialState = {
   },
   room: {
     id: 0,
-    slug: null
+    slug: null,
+    description: null
   },
   finishedgames: [],
   user: {

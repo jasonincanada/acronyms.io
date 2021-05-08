@@ -3,13 +3,15 @@
   "model": "acro.room",
   "pk": 1,
   "fields": {
-    "slug": "room-no-game"
+    "slug": "room-no-game",
+    "description": "a room without a game"
   }
 },{
   "model": "acro.room",
   "pk": 2,
   "fields": {
-    "slug": "room-with-game"
+    "slug": "room-with-game",
+    "description": "a room with a game"
   }
 }
 ]
