@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect } from 'react'
-import { createAction } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { getRoom, roomSelector } from './roomSlice'
@@ -16,6 +15,7 @@ const Room = () => {
     console.log('room init')
     dispatch(getRoom(slug))
     dispatch(getActiveGame(slug))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

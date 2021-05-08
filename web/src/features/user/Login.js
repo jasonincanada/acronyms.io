@@ -11,7 +11,7 @@ const Login = () => {
 
   const dispatch = useDispatch()
   const history = useHistory()
-  const { register, errors, handleSubmit } = useForm()
+  const { register, handleSubmit } = useForm()
   const { isSuccess, isError, errorMessage } = useSelector(
     userSelector
   )
@@ -29,6 +29,7 @@ const Login = () => {
     if (isSuccess) {
       history.push('/')
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError, isSuccess])
 
   return (
