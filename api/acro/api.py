@@ -48,6 +48,24 @@ def generate_acronym():
   return obj
 
 
+def get_activegame(request, room_id):
+
+  try:
+    activegame = ActiveGame.objects.get(room_id=room_id)
+
+    result = {
+      'result': 'ok',
+      'acronym': activegame.acronym.acronym,
+      'started': activegame.started
+    }
+
+    return JsonResponse(result)
+
+  except ActiveGame.DoesNotExist:
+    return JsonResponse({'result': 'no game'})
+
+
+
 @login_required
 def get_room(request, room_id):
 
