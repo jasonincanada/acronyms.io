@@ -151,5 +151,6 @@ def login_user(request):
         return JsonResponse({'result': 'ok',
                              'displayname': user2.display_name })
 
-    return JsonResponse({'result': 'error'})
+    return JsonResponse({'result': 'error',
+                         'errorMessage': 'Invalid login' })
 

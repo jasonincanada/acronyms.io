@@ -48,6 +48,12 @@ const Login = () => {
 
           </form>
 
+          { errorMessage &&
+            <div>
+              Error: { errorMessage }
+            </div>
+          }
+
           <div>
             <span>
               <Link to="signup">Sign Up</Link>

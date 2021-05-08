@@ -20,12 +20,11 @@ export const loginUser = createAsyncThunk(
       const response = await login(username, password)
 
       if (response.status === 200) {
-
         if (response.data.result === 'ok') {
           return { username,
                    displayname: response.data.displayname }
         } else {
-          return thunkAPI.rejectWithValue('error')
+          return thunkAPI.rejectWithValue(response.data.errorMessage)
         }
 
       } else {
@@ -57,7 +56,7 @@ export const userSlice = createSlice({
     [loginUser.rejected]: (state, {payload}) => {
       state.isFetching = false
       state.isError = true
-      state.errorMessage = 'generic error'
+      state.errorMessage = payload
     },
     [loginUser.pending]: (state) => {
       state.isFetching = true
