@@ -59,7 +59,8 @@ def get_activegame(request, slug):
     result = {
       'result': 'ok',
       'acronym': activegame.acronym.acronym,
-      'started': activegame.started
+      'started': activegame.started,
+      'finishing': activegame.finishing
     }
 
     # see if we have a phrase for this user yet
