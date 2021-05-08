@@ -9,6 +9,7 @@ from .models import ActiveGame, FinishedGame,  \
                     LatestPhrase, FinalPhrase, \
                     Acronym, Room, User, Vote
 
+import datetime
 import random
 import string
 
@@ -19,12 +20,14 @@ def new_game(request, room_id):
   try:
     with transaction.atomic():
       acronym = generate_acronym();
+      finishing = datetime.datetime.now() + datetime.timedelta(hours=1)
 
       active_game = ActiveGame.objects.create(room_id=room_id,
-                                              acronym=acronym)
+                                              acronym=acronym,
+                                              finishing=finishing)
 
       response = {
-        'game_id': game.id,
+        'game_id': active_game.id,
         'acronym': acronym.acronym
       }
 
