@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
 import { createAction } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
-import { BrowserRouter as Router, Link, Route, Switch, useParams } from 'react-router-dom'
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import './App.css';
 import Login from './features/user/Login'
+import Room from './features/room/Room'
 import User from './features/user/User'
 
 const appInit = createAction('app/init')
@@ -58,18 +59,6 @@ function App() {
 const Home = () => {
   return (
     <div>This is the home page</div>
-  )
-}
-
-const Room = () => {
-  let { slug } = useParams();
-
-  return (
-    <div>
-      <h2>r/{slug}</h2>
-
-      <p>This is a room page</p>
-    </div>
   )
 }
 
