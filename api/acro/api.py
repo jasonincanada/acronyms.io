@@ -62,6 +62,15 @@ def get_activegame(request, slug):
       'started': activegame.started
     }
 
+    # see if we have a phrase for this user yet
+    latest = LatestPhrase.objects                   \
+                         .filter(game=activegame)   \
+                         .filter(user=request.user) \
+                         .first()
+
+    if latest:
+      result.update({'myphrase': latest.phrase})
+
     return JsonResponse(result)
 
   except ActiveGame.DoesNotExist:

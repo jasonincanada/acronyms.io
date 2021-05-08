@@ -5,13 +5,14 @@ import { activeGameSelector } from './gameSlice'
 
 const ActiveGame = () => {
 
-  const { acronym } = useSelector(activeGameSelector)
+  const { acronym, myphrase } = useSelector(activeGameSelector)
   const { slug } = useParams()
 
   return (
     <Fragment>
       <div>Room Slug: { slug }</div>
       <div>Acronym: { acronym }</div>
+      <div>My phrase: { myphrase }</div>
     </Fragment>
   )
 }

@@ -9,7 +9,7 @@ const initialState = {
 
 export const getActiveGame = createAsyncThunk(
   'activegame/get',
-  async ({ slug }, thunkAPI) => {
+  async (slug, thunkAPI) => {
     try {
       const response = await apiGetActiveGame(slug)
 
@@ -17,7 +17,7 @@ export const getActiveGame = createAsyncThunk(
         if (response.data.result === 'ok') {
           return { acronym: response.data.acronym,
                    finishing: response.data.finishing,
-                 //myphrase: response.data.myphrase,
+                   myphrase: response.data.myphrase,
                  }
         } else {
           return thunkAPI.rejectWithValue(response.data.errorMessage)
@@ -42,7 +42,7 @@ export const activeGameSlice = createSlice({
     [getActiveGame.fulfilled]: (state, {payload}) => {
       state.acronym = payload.acronym;
       state.finishing = payload.finishing;
-    //state.myphrase = payload.myphrase;
+      state.myphrase = payload.myphrase;
     },
   },
 })
