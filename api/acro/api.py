@@ -70,25 +70,11 @@ def get_activegame(request, slug):
 
 
 @login_required
-def get_room(request, room_id):
+def get_room(request, slug):
 
-  room = Room.objects.get(pk=room_id)
+  room = Room.objects.get(slug=slug)
 
   response = {'id': room.id}
-
-  # add details of the active game if any
-  if hasattr(room, 'activegame'):
-    response.update({'acronym': room.activegame.acronym.acronym})
-
-    latest = LatestPhrase.objects \
-                         .filter(game=room.activegame,
-                                 user=request.user) \
-                         .first()
-
-    if latest:
-      response.update({
-        'phrase': latest.phrase
-      })
 
   return JsonResponse(response)
 
