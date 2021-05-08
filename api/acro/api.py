@@ -51,10 +51,10 @@ def generate_acronym():
   return obj
 
 
-def get_activegame(request, room_id):
+def get_activegame(request, slug):
 
   try:
-    activegame = ActiveGame.objects.get(room_id=room_id)
+    activegame = ActiveGame.objects.get(room__slug=slug)
 
     result = {
       'result': 'ok',
