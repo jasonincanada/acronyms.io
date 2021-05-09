@@ -106,10 +106,12 @@ def post_phrase(request, game_id):
     result = valid_phrase_for(acro, phrase)
 
     if result == 'ok':
-      latest = LatestPhrase.objects.create(game    = game,
-                                           user_id = request.user.id,
-                                           sent    = timezone.now(),
-                                           phrase  = phrase)
+      latest, created = LatestPhrase \
+                          .objects   \
+                          .update_or_create(game=game,
+                                            user=request.user,
+                                            defaults={'phrase': phrase,
+                                                      'sent': timezone.now()})
 
       return JsonResponse({'result': 'ok'})
 
@@ -121,7 +123,6 @@ def post_phrase(request, game_id):
   # before the create() call runs
   except (ActiveGame.DoesNotExist, ValueError):
     return JsonResponse({'result': 'no game'})
-
 
 
 def valid_phrase_for(acro, phrase):

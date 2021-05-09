@@ -1,17 +1,18 @@
 import { Fragment, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { activeGameSelector } from './gameSlice'
+import { activeGameSelector, postPhrase } from './gameSlice'
 
 const ActiveGame = () => {
 
   const { acronym, finishing, myphrase } = useSelector(activeGameSelector)
   const { slug } = useParams()
   const [ phrase, setPhrase ] = useState('');
+  const dispatch = useDispatch();
 
   const keyDown = (key) => {
     if (key === "Enter") {
-      console.log("Hit enter with phrase:", phrase)
+      dispatch(postPhrase(phrase))
     }
   }
 

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { apiGetActiveGame } from './gameAPI'
+import { apiGetActiveGame, apiPostPhrase } from './gameAPI'
 
 const initialState = {
   id: null,
@@ -35,6 +35,30 @@ export const getActiveGame = createAsyncThunk(
   }
 )
 
+export const postPhrase = createAsyncThunk(
+  'activegame/post-phrase',
+  async (phrase, thunkAPI) => {
+    try {
+      const gameID = thunkAPI.getState().activegame.id
+      const response = await apiPostPhrase(gameID, phrase)
+
+      if (response.status === 200) {
+        if (response.data.result === 'ok') {
+          return {result: 'ok', phrase}
+        } else {
+          return thunkAPI.rejectWithValue(response.data.result)
+        }
+
+      } else {
+        return thunkAPI.rejectWithValue('todo')
+      }
+    } catch (e) {
+      console.log('Error', e.response.data)
+      thunkAPI.rejectWithValue(e.response.data)
+    }
+  }
+)
+
 export const activeGameSlice = createSlice({
   name: 'activegame',
   initialState,
@@ -47,6 +71,9 @@ export const activeGameSlice = createSlice({
       state.finishing = payload.finishing
       state.myphrase = payload.myphrase
     },
+    [postPhrase.fulfilled]: (state, {payload}) => {
+      state.myphrase = payload.phrase
+    }
   },
 })
 

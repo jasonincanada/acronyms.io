@@ -1,4 +1,5 @@
 import axios from 'axios'
+import qs from 'qs'
 
 async function apiGetActiveGame(slug) {
 
@@ -11,5 +12,24 @@ async function apiGetActiveGame(slug) {
   return response
 }
 
-export { apiGetActiveGame }
+async function apiPostPhrase(gameID, phrase) {
+
+  axios.defaults.withCredentials = true
+
+  const csrf = localStorage.getItem('axios.csrf')
+  const options = {
+    headers: {
+      'X-CSRFToken': csrf
+    }
+  }
+
+  // TODO: hard-coded endpoint
+  const url = '/api/activegame/' + gameID + '/phrase/post';
+  const data = qs.stringify({gameID, phrase})
+  const response = await axios.post(url, data, options)
+
+  return response
+}
+
+export { apiGetActiveGame, apiPostPhrase }
 
