@@ -31,3 +31,5 @@ docker run -it --rm -p 8000:80 -v ~/acronyms.io/specs:/usr/share/nginx/html ngin
 
 Now browse to `http://192.168.0.16:8000/model.png` or `model-acro.png`
 
+If you're doing this on AWS EC2, don't forget to add an inbound rule to your instance's security group to allow traffic to port 8000
+
