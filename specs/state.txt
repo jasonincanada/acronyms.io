@@ -4,11 +4,11 @@ initialState = {
     id: null,
     acronym:   '',
     finishing: null,
-    myphrase:  ''
+    myphrase:  '',
   },
   room: {
     slug: null,
-    description: null
+    description: null,
   },
   finishedgames: [],
   user: {
@@ -17,7 +17,7 @@ initialState = {
     email: '',
     isFetching: false,
     isSuccess: false,
-    errorMessage: ''
+    errorMessage: '',
   }
 }
 
@@ -26,23 +26,23 @@ exampleState = {
     id: 1,
     acronym: 'abcdef',
     finishing: '2021-05-03 19:49:07.617031',
-    myphrase: 'a b c d e f'
+    myphrase: 'a b c d e f',
   },
   room: {
     id: 1,
-    slug: 'testroom'
+    slug: 'testroom',
   },
   finishedgames: [
     { id: 1,
       phrases: [
         { id: 1, author: { displayname: 'name'       }, phrase: 'a b c d e f', votes: 5 },
-        { id: 2, author: { displayname: 'other name' }, phrase: 'a b c d e f', votes: 4 }
+        { id: 2, author: { displayname: 'other name' }, phrase: 'a b c d e f', votes: 4 },
       ]
-    }
+    },
   ],
   user: {
     username: 'test',
-    displayname: 'Test User'
+    displayname: 'Test User',
   }
 }
 
