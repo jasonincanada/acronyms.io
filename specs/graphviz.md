@@ -5,6 +5,10 @@ To generate a .png image of the acronyms.io model, use PyGraphviz:
 ```bash
 sudo apt install build-essential python3-dev graphviz graphviz-dev
 
+# env up if you haven't yet
+cd ~/acronyms.io/api
+source env/bin/activate
+
 pip install wheel
 pip install pygraphviz
 ```
@@ -12,11 +16,6 @@ pip install pygraphviz
 Generate the graphs:
 
 ```bash
-cd ~/acronyms.io/api
-
-# env up if you haven't yet
-source env/bin/activate
-
 # graph the whole model
 python manage.py graph_models -a -g -o ~/acronyms.io/specs/model.png
 
