@@ -19,8 +19,8 @@ Generate the graphs:
 # graph the whole model
 python manage.py graph_models -a -g -o ~/acronyms.io/specs/model.png
 
-# just the acro app
-python manage.py graph_models acro -o ~/acronyms.io/specs/model-acro.png
+# just the acro app, hiding AbstractUser
+python manage.py graph_models acro -X AbstractUser -o ~/acronyms.io/specs/model-acro.png
 ```
 
 Spin up a temp web server at port 8000 to browse the specs directory:
