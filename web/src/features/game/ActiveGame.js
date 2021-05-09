@@ -5,7 +5,7 @@ import { activeGameSelector, postPhrase } from './gameSlice'
 
 const ActiveGame = () => {
 
-  const { acronym, finishing, myphrase } = useSelector(activeGameSelector)
+  const { acronym, finishing, myphrase, error } = useSelector(activeGameSelector)
   const { slug } = useParams()
   const [ phrase, setPhrase ] = useState('');
   const dispatch = useDispatch();
@@ -22,6 +22,9 @@ const ActiveGame = () => {
       <div>Acronym: { acronym }</div>
       <div>Finishing: { finishing }</div>
       <div>My phrase: { myphrase }</div>
+      { error &&
+        <div>Error: { error }</div>
+      }
       <div><input type="text"
                   autoFocus
                   onChange={ (ev) => setPhrase(ev.target.value)}

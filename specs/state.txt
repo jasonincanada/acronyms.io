@@ -5,6 +5,7 @@ initialState = {
     acronym:   null,
     finishing: null,
     myphrase:  null,
+    error: null,
   },
   room: {
     slug: null,
@@ -27,6 +28,7 @@ exampleState = {
     acronym: 'abcdef',
     finishing: '2021-05-03 19:49:07.617031',
     myphrase: 'a b c d e f',
+    error: 'not enough words'
   },
   room: {
     id: 1,

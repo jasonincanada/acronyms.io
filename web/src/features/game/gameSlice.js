@@ -43,10 +43,12 @@ export const postPhrase = createAsyncThunk(
       const response = await apiPostPhrase(gameID, phrase)
 
       if (response.status === 200) {
-        if (response.data.result === 'ok') {
-          return {result: 'ok', phrase}
+        const result = response.data.result
+
+        if (result === 'ok') {
+          return {result, phrase}
         } else {
-          return thunkAPI.rejectWithValue(response.data.result)
+          return thunkAPI.rejectWithValue(result)
         }
 
       } else {
@@ -73,7 +75,11 @@ export const activeGameSlice = createSlice({
     },
     [postPhrase.fulfilled]: (state, {payload}) => {
       state.myphrase = payload.phrase
-    }
+      state.error = null
+    },
+    [postPhrase.rejected]: (state, {payload}) => {
+      state.error = payload
+    },
   },
 })
 
