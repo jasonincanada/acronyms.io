@@ -2,9 +2,9 @@
 initialState = {
   activegame: {
     id: null,
-    acronym:   '',
+    acronym:   null,
     finishing: null,
-    myphrase:  '',
+    myphrase:  null,
   },
   room: {
     slug: null,
