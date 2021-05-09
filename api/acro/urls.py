@@ -13,6 +13,7 @@ urlpatterns = [
   path('activegame/<int:game_id>/phrase/post', api.post_phrase, name='api-post-phrase'),
   path('game/<int:game_id>/vote/',        api.vote, name='api-vote'),
   path('activegame/<slug>/get',           api.get_activegame, name='api-get-activegame'),
+  path('finishedgames/<slug>/get',        api.get_finished_games, name='api-get-finishedgames'),
   path('csrf/get',                        api.get_csrf, name='api-get-csrf'),
   path('login',                           api.login_user, name='api-login-user'),
 ]

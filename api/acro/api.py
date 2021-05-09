@@ -51,6 +51,27 @@ def generate_acronym():
   return obj
 
 
+# return the IDs, acronyms, and finishing times for the latest 10 finished games for a room
+def get_finished_games(request, slug):
+
+  games = FinishedGame.objects                   \
+                      .select_related('acronym') \
+                      .filter(room__slug=slug)   \
+                      .order_by('-finished')     \
+                      [:10]
+
+  response = [ { 'id':       game.id,
+                 'finished': game.finished.strftime("%Y-%m-%d %H:%M:%S"),
+                 'acronym':  game.acronym.acronym }
+
+                 for game in games ]
+
+  data = {'result': 'ok',
+          'finishedgames': response}
+
+  return JsonResponse(data)
+
+
 def get_activegame(request, slug):
 
   try:
