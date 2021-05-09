@@ -6,13 +6,13 @@
   - [ ] Minimum initial deployment
     - [x] Set up dev environment
     - [x] User registration / login
-    - [ ] Show users in room
     - [ ] Three-phase rounds
       - [ ] User submissions
       - [ ] Voting period
       - [ ] Game finished
     - [ ] Start new game
     - [ ] Styling/graphics
+  - [ ] Show users in room
   - [ ] Moderators
   - [ ] New room creation
   - [ ] Room keys for private rooms
