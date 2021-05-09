@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { apiGetActiveGame } from './gameAPI'
 
 const initialState = {
+  id: null,
   acronym: null,
   finishing: null,
   myphrase: null
@@ -15,7 +16,8 @@ export const getActiveGame = createAsyncThunk(
 
       if (response.status === 200) {
         if (response.data.result === 'ok') {
-          return { acronym: response.data.acronym,
+          return { id: response.data.id,
+                   acronym: response.data.acronym,
                    finishing: response.data.finishing,
                    myphrase: response.data.myphrase,
                  }
@@ -40,9 +42,10 @@ export const activeGameSlice = createSlice({
   },
   extraReducers: {
     [getActiveGame.fulfilled]: (state, {payload}) => {
-      state.acronym = payload.acronym;
-      state.finishing = payload.finishing;
-      state.myphrase = payload.myphrase;
+      state.id = payload.id
+      state.acronym = payload.acronym
+      state.finishing = payload.finishing
+      state.myphrase = payload.myphrase
     },
   },
 })

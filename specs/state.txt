@@ -1,6 +1,7 @@
 
 initialState = {
   activegame: {
+    id: null,
     acronym:   '',
     finishing: null,
     myphrase:  ''
@@ -22,6 +23,7 @@ initialState = {
 
 exampleState = {
   activegame: {
+    id: 1,
     acronym: 'abcdef',
     finishing: '2021-05-03 19:49:07.617031',
     myphrase: 'a b c d e f'
