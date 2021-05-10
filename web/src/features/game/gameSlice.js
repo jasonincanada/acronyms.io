@@ -73,6 +73,9 @@ export const activeGameSlice = createSlice({
       state.finishing = payload.finishing
       state.myphrase = payload.myphrase
     },
+    [getActiveGame.rejected]: (state, {payload}) => {
+      return initialState
+    },
     [postPhrase.fulfilled]: (state, {payload}) => {
       state.myphrase = payload.phrase
       state.error = null
