@@ -72,6 +72,38 @@ def get_finished_games(request, slug):
   return JsonResponse(data)
 
 
+def get_final_phrases(request, game_id):
+
+  sql = """
+    SELECT    fp.id,
+              fp.phrase,
+              u.display_name,
+              COUNT(v.id) AS votes
+
+    FROM      acro_finalphrase fp
+    LEFT JOIN acro_vote v ON v.phrase_id = fp.id
+         JOIN acro_user u ON u.id = fp.user_id
+
+    WHERE  fp.game_id = %s
+
+    GROUP  BY fp.id,
+              u.id
+  """
+
+  phrases = FinalPhrase.objects.raw(sql, [game_id])
+
+  response = [ { 'phrase': p.phrase,
+                 'author': p.display_name,
+                 'votes':  p.votes }
+
+                 for p in phrases ]
+
+  data = {'result': 'ok',
+          'phrases': response}
+
+  return JsonResponse(data)
+
+
 def get_activegame(request, slug):
 
   try:

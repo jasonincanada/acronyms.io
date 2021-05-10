@@ -14,6 +14,7 @@ urlpatterns = [
   path('game/<int:game_id>/vote/',        api.vote, name='api-vote'),
   path('activegame/<slug>/get',           api.get_activegame, name='api-get-activegame'),
   path('finishedgames/<slug>/get',        api.get_finished_games, name='api-get-finishedgames'),
+  path('finalphrases/<int:game_id>/get',  api.get_final_phrases, name='api-get-finalphrases'),
   path('csrf/get',                        api.get_csrf, name='api-get-csrf'),
   path('login',                           api.login_user, name='api-login-user'),
 ]
