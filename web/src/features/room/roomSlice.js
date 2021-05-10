@@ -1,9 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { apiGetRoom } from './roomAPI'
+import { getFinishedGames } from '../game/finishedGamesSlice'
 
 const initialState = {
   slug: null,
-  description: null
+  description: null,
+  finishedgames: [],
 }
 
 export const getRoom = createAsyncThunk(
@@ -41,6 +43,12 @@ export const roomSlice = createSlice({
       state.slug = payload.slug
       state.description = payload.description
     },
+
+    // whenever a request for a list of games is returned, extract the IDs
+    // and store them as room.finishedgames
+    [getFinishedGames.fulfilled]: (state, {payload: games}) => {
+      state.finishedgames = games.map(g => g.id)
+    }
   },
 })
 

@@ -1,19 +1,20 @@
 import { Fragment, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { roomSelector } from '../room/roomSlice'
 import { finishedGamesSelectors, phrasesSelectors, getPhrases } from './finishedGamesSlice'
 
 const FinishedGames = () => {
 
-  const ids   = useSelector(finishedGamesSelectors.selectIds)
-  const games = useSelector(finishedGamesSelectors.selectEntities)
+  const games           = useSelector(finishedGamesSelectors.selectEntities)
+  const {finishedgames} = useSelector(roomSelector)
 
   return (
     <Fragment>
       <h3>Finished Games</h3>
       <ul>
-        { ids.map(id => <li key={id}>
-                          <FinishedGame game={games[id]} />
-                        </li>) }
+        { finishedgames.map(id => <li key={id}>
+                                    <FinishedGame game={games[id]} />
+                                  </li>) }
       </ul>
     </Fragment>
   )
@@ -21,9 +22,7 @@ const FinishedGames = () => {
 
 const FinishedGame = ({game}) => {
 
-  const phrase_ids = useSelector(phrasesSelectors.selectIds)
-  const phrases    = useSelector(phrasesSelectors.selectEntities)
-
+  const phrases  = useSelector(phrasesSelectors.selectEntities)
   const dispatch = useDispatch()
   const [expanded, setExpanded] = useState(false)
 
@@ -40,7 +39,7 @@ const FinishedGame = ({game}) => {
       { expanded && <span>Expanded</span> }
 
       <ul>
-        {   phrase_ids.map(id => <li key={id}>
+        { game.phrases.map(id => <li key={id}>
                                    <Phrase phrase={phrases[id]} />
                                  </li>) }
       </ul>

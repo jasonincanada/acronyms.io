@@ -10,6 +10,7 @@ initialState = {
   room: {
     slug: null,
     description: null,
+    finishedgames: []
   },
   phrases: {
     ids: [],
@@ -40,6 +41,7 @@ exampleState = {
   room: {
     id: 1,
     slug: 'testroom',
+    finishedgames: [1]
   },
   phrases: {
     ids: [1,2],

@@ -54,7 +54,18 @@ export const finishedGamesSlice = createSlice({
       payload.forEach(game => game.phrases = [])
 
       finishedGamesAdapter.addMany(state, payload)
-    }
+    },
+
+    [getPhrases.fulfilled]: (state, {payload}) => {
+      const id  = payload.game.id
+      const ids = payload.phrases.map(p => p.id)
+
+      // updateOne is a helper method defined in EntityStateAdapter<T>
+      // see: https://redux-toolkit.js.org/api/createEntityAdapter#return-value
+      //
+      // updateOne<S extends EntityState<T>>(state: S, update: Update<T>): S
+      return finishedGamesAdapter.updateOne(state, {id, changes: { phrases: ids }})
+    },
   },
 })
 
@@ -69,7 +80,9 @@ export const getPhrases = createAsyncThunk(
 
       if (response.status === 200) {
         if (response.data.result === 'ok') {
-          return response.data.phrases
+          return { phrases: response.data.phrases,
+                   game:    game,
+                 }
         } else {
           return thunkAPI.rejectWithValue(response.data.errorMessage)
         }
@@ -90,8 +103,8 @@ export const phrasesSlice = createSlice({
   reducers: {
   },
   extraReducers: {
-    [getPhrases.fulfilled]: (state, {payload: phrases}) => {
-      phrasesAdapter.upsertMany(state, phrases)
+    [getPhrases.fulfilled]: (state, {payload}) => {
+      phrasesAdapter.upsertMany(state, payload.phrases)
     }
   },
 })
