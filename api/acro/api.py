@@ -72,6 +72,7 @@ def get_finished_games(request, slug):
   return JsonResponse(data)
 
 
+# return the phrases and current vote tally for a finished game
 def get_final_phrases(request, game_id):
 
   sql = """
@@ -92,7 +93,8 @@ def get_final_phrases(request, game_id):
 
   phrases = FinalPhrase.objects.raw(sql, [game_id])
 
-  response = [ { 'phrase': p.phrase,
+  response = [ { 'id':     p.id,
+                 'phrase': p.phrase,
                  'author': p.display_name,
                  'votes':  p.votes }
 

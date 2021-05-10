@@ -1,5 +1,5 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit'
-import { apiGetFinishedGames } from './gameAPI'
+import { apiGetFinishedGames, apiGetPhrases } from './gameAPI'
 
 const finishedGamesAdapter = createEntityAdapter({
   // https://stackoverflow.com/questions/492994/compare-two-dates-with-javascript#comment48569803_497790
@@ -58,12 +58,42 @@ export const finishedGamesSlice = createSlice({
   },
 })
 
-export const phrasesGamesSlice = createSlice({
+
+// get phrases and current vote counts for a particular finishedgame
+//
+export const getPhrases = createAsyncThunk(
+  'phrases/get',
+  async (game, thunkAPI) => {
+    try {
+      const response = await apiGetPhrases(game.id)
+
+      if (response.status === 200) {
+        if (response.data.result === 'ok') {
+          return response.data.phrases
+        } else {
+          return thunkAPI.rejectWithValue(response.data.errorMessage)
+        }
+
+      } else {
+        return thunkAPI.rejectWithValue('todo')
+      }
+    } catch (e) {
+      console.log('Error', e.response.data)
+      thunkAPI.rejectWithValue(e.response.data)
+    }
+  }
+)
+
+export const phrasesSlice = createSlice({
   name: 'phrases',
   initialState: phrasesAdapter.getInitialState(),
   reducers: {
   },
-  extraReducers: { },
+  extraReducers: {
+    [getPhrases.fulfilled]: (state, {payload: phrases}) => {
+      phrasesAdapter.upsertMany(state, phrases)
+    }
+  },
 })
 
 export const finishedGamesSelectors = finishedGamesAdapter

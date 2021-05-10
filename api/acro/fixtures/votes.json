@@ -1,0 +1,22 @@
+[
+{
+  "model": "acro.vote",
+  "pk": 1,
+  "fields": {
+    "voter": 2,
+    "game": 1,
+    "phrase": 1,
+    "voted_on": "2021-05-10T21:27:01.578Z"
+  }
+},
+{
+  "model": "acro.vote",
+  "pk": 2,
+  "fields": {
+    "voter": 1,
+    "game": 1,
+    "phrase": 1,
+    "voted_on": "2021-05-10T21:27:18.714Z"
+  }
+}
+]

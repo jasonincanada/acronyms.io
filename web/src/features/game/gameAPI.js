@@ -23,6 +23,17 @@ async function apiGetFinishedGames(slug) {
   return response
 }
 
+async function apiGetPhrases(game_id) {
+
+  axios.defaults.withCredentials = true
+
+  // TODO: hard-coded endpoint
+  const url = '/api/finalphrases/' + game_id + '/get'
+  const response = await axios.get(url)
+
+  return response
+}
+
 async function apiPostPhrase(gameID, phrase) {
 
   axios.defaults.withCredentials = true
@@ -42,5 +53,9 @@ async function apiPostPhrase(gameID, phrase) {
   return response
 }
 
-export { apiGetActiveGame, apiGetFinishedGames, apiPostPhrase }
+export { apiGetActiveGame,
+         apiGetFinishedGames,
+         apiGetPhrases,
+         apiPostPhrase
+       }
 

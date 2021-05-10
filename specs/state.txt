@@ -11,6 +11,10 @@ initialState = {
     slug: null,
     description: null,
   },
+  phrases: {
+    ids: [],
+    entities: {},
+  },
   finishedgames: {
     ids: [],
     entities: {},
@@ -37,16 +41,21 @@ exampleState = {
     id: 1,
     slug: 'testroom',
   },
+  phrases: {
+    ids: [1,2],
+    entities: {
+      1: { id: 1, author: 'name'      , phrase: 'a b c d e f', votes: 5 },
+      2: { id: 2, author: 'other name', phrase: 'a b c d e f', votes: 4 },
+    },
+  },
   finishedgames: {
     ids: [1],
     entities: {
       1: { id: 1,
            acronym: 'abcdef',
            finished: date,
-           phrases: [
-             { id: 1, author: { displayname: 'name'       }, phrase: 'a b c d e f', votes: 5 },
-             { id: 2, author: { displayname: 'other name' }, phrase: 'a b c d e f', votes: 4 },
-           ]}
+           phrases: [1,2]
+         },
     },
   ],
   user: {
