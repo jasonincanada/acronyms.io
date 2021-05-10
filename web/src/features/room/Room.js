@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { getRoom, roomSelector } from './roomSlice'
 import { getActiveGame } from '../game/gameSlice'
 import ActiveGame from '../game/ActiveGame'
+import FinishedGames from '../game/FinishedGames'
 
 
 const Room = () => {
@@ -27,6 +28,8 @@ const Room = () => {
         <p>Description: {description}</p>
 
         <ActiveGame />
+
+        <FinishedGames />
       </div>
     </Fragment>
   )
