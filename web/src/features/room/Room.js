@@ -5,6 +5,7 @@ import { getRoom, roomSelector } from './roomSlice'
 import { getActiveGame } from '../game/gameSlice'
 import ActiveGame from '../game/ActiveGame'
 
+
 const Room = () => {
 
   const dispatch = useDispatch()
@@ -16,7 +17,7 @@ const Room = () => {
     dispatch(getRoom(slug))
     dispatch(getActiveGame(slug))
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [slug])
 
   return (
     <Fragment>
