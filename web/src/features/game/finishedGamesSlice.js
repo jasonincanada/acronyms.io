@@ -1,6 +1,9 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 import { apiGetFinishedGames, apiGetPhrases } from './gameAPI'
 
+
+/* Adapters */
+
 const finishedGamesAdapter = createEntityAdapter({
   // https://stackoverflow.com/questions/492994/compare-two-dates-with-javascript#comment48569803_497790
   sortComparer: (b, a) => (a.finished > b.finished)
@@ -10,6 +13,10 @@ const finishedGamesAdapter = createEntityAdapter({
 const phrasesAdapter = createEntityAdapter({})
 
 
+/* Thunks */
+
+// get finished games for a particular room
+//
 export const getFinishedGames = createAsyncThunk(
   'finishedgames/get',
   async (slug, thunkAPI) => {
@@ -33,6 +40,35 @@ export const getFinishedGames = createAsyncThunk(
   }
 )
 
+// get phrases and current vote counts for a particular finishedgame
+//
+export const getPhrases = createAsyncThunk(
+  'phrases/get',
+  async (game, thunkAPI) => {
+    try {
+      const response = await apiGetPhrases(game.id)
+
+      if (response.status === 200) {
+        if (response.data.result === 'ok') {
+          return { phrases: response.data.phrases,
+                   game:    game,
+                 }
+        } else {
+          return thunkAPI.rejectWithValue(response.data.errorMessage)
+        }
+
+      } else {
+        return thunkAPI.rejectWithValue('todo')
+      }
+    } catch (e) {
+      console.log('Error', e.response.data)
+      thunkAPI.rejectWithValue(e.response.data)
+    }
+  }
+)
+
+
+/* Slices */
 
 export const finishedGamesSlice = createSlice({
   name: 'finishedgames',
@@ -69,34 +105,6 @@ export const finishedGamesSlice = createSlice({
   },
 })
 
-
-// get phrases and current vote counts for a particular finishedgame
-//
-export const getPhrases = createAsyncThunk(
-  'phrases/get',
-  async (game, thunkAPI) => {
-    try {
-      const response = await apiGetPhrases(game.id)
-
-      if (response.status === 200) {
-        if (response.data.result === 'ok') {
-          return { phrases: response.data.phrases,
-                   game:    game,
-                 }
-        } else {
-          return thunkAPI.rejectWithValue(response.data.errorMessage)
-        }
-
-      } else {
-        return thunkAPI.rejectWithValue('todo')
-      }
-    } catch (e) {
-      console.log('Error', e.response.data)
-      thunkAPI.rejectWithValue(e.response.data)
-    }
-  }
-)
-
 export const phrasesSlice = createSlice({
   name: 'phrases',
   initialState: phrasesAdapter.getInitialState(),
@@ -108,6 +116,9 @@ export const phrasesSlice = createSlice({
     }
   },
 })
+
+
+/* Selectors */
 
 export const finishedGamesSelectors = finishedGamesAdapter
                                         .getSelectors(state => state.finishedgames)

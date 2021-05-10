@@ -3,6 +3,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { login } from './userAPI'
 
+
 const initialState = {
   username: null,
   displayname: null,
@@ -11,6 +12,9 @@ const initialState = {
   isError: false,
   errorMessage: '',
 }
+
+
+/* Thunks */
 
 export const loginUser = createAsyncThunk(
   'user/login',
@@ -35,6 +39,9 @@ export const loginUser = createAsyncThunk(
     }
   }
 )
+
+
+/* Slices */
 
 export const userSlice = createSlice({
   name: 'user',
@@ -73,6 +80,9 @@ export const userSlice = createSlice({
     }
   },
 })
+
+
+/* Selectors */
 
 export const userSelector = (state) => state.user
 

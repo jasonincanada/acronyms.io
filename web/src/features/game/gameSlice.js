@@ -8,6 +8,9 @@ const initialState = {
   myphrase: null
 }
 
+
+/* Thunks */
+
 export const getActiveGame = createAsyncThunk(
   'activegame/get',
   async (slug, thunkAPI) => {
@@ -61,6 +64,9 @@ export const postPhrase = createAsyncThunk(
   }
 )
 
+
+/* Slices */
+
 export const activeGameSlice = createSlice({
   name: 'activegame',
   initialState,
@@ -85,6 +91,9 @@ export const activeGameSlice = createSlice({
     },
   },
 })
+
+
+/* Selectors */
 
 export const activeGameSelector = (state) => state.activegame
 

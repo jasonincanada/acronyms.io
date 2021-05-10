@@ -2,11 +2,15 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { apiGetRoom } from './roomAPI'
 import { getFinishedGames } from '../game/finishedGamesSlice'
 
+
 const initialState = {
   slug: null,
   description: null,
   finishedgames: [],
 }
+
+
+/* Thunks */
 
 export const getRoom = createAsyncThunk(
   'room/get',
@@ -33,6 +37,9 @@ export const getRoom = createAsyncThunk(
   }
 )
 
+
+/* Slices */
+
 export const roomSlice = createSlice({
   name: 'room',
   initialState,
@@ -51,6 +58,9 @@ export const roomSlice = createSlice({
     }
   },
 })
+
+
+/* Selectors */
 
 export const roomSelector = (state) => state.room
 
