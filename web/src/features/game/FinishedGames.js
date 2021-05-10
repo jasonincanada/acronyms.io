@@ -1,21 +1,19 @@
 import { Fragment } from 'react'
+import { useSelector } from 'react-redux'
+import { finishedGamesSelectors } from './finishedGamesSlice'
 
 const FinishedGames = () => {
 
-  const game_ids = [1]
-  const games = {'1': { id: 1,
-                        acronym: 'abcdef',
-                        finished: new Date(),
-                        phrases: [1,2]
-                }}
+  const ids   = useSelector(finishedGamesSelectors.selectIds)
+  const games = useSelector(finishedGamesSelectors.selectEntities)
 
   return (
     <Fragment>
       <h3>Finished Games</h3>
       <ul>
-        { game_ids.map(id => <li key={id}>
-                               <FinishedGame game={games[id]} />
-                             </li>) } 
+        { ids.map(id => <li key={id}>
+                          <FinishedGame game={games[id]} />
+                        </li>) }
       </ul>
     </Fragment>
   )
