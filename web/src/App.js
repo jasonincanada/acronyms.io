@@ -29,7 +29,8 @@ function App() {
         <nav>
           <ul>
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/r/test">Test Room</Link></li>
+            <li><Link to="/r/room-with-game">Room With Game</Link></li>
+            <li><Link to="/r/room-no-game">Room Without Game</Link></li>
             <li><Link to="/login">Login</Link></li>
             <li><Link to="/about">About</Link></li>
           </ul>
