@@ -6,10 +6,7 @@ const FinishedGames = () => {
   const games = {'1': { id: 1,
                         acronym: 'abcdef',
                         finished: new Date(),
-                        phrases: [
-         { id: 1, author: { displayname: 'name'       }, phrase: 'a b c d e f', votes: 5 },
-         { id: 2, author: { displayname: 'other name' }, phrase: 'a b c d e f', votes: 4 },
-                        ]
+                        phrases: [1,2]
                 }}
 
   return (
@@ -25,13 +22,18 @@ const FinishedGames = () => {
 }
 
 const FinishedGame = ({game}) => {
+
+  const phrase_ids = [1,2]
+  const phrases = {'1': { id: 1, author: { displayname: 'name'       }, phrase: 'a b c d e f', votes: 5 },
+                   '2': { id: 2, author: { displayname: 'other name' }, phrase: 'a b c d e f', votes: 4 }}
+
   return (
     <Fragment>
       <h4>Game {game.id}: {game.acronym}</h4>
       <ul>
-        { game.phrases.map(p => <li key={p.id}>
-                                  <Phrase phrase={p} />
-                                </li>) }
+        { game.phrases.map(id => <li key={id}>
+                                   <Phrase phrase={phrases[id]} />
+                                 </li>) }
       </ul>
     </Fragment>
   )
