@@ -70,6 +70,24 @@ services:
       acro_net:
         ipv4_address: 172.16.1.6
 
+  # postgres admin interface
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: example@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: secret
+      PGADMIN_LISTEN_PORT: 80
+    ports:
+      - '8006:80'
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    depends_on:
+      - 'postgres'
+    networks:
+      acro_net:
+        ipv4_address: 172.16.1.7
+
+
 
 # define our subnet 172.16.1.*
 networks:
@@ -85,5 +103,6 @@ networks:
 # docker-managed local volumes that will persist between restarts of the containers
 volumes:
   postgres-data:
+  pgadmin-data:
   nodemodules-hosted:
 
