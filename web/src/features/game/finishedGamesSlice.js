@@ -140,11 +140,11 @@ export const phrasesSlice = createSlice({
 
     [voteFor.fulfilled]: (state, {payload}) => {
 
-        const update = (phrase) => {
+        const update = ({phrase_id, votes}) => {
           return {
-            id: phrase.phrase_id,
+            id: phrase_id,
             changes: {
-              votes: phrase.votes
+              votes: votes
             }
           }
         }
