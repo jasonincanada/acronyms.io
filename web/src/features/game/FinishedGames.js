@@ -41,13 +41,14 @@ const FinishedGame = ({game}) => {
       <h4>Game {game.id}: {game.acronym}</h4>
 
       <button onClick={expand}>View</button>
-      { expanded && <span>Expanded</span> }
 
-      <ul>
-        { game.phrases.map(id => <li key={id}>
-                                   <Phrase phrase={phrases[id]} />
-                                 </li>) }
-      </ul>
+      { expanded &&
+          <ul>
+            { game.phrases.map(id => <li key={id}>
+                                       <Phrase phrase={phrases[id]} />
+                                     </li>) }
+          </ul>
+      }
     </Fragment>
   )
 }
