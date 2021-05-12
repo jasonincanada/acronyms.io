@@ -1,7 +1,12 @@
 import { Fragment, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { roomSelector } from '../room/roomSlice'
-import { finishedGamesSelectors, phrasesSelectors, getPhrases } from './finishedGamesSlice'
+import { finishedGamesSelectors,
+         phrasesSelectors,
+         getPhrases,
+         voteFor
+       } from './finishedGamesSlice'
+
 
 const FinishedGames = () => {
 
@@ -51,7 +56,21 @@ const Phrase = ({phrase}) => {
   return (
     <div>
       Phrase {phrase.id} by {phrase.author}: {phrase.phrase} ({phrase.votes})
+
+      <VoteButton phrase={phrase} />
     </div>
+  )
+}
+
+const VoteButton = ({phrase}) => {
+  const dispatch = useDispatch()
+
+  const vote = () => {
+    dispatch(voteFor(phrase))
+  }
+
+  return (
+    <button onClick={vote}>Vote</button>
   )
 }
 

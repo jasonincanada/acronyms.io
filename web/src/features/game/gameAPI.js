@@ -53,9 +53,28 @@ async function apiPostPhrase(gameID, phrase) {
   return response
 }
 
+async function apiVoteFor(phrase_id) {
+
+  axios.defaults.withCredentials = true
+
+  const csrf = localStorage.getItem('axios.csrf')
+  const options = {
+    headers: {
+      'X-CSRFToken': csrf
+    }
+  }
+
+  // TODO: hard-coded endpoint
+  const url = '/api/phrase/' + phrase_id + '/vote/';
+  const response = await axios.post(url, {}, options)
+
+  return response
+}
+
 export { apiGetActiveGame,
          apiGetFinishedGames,
          apiGetPhrases,
-         apiPostPhrase
+         apiPostPhrase,
+         apiVoteFor,
        }
 

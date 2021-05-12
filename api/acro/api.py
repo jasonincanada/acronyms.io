@@ -1,5 +1,6 @@
 from django.contrib.auth            import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.db.models               import Count
 from django.middleware.csrf         import get_token
 from django.db    import IntegrityError, transaction
 from django.http  import JsonResponse
@@ -196,17 +197,32 @@ def valid_phrase_for(acro, phrase):
 
 
 @login_required
-def vote(request, game_id):
+def vote(request, phrase_id):
 
-  game   = FinishedGame.objects.get(pk=game_id)
-  phrase = FinalPhrase.objects.get(pk=request.POST['phrase'])
+  phrase = FinalPhrase.objects                \
+                      .select_related('game') \
+                      .get(pk=phrase_id)
 
-  Vote.objects.create(voter    = request.user,
-                      game     = game,
-                      phrase   = phrase,
-                      voted_on = timezone.now())
+  Vote.objects \
+      .update_or_create(voter    = request.user,
+                        game     = phrase.game,
+                        defaults = {'phrase': phrase,
+                                    'voted_on': timezone.now()} )
 
-  return JsonResponse({'result': 'ok'})
+  # return a new vote count for this game
+  tally = FinalPhrase.objects                       \
+                     .filter(game=phrase.game)      \
+                     .annotate(votes=Count('vote'))
+
+  response = [ { 'phrase_id': phrase.id,
+                 'votes'    : phrase.votes }
+
+                 for phrase in tally ]
+
+  data = {'result': 'ok',
+          'tally': response}
+
+  return JsonResponse(data)
 
 
 def get_csrf(request):
