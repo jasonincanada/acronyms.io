@@ -143,9 +143,7 @@ export const phrasesSlice = createSlice({
         const update = ({phrase_id, votes}) => {
           return {
             id: phrase_id,
-            changes: {
-              votes: votes
-            }
+            changes: { votes }
           }
         }
 
