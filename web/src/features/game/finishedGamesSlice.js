@@ -140,6 +140,7 @@ export const phrasesSlice = createSlice({
 
     [voteFor.fulfilled]: (state, {payload}) => {
 
+        // build the object containing update instructions for the phrases adapter
         const update = ({phrase_id, votes}) => {
           return {
             id: phrase_id,
@@ -147,6 +148,7 @@ export const phrasesSlice = createSlice({
           }
         }
 
+        // update the vote counts in the store
         payload.tally.forEach(p => phrasesAdapter.updateOne(state, update(p)))
     },
   },
