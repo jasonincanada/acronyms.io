@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+# run psql from the postgres container for arbitrary queries
+
+docker exec -it acronymsio_postgres_1 psql -U acro_dev
+
+#
+#    ~/acronyms.io$ ./psql
+#    
+#    acro_dev=# select * from acro_vote;
+#
+#     id |           voted_on            | game_id | phrase_id | voter_id
+#    ----+-------------------------------+---------+-----------+----------
+#      1 | 2021-05-10 21:27:01.578451+00 |       1 |         1 |        2
+#      2 | 2021-05-10 21:27:18.71416+00  |       1 |         1 |        1
+#    (2 rows)
+#    
+
