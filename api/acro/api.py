@@ -61,16 +61,16 @@ def get_finished_games(request, slug):
                       .order_by('-finished')     \
                       [:10]
 
-  response = [ { 'id':       game.id,
-                 'finished': game.finished.strftime("%Y-%m-%d %H:%M:%S"),
-                 'acronym':  game.acronym.acronym }
+  data = [ { 'id':       game.id,
+             'finished': game.finished.strftime("%Y-%m-%d %H:%M:%S"),
+             'acronym':  game.acronym.acronym }
 
-                 for game in games ]
+             for game in games ]
 
-  data = {'result': 'ok',
-          'finishedgames': response}
+  response = {'result': 'ok',
+              'finishedgames': data}
 
-  return JsonResponse(data)
+  return JsonResponse(response)
 
 
 # return the phrases and current vote tally for a finished game
@@ -94,17 +94,17 @@ def get_final_phrases(request, game_id):
 
   phrases = FinalPhrase.objects.raw(sql, [game_id])
 
-  response = [ { 'id':     p.id,
-                 'phrase': p.phrase,
-                 'author': p.display_name,
-                 'votes':  p.votes }
+  data = [ { 'id':     p.id,
+             'phrase': p.phrase,
+             'author': p.display_name,
+             'votes':  p.votes }
 
-                 for p in phrases ]
+             for p in phrases ]
 
-  data = {'result': 'ok',
-          'phrases': response}
+  response = {'result': 'ok',
+              'phrases': data}
 
-  return JsonResponse(data)
+  return JsonResponse(response)
 
 
 def get_activegame(request, slug):
@@ -214,15 +214,15 @@ def vote(request, phrase_id):
                      .filter(game=phrase.game)      \
                      .annotate(votes=Count('vote'))
 
-  response = [ { 'phrase_id': phrase.id,
-                 'votes'    : phrase.votes }
+  data = [ { 'phrase_id': phrase.id,
+             'votes'    : phrase.votes }
 
-                 for phrase in tally ]
+             for phrase in tally ]
 
-  data = {'result': 'ok',
-          'tally': response}
+  response = {'result': 'ok',
+              'tally': data}
 
-  return JsonResponse(data)
+  return JsonResponse(response)
 
 
 def get_csrf(request):
