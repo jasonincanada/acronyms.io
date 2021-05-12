@@ -65,12 +65,8 @@ const Phrase = ({phrase}) => {
 const VoteButton = ({phrase}) => {
   const dispatch = useDispatch()
 
-  const vote = () => {
-    dispatch(voteFor(phrase))
-  }
-
   return (
-    <button onClick={vote}>Vote</button>
+    <button onClick={() => dispatch(voteFor(phrase))}>Vote</button>
   )
 }
 
