@@ -159,7 +159,9 @@ export const phrasesSlice = createSlice({
   },
   extraReducers: {
     [getPhrases.fulfilled]: (state, {payload}) => {
-      phrasesAdapter.upsertMany(state, payload.phrases)
+
+      // addMany<S extends EntityState<T>>(state: S, entities: T[]): S
+      phrasesAdapter.addMany(state, payload.phrases)
     },
 
     [voteFor.fulfilled]: (state, {payload}) => {
