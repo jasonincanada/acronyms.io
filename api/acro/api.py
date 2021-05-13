@@ -77,27 +77,48 @@ def get_finished_games(request, slug):
 def get_final_phrases(request, game_id):
 
   sql = """
-    SELECT    fp.id,
-              fp.phrase,
-              u.display_name,
-              COUNT(v.id) AS votes
+    WITH vote_counts AS
+    (
+      SELECT    phrase.id AS phrase_id,
+                phrase.phrase,
+                author.display_name,
+                COUNT(voter.id) AS votes
 
-    FROM      acro_finalphrase fp
-    LEFT JOIN acro_vote v ON v.phrase_id = fp.id
-         JOIN acro_user u ON u.id = fp.user_id
+      FROM      acro_finalphrase phrase
+           JOIN acro_user        author ON author.id = phrase.user_id
+      LEFT JOIN acro_vote        voter  ON voter.phrase_id = phrase.id
 
-    WHERE  fp.game_id = %s
+      WHERE     phrase.game_id = %s
+      GROUP BY  phrase.id,
+                phrase.phrase,
+                author.display_name
+    ),
 
-    GROUP  BY fp.id,
-              u.id
+    my_votes AS
+    (
+      SELECT    phrase_id
+      FROM      acro_vote
+      WHERE     game_id = %s AND voter_id = %s
+    )
+
+    SELECT    vote_counts.phrase_id AS id,
+              vote_counts.phrase,
+              vote_counts.display_name,
+              vote_counts.votes,
+              my_votes.phrase_id AS playervoted
+
+    FROM      vote_counts
+    LEFT JOIN my_votes
+           ON my_votes.phrase_id = vote_counts.phrase_id
   """
 
-  phrases = FinalPhrase.objects.raw(sql, [game_id])
+  phrases = FinalPhrase.objects.raw(sql, [game_id, game_id, request.user.id])
 
   data = [ { 'id':     p.id,
              'phrase': p.phrase,
              'author': p.display_name,
-             'votes':  p.votes }
+             'votes':  p.votes,
+             'playervoted': True if p.playervoted is not None else False }
 
              for p in phrases ]
 
@@ -259,7 +280,8 @@ def get_votes(request, game_id):
               my_votes.phrase_id AS playervoted
 
     FROM      vote_counts
-    LEFT JOIN my_votes ON my_votes.phrase_id = vote_counts.phrase_id
+    LEFT JOIN my_votes
+           ON my_votes.phrase_id = vote_counts.phrase_id
   """
 
   phrases = FinalPhrase.objects.raw(sql, [game_id, game_id, request.user.id])
