@@ -80,7 +80,6 @@ def get_final_phrases(request, game_id):
     WITH vote_counts AS
     (
       SELECT    phrase.id AS phrase_id,
-                phrase.phrase,
                 phrase.user_id AS author_id,
                 COUNT(voter.id) AS votes
 
@@ -89,7 +88,6 @@ def get_final_phrases(request, game_id):
 
       WHERE     phrase.game_id = %s
       GROUP BY  phrase.id,
-                phrase.phrase,
                 phrase.user_id
     ),
 
@@ -101,14 +99,14 @@ def get_final_phrases(request, game_id):
     )
 
     SELECT    vote_counts.phrase_id AS id,
-              vote_counts.phrase,
               vote_counts.votes,
+              phrase.phrase,
               author.display_name,
               my_votes.phrase_id AS playervoted
 
     FROM      vote_counts
-         JOIN acro_user author
-           ON author.id = vote_counts.author_id
+         JOIN acro_finalphrase phrase ON phrase.id = vote_counts.phrase_id
+         JOIN acro_user        author ON author.id = vote_counts.author_id
     LEFT JOIN my_votes
            ON my_votes.phrase_id = vote_counts.phrase_id
   """
