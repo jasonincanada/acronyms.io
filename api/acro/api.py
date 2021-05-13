@@ -236,7 +236,7 @@ def get_votes(request, game_id):
   sql = """
     WITH vote_counts AS
     (
-      SELECT    phrase.id,
+      SELECT    phrase.id AS phrase_id,
                 COUNT(voter.id) AS votes
 
       FROM      acro_finalphrase phrase
@@ -254,12 +254,12 @@ def get_votes(request, game_id):
       WHERE     game_id = %s AND voter_id = %s
     )
 
-    SELECT    vote_counts.id,
+    SELECT    vote_counts.phrase_id AS id,
               vote_counts.votes,
               my_votes.phrase_id AS playervoted
 
     FROM      vote_counts
-    LEFT JOIN my_votes ON my_votes.phrase_id = vote_counts.id
+    LEFT JOIN my_votes ON my_votes.phrase_id = vote_counts.phrase_id
   """
 
   phrases = FinalPhrase.objects.raw(sql, [game_id, game_id, request.user.id])
