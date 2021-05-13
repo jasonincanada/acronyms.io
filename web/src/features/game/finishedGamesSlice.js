@@ -75,7 +75,8 @@ export const voteFor = createAsyncThunk(
 
       if (response.status === 200) {
         if (response.data.result === 'ok') {
-          return { tally: response.data.tally }
+          return { tally: response.data.tally,
+                   phrase }
         } else {
           return thunkAPI.rejectWithValue('todo')
         }
@@ -163,11 +164,18 @@ export const phrasesSlice = createSlice({
 
     [voteFor.fulfilled]: (state, {payload}) => {
 
+        // remember the phrase that we voted for, we'll specifically set this phrase
+        // as having been voted for by us, and the rest to not
+        const voted_phrase_id = payload.phrase.id
+
         // build the object containing update instructions for the phrases adapter
         const update = ({phrase_id, votes}) => {
           return {
             id: phrase_id,
-            changes: { votes }
+            changes: {
+              votes,
+              playervoted: phrase_id == voted_phrase_id
+            }
           }
         }
 
