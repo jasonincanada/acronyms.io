@@ -1,5 +1,5 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit'
-import { apiGetFinishedGames, apiGetPhrases, apiVoteFor } from './gameAPI'
+import { apiGetFinishedGames, apiGetPhrases, apiGetVotes, apiVoteFor } from './gameAPI'
 
 
 /* Adapters */
@@ -90,6 +90,29 @@ export const voteFor = createAsyncThunk(
   }
 )
 
+export const getVotes = createAsyncThunk(
+  'phrases/get-votes',
+  async (game, thunkAPI) => {
+    try {
+      const response = await apiGetVotes(game.id)
+
+      if (response.status === 200) {
+        if (response.data.result === 'ok') {
+          return { phrases: response.data.phrases }
+        } else {
+          return thunkAPI.rejectWithValue('todo')
+        }
+
+      } else {
+        return thunkAPI.rejectWithValue('todo')
+      }
+    } catch (e) {
+      console.log('Error', e.response.data)
+      thunkAPI.rejectWithValue(e.response.data)
+    }
+  }
+)
+
 
 /* Slices */
 
@@ -150,6 +173,19 @@ export const phrasesSlice = createSlice({
 
         // update the vote counts in the store
         payload.tally.forEach(p => phrasesAdapter.updateOne(state, update(p)))
+    },
+
+    // update the vote totals and whether the player voted for each phrase
+    [getVotes.fulfilled]: (state, {payload}) => {
+
+      const update = ({phrase_id, votes, playervoted}) => {
+        return {
+          id: phrase_id,
+          changes: { votes, playervoted }
+        }
+      }
+
+      payload.phrases.forEach(p => phrasesAdapter.updateOne(state, update(p)))
     },
   },
 })

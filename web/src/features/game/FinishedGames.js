@@ -4,6 +4,7 @@ import { roomSelector } from '../room/roomSlice'
 import { finishedGamesSelectors,
          phrasesSelectors,
          getPhrases,
+         getVotes,
          voteFor
        } from './finishedGamesSlice'
 
@@ -36,6 +37,10 @@ const FinishedGame = ({game}) => {
     setExpanded(true)
   }
 
+  const refreshVotes = () => {
+    dispatch(getVotes(game))
+  }
+
   return (
     <Fragment>
       <h4>Game {game.id}: {game.acronym}</h4>
@@ -43,11 +48,16 @@ const FinishedGame = ({game}) => {
       <button onClick={expand}>View</button>
 
       { expanded &&
-          <ul>
-            { game.phrases.map(id => <li key={id}>
-                                       <Phrase phrase={phrases[id]} />
-                                     </li>) }
-          </ul>
+
+          <Fragment>
+            <button onClick={refreshVotes}>Refresh Votes</button>
+
+            <ul>
+              { game.phrases.map(id => <li key={id}>
+                                         <Phrase phrase={phrases[id]} />
+                                       </li>) }
+            </ul>
+          </Fragment>
       }
     </Fragment>
   )
@@ -59,6 +69,12 @@ const Phrase = ({phrase}) => {
       Phrase {phrase.id} by {phrase.author}: {phrase.phrase} ({phrase.votes})
 
       <VoteButton phrase={phrase} />
+
+      { phrase.playervoted &&
+
+        <span>I voted for this phrase</span>
+      }
+
     </div>
   )
 }

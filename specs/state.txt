@@ -46,8 +46,8 @@ exampleState = {
   phrases: {
     ids: [1,2],
     entities: {
-      1: { id: 1, author: 'name'      , phrase: 'a b c d e f', votes: 5 },
-      2: { id: 2, author: 'other name', phrase: 'a b c d e f', votes: 4 },
+      1: { id: 1, author: 'name'      , phrase: 'a b c d e f', votes: 5, playervoted: true },
+      2: { id: 2, author: 'other name', phrase: 'a b c d e f', votes: 4, playervoted: false },
     },
   },
   finishedgames: {

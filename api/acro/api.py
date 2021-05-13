@@ -225,6 +225,57 @@ def vote(request, phrase_id):
   return JsonResponse(response)
 
 
+# return a vote tally for each phrase in a finished game, and include for each phrase
+# whether the player voted for it. if a player could vote for only one phrase per game,
+# we could render their vote at the FinishedGame level instead of per phrase. but we
+# might allow voting on more than one phrase at some point, so this query is already set
+# up it
+#
+def get_votes(request, game_id):
+
+  sql = """
+    WITH vote_counts AS
+    (
+      SELECT    phrase.id,
+                COUNT(voter.id) AS votes
+
+      FROM      acro_finalphrase phrase
+      LEFT JOIN acro_vote        voter
+             ON voter.phrase_id = phrase.id
+
+      WHERE     phrase.game_id = %s
+      GROUP BY  phrase.id
+    ),
+
+    my_votes AS
+    (
+      SELECT    phrase_id
+      FROM      acro_vote
+      WHERE     game_id = %s AND voter_id = %s
+    )
+
+    SELECT    vote_counts.id,
+              vote_counts.votes,
+              my_votes.phrase_id AS playervoted
+
+    FROM      vote_counts
+    LEFT JOIN my_votes ON my_votes.phrase_id = vote_counts.id
+  """
+
+  phrases = FinalPhrase.objects.raw(sql, [game_id, game_id, request.user.id])
+
+  data = [ { 'phrase_id':   p.id,
+             'playervoted': True if p.playervoted is not None else False,
+             'votes':       p.votes }
+
+             for p in phrases ]
+
+  response = {'result': 'ok',
+              'phrases': data}
+
+  return JsonResponse(response)
+
+
 def get_csrf(request):
   token = get_token(request)
   return JsonResponse({'token': token})

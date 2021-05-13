@@ -11,6 +11,7 @@ urlpatterns = [
   path('room/<slug>/get',                 api.get_room, name='api-get-room'),
   path('room/<int:room_id>/new-game/',    api.new_game, name='api-new-game'),
   path('activegame/<int:game_id>/phrase/post', api.post_phrase, name='api-post-phrase'),
+  path('votes/<int:game_id>/get',         api.get_votes, name='api-get-votes'),
   path('phrase/<int:phrase_id>/vote/',    api.vote, name='api-vote'),
   path('activegame/<slug>/get',           api.get_activegame, name='api-get-activegame'),
   path('finishedgames/<slug>/get',        api.get_finished_games, name='api-get-finishedgames'),
