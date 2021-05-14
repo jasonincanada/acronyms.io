@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useSelector, useDispatch } from 'react-redux'
 import { signUpUser, userSelector } from './userSlice'

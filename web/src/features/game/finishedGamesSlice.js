@@ -176,7 +176,7 @@ export const phrasesSlice = createSlice({
             id: phrase_id,
             changes: {
               votes,
-              playervoted: phrase_id == voted_phrase_id
+              playervoted: phrase_id === voted_phrase_id
             }
           }
         }
