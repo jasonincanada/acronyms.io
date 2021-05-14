@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import './App.css';
 import Login from './features/user/Login'
 import Room from './features/room/Room'
+import SignUp from './features/user/SignUp'
 import User from './features/user/User'
 
 const appInit = createAction('app/init')
@@ -46,6 +47,9 @@ function App() {
           </Route>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/signup">
+            <SignUp />
           </Route>
           <Route path="/about">
             <About />

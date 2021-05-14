@@ -6,6 +6,7 @@ from django.db    import IntegrityError, transaction
 from django.http  import JsonResponse
 from django.utils import timezone
 
+from .forms  import SignUpForm
 from .models import ActiveGame, FinishedGame,  \
                     LatestPhrase, FinalPhrase, \
                     Acronym, Room, User, Vote
@@ -321,4 +322,24 @@ def login_user(request):
 
     return JsonResponse({'result': 'error',
                          'errorMessage': 'Invalid login' })
+
+
+# https://simpleisbetterthancomplex.com/tutorial/2017/02/18/how-to-create-user-sign-up-view.html
+#
+def signup_user(request):
+  if request.method == 'POST':
+    form = SignUpForm(request.POST)
+
+    if form.is_valid():
+      form.save()
+      username = form.cleaned_data.get('username')
+      raw_password = form.cleaned_data.get('password1')
+      user = authenticate(username=username, password=raw_password)
+      login(request, user)
+
+      return JsonResponse({'result': 'ok'})
+
+    else:
+      return JsonResponse({'result': 'error',
+                           'errors': form.errors})
 
