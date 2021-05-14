@@ -16,6 +16,56 @@ import random
 import string
 
 
+#- User Auth -#
+
+def get_csrf(request):
+  token = get_token(request)
+  return JsonResponse({'token': token})
+
+
+def login_user(request):
+  if request.POST:
+    username = request.POST['username']
+    password = request.POST['password']
+
+    user = authenticate(username=username, password=password)
+
+    if user is not None:
+      if user.is_active:
+        login(request, user)
+
+        # get our custom user that knows about the display name
+        user2 = User.objects.get(username=username)
+
+        return JsonResponse({'result': 'ok',
+                             'displayname': user2.display_name })
+
+    return JsonResponse({'result': 'error',
+                         'errorMessage': 'Invalid login' })
+
+
+# https://simpleisbetterthancomplex.com/tutorial/2017/02/18/how-to-create-user-sign-up-view.html
+#
+def signup_user(request):
+  if request.method == 'POST':
+    form = SignUpForm(request.POST)
+
+    if form.is_valid():
+      form.save()
+      username = form.cleaned_data.get('username')
+      raw_password = form.cleaned_data.get('password1')
+      user = authenticate(username=username, password=raw_password)
+      login(request, user)
+
+      return JsonResponse({'result': 'ok'})
+
+    else:
+      return JsonResponse({'result': 'error',
+                           'errors': form.errors})
+
+
+#- Game API -#
+
 @login_required
 def new_game(request, room_id):
 
@@ -154,7 +204,6 @@ def get_activegame(request, slug):
 
   except ActiveGame.DoesNotExist:
     return JsonResponse({'result': 'no game'})
-
 
 
 @login_required
@@ -296,50 +345,4 @@ def get_votes(request, game_id):
               'phrases': data}
 
   return JsonResponse(response)
-
-
-def get_csrf(request):
-  token = get_token(request)
-  return JsonResponse({'token': token})
-
-
-def login_user(request):
-  if request.POST:
-    username = request.POST['username']
-    password = request.POST['password']
-
-    user = authenticate(username=username, password=password)
-
-    if user is not None:
-      if user.is_active:
-        login(request, user)
-
-        # get our custom user that knows about the display name
-        user2 = User.objects.get(username=username)
-
-        return JsonResponse({'result': 'ok',
-                             'displayname': user2.display_name })
-
-    return JsonResponse({'result': 'error',
-                         'errorMessage': 'Invalid login' })
-
-
-# https://simpleisbetterthancomplex.com/tutorial/2017/02/18/how-to-create-user-sign-up-view.html
-#
-def signup_user(request):
-  if request.method == 'POST':
-    form = SignUpForm(request.POST)
-
-    if form.is_valid():
-      form.save()
-      username = form.cleaned_data.get('username')
-      raw_password = form.cleaned_data.get('password1')
-      user = authenticate(username=username, password=raw_password)
-      login(request, user)
-
-      return JsonResponse({'result': 'ok'})
-
-    else:
-      return JsonResponse({'result': 'error',
-                           'errors': form.errors})
 
