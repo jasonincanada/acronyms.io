@@ -4,6 +4,7 @@ import { apiGetActiveGame, apiPostPhrase, apiStartNewGame } from './gameAPI'
 const initialState = {
   id: null,
   acronym: null,
+  started: null,
   finishing: null,
   myphrase: null
 }

@@ -5,7 +5,7 @@ import { activeGameSelector, postPhrase, startNewGame } from './gameSlice'
 
 const ActiveGame = () => {
 
-  const { id, acronym, finishing, myphrase, error } = useSelector(activeGameSelector)
+  const { id, acronym, started, finishing, myphrase, error } = useSelector(activeGameSelector)
   const { slug } = useParams()
   const [ phrase, setPhrase ] = useState('');
   const dispatch = useDispatch();
@@ -26,6 +26,7 @@ const ActiveGame = () => {
       <Fragment>
         <div>Room Slug: { slug }</div>
         <div>Acronym: { acronym }</div>
+        <div>Started: { started }</div>
         <div>Finishing: { finishing }</div>
         <div>My phrase: { myphrase }</div>
         { error &&

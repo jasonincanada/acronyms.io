@@ -3,6 +3,7 @@ initialState = {
   activegame: {
     id: null,
     acronym:   null,
+    started:   null,
     finishing: null,
     myphrase:  null,
     error: null,
@@ -34,6 +35,7 @@ exampleState = {
   activegame: {
     id: 1,
     acronym: 'abcdef',
+    started: '2021-05-02 19:49:07.617031',
     finishing: '2021-05-03 19:49:07.617031',
     myphrase: 'a b c d e f',
     error: 'not enough words'
