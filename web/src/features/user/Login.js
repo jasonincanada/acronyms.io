@@ -4,10 +4,10 @@ import React, { Fragment, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useSelector, useDispatch } from 'react-redux'
-import { loginUser, userSelector } from './userSlice'
+import { loginUser, logoutUser, userSelector } from './userSlice'
 import toast from 'react-hot-toast'
 
-const Login = () => {
+export const Login = () => {
 
   const dispatch = useDispatch()
   const history = useHistory()
@@ -67,4 +67,29 @@ const Login = () => {
   )
 }
 
-export default Login
+export const Logout = () => {
+
+  const dispatch = useDispatch()
+  const history  = useHistory()
+
+  useEffect(() => {
+    dispatch(logoutUser())
+    history.push('/')
+  })
+
+  return (
+    <Fragment>
+      <div>
+        <h2>
+          Log Out
+        </h2>
+
+        <div>
+          Logging out...
+        </div>
+
+      </div>
+    </Fragment>
+  )
+}
+

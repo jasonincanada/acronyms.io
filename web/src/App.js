@@ -3,7 +3,7 @@ import { createAction } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import './App.css';
-import Login from './features/user/Login'
+import { Login, Logout } from './features/user/Login'
 import Room from './features/room/Room'
 import SignUp from './features/user/SignUp'
 import User from './features/user/User'
@@ -33,6 +33,7 @@ function App() {
             <li><Link to="/r/room-with-game">Room With Game</Link></li>
             <li><Link to="/r/room-no-game">Room Without Game</Link></li>
             <li><Link to="/login">Login</Link></li>
+            <li><Link to="/logout">Logout</Link></li>
             <li><Link to="/about">About</Link></li>
           </ul>
         </nav>
@@ -47,6 +48,9 @@ function App() {
           </Route>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/logout">
+            <Logout />
           </Route>
           <Route path="/signup">
             <SignUp />

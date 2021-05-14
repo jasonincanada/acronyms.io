@@ -1,7 +1,8 @@
 // started from: https://cloudnweb.dev/2021/02/modern-react-redux-tutotials-redux-toolkit-login-user-registration/
 
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createAction, createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { apiLogin, apiSignUpUser } from './userAPI'
+import Cookies from 'universal-cookie'
 
 
 const initialState = {
@@ -12,6 +13,11 @@ const initialState = {
   isError: false,
   errorMessage: '',
 }
+
+
+/* Actions */
+
+export const logoutUser = createAction('user/logout')
 
 
 /* Thunks */
@@ -93,6 +99,20 @@ export const userSlice = createSlice({
     [loginUser.pending]: (state) => {
       state.isFetching = true
       state.isError = false
+    },
+
+    'user/logout': (state) => {
+
+      // forget the locally-stored user names and session info
+      localStorage.removeItem('user.username')
+      localStorage.removeItem('user.displayname')
+      localStorage.removeItem('axios.csrf')
+
+      const cookies = new Cookies()
+      cookies.remove('csrftoken')   // TODO csrftoken is being removed as expected
+      cookies.remove('sessionid')   //      but sessionid persists somehow
+
+      return initialState
     },
 
     /* user signup */
