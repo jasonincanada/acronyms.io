@@ -1,5 +1,7 @@
 import axios from 'axios'
+import Cookies from 'universal-cookie'
 import qs from 'qs'
+
 
 async function apiGetActiveGame(slug) {
 
@@ -38,10 +40,10 @@ async function apiPostPhrase(gameID, phrase) {
 
   axios.defaults.withCredentials = true
 
-  const csrf = localStorage.getItem('axios.csrf')
+  const cookies = new Cookies()
   const options = {
     headers: {
-      'X-CSRFToken': csrf
+      'X-CSRFToken': cookies.get('csrftoken')
     }
   }
 
@@ -57,10 +59,10 @@ async function apiVoteFor(phrase_id) {
 
   axios.defaults.withCredentials = true
 
-  const csrf = localStorage.getItem('axios.csrf')
+  const cookies = new Cookies()
   const options = {
     headers: {
-      'X-CSRFToken': csrf
+      'X-CSRFToken': cookies.get('csrftoken')
     }
   }
 
@@ -75,10 +77,10 @@ async function apiGetVotes(game_id) {
 
   axios.defaults.withCredentials = true
 
-  const csrf = localStorage.getItem('axios.csrf')
+  const cookies = new Cookies()
   const options = {
     headers: {
-      'X-CSRFToken': csrf
+      'X-CSRFToken': cookies.get('csrftoken')
     }
   }
 

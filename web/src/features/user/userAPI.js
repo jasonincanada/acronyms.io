@@ -18,8 +18,6 @@ async function apiLogin(username, password) {
   }
 
   // that fetch will have set the cookie
-  // also store it in localStorage for axios' POST headers
-  localStorage.setItem('axios.csrf', csrf.data.token)
 
   // log in with the token
   const data = {
@@ -51,8 +49,6 @@ async function apiSignUpUser(username, display_name, email, password1, password2
   }
 
   // that fetch will have set the cookie
-  // also store it in localStorage for axios' POST headers
-  localStorage.setItem('axios.csrf', csrf.data.token)
 
   // sign up with the token
   const data = {

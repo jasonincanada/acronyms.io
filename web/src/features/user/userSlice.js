@@ -106,7 +106,6 @@ export const userSlice = createSlice({
       // forget the locally-stored user names and session info
       localStorage.removeItem('user.username')
       localStorage.removeItem('user.displayname')
-      localStorage.removeItem('axios.csrf')
 
       const cookies = new Cookies()
       cookies.remove('csrftoken')   // TODO csrftoken is being removed as expected
