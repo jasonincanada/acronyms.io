@@ -6,7 +6,7 @@ const url_login = '/api/login'
 const url_signup = '/api/signup'
 const url_csrf  = '/api/csrf/get'
 
-async function login(username, password) {
+async function apiLogin(username, password) {
 
   axios.defaults.withCredentials = true
 
@@ -75,5 +75,5 @@ async function apiSignUpUser(username, display_name, email, password1, password2
   return response
 }
 
-export { login, apiSignUpUser }
+export { apiLogin, apiSignUpUser }
 

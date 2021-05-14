@@ -1,7 +1,7 @@
 // started from: https://cloudnweb.dev/2021/02/modern-react-redux-tutotials-redux-toolkit-login-user-registration/
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { login, apiSignUpUser } from './userAPI'
+import { apiLogin, apiSignUpUser } from './userAPI'
 
 
 const initialState = {
@@ -20,7 +20,7 @@ export const loginUser = createAsyncThunk(
   'user/login',
   async ({ username, password }, thunkAPI) => {
     try {
-      const response = await login(username, password)
+      const response = await apiLogin(username, password)
 
       if (response.status === 200) {
         if (response.data.result === 'ok') {
