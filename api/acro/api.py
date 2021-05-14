@@ -16,6 +16,10 @@ import random
 import string
 
 
+# convert outgoing timestamps to this format
+timestamp_format = "%Y-%m-%d %H:%M:%S"
+
+
 #- User Auth -#
 
 def get_csrf(request):
@@ -85,8 +89,8 @@ def start_game(request, slug):
         'activegame': {
           'id': activegame.id,
           'acronym': activegame.acronym.acronym,
-          'started': activegame.started.strftime("%Y-%m-%d %H:%M:%S"),
-          'finishing': activegame.finishing.strftime("%Y-%m-%d %H:%M:%S"),
+          'started': activegame.started.strftime(timestamp_format),
+          'finishing': activegame.finishing.strftime(timestamp_format),
         },
         'myphrase': None,
       }
@@ -112,8 +116,8 @@ def get_activegame(request, slug):
       'activegame': {
         'id': activegame.id,
         'acronym': activegame.acronym.acronym,
-        'started': activegame.started.strftime("%Y-%m-%d %H:%M:%S"),
-        'finishing': activegame.finishing.strftime("%Y-%m-%d %H:%M:%S"),
+        'started': activegame.started.strftime(timestamp_format),
+        'finishing': activegame.finishing.strftime(timestamp_format),
       },
       'myphrase': None,
     }
@@ -156,7 +160,7 @@ def get_finished_games(request, slug):
                       [:10]
 
   data = [ { 'id':       game.id,
-             'finished': game.finished.strftime("%Y-%m-%d %H:%M:%S"),
+             'finished': game.finished.strftime(timestamp_format),
              'acronym':  game.acronym.acronym }
 
              for game in games ]
