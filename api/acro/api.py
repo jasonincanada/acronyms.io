@@ -76,22 +76,28 @@ def start_game(request, slug):
       acronym = generate_acronym();
       finishing = datetime.datetime.now() + datetime.timedelta(hours=1)
 
-      active_game = ActiveGame.objects.create(room=room,
-                                              acronym=acronym,
-                                              finishing=finishing)
+      activegame = ActiveGame.objects.create(room=room,
+                                             acronym=acronym,
+                                             finishing=finishing)
 
       response = {
         'result': 'ok',
-        'game_id': active_game.id,
-        'acronym': acronym.acronym,
-        'finishing': finishing.strftime("%Y-%m-%d %H:%M:%S"),
+        'activegame': {
+          'id': activegame.id,
+          'acronym': activegame.acronym.acronym,
+          'started': activegame.started.strftime("%Y-%m-%d %H:%M:%S"),
+          'finishing': activegame.finishing.strftime("%Y-%m-%d %H:%M:%S"),
+        },
+        'myphrase': None,
       }
 
   except Room.DoesNotExist:
-    response = { 'error': 'no room' }
+    response = { 'result': 'error',
+                 'error':  'There\'s no such room' }
 
   except IntegrityError:
-    response = { 'error': 'Game already in progress' }
+    response = { 'result': 'error',
+                 'error':  'Game already in progress' }
 
   return JsonResponse(response)
 
@@ -101,12 +107,15 @@ def get_activegame(request, slug):
   try:
     activegame = ActiveGame.objects.get(room__slug=slug)
 
-    result = {
+    response = {
       'result': 'ok',
-      'id': activegame.id,
-      'acronym': activegame.acronym.acronym,
-      'started': activegame.started,
-      'finishing': activegame.finishing
+      'activegame': {
+        'id': activegame.id,
+        'acronym': activegame.acronym.acronym,
+        'started': activegame.started.strftime("%Y-%m-%d %H:%M:%S"),
+        'finishing': activegame.finishing.strftime("%Y-%m-%d %H:%M:%S"),
+      },
+      'myphrase': None,
     }
 
     # see if we have a phrase for this user yet
@@ -116,12 +125,13 @@ def get_activegame(request, slug):
                          .first()
 
     if latest:
-      result.update({'myphrase': latest.phrase})
+      response.update({'myphrase': latest.phrase})
 
-    return JsonResponse(result)
+    return JsonResponse(response)
 
   except ActiveGame.DoesNotExist:
-    return JsonResponse({'result': 'no game'})
+    return JsonResponse({'result': 'error',
+                         'error': 'no game'})
 
 
 # generate and return a new Acronym object if it's a newly-seen acronym

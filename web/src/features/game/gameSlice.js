@@ -19,13 +19,11 @@ export const getActiveGame = createAsyncThunk(
 
       if (response.status === 200) {
         if (response.data.result === 'ok') {
-          return { id: response.data.id,
-                   acronym: response.data.acronym,
-                   finishing: response.data.finishing,
+          return { activegame: response.data.activegame,
                    myphrase: response.data.myphrase,
                  }
         } else {
-          return thunkAPI.rejectWithValue(response.data.errorMessage)
+          return thunkAPI.rejectWithValue(response.data.error)
         }
 
       } else {
@@ -46,13 +44,11 @@ export const startNewGame = createAsyncThunk(
 
       if (response.status === 200) {
         if (response.data.result === 'ok') {
-          return { id: response.data.game_id,
-                   acronym: response.data.acronym,
-                   finishing: response.data.finishing,
-                   myphrase: null
+          return { activegame: response.data.activegame,
+                   myphrase: response.data.myphrase
                  }
         } else {
-          return thunkAPI.rejectWithValue(response.data.errorMessage)
+          return thunkAPI.rejectWithValue(response.data.error)
         }
 
       } else {
@@ -101,9 +97,10 @@ export const activeGameSlice = createSlice({
   },
   extraReducers: {
     [getActiveGame.fulfilled]: (state, {payload}) => {
-      state.id = payload.id
-      state.acronym = payload.acronym
-      state.finishing = payload.finishing
+      state.id = payload.activegame.id
+      state.acronym = payload.activegame.acronym
+      state.started = payload.activegame.started
+      state.finishing = payload.activegame.finishing
       state.myphrase = payload.myphrase
     },
     [getActiveGame.rejected]: (state, {payload}) => {
@@ -111,9 +108,10 @@ export const activeGameSlice = createSlice({
     },
 
     [startNewGame.fulfilled]: (state, {payload}) => {
-      state.id = payload.id
-      state.acronym = payload.acronym
-      state.finishing = payload.finishing
+      state.id = payload.activegame.id
+      state.acronym = payload.activegame.acronym
+      state.started = payload.activegame.started
+      state.finishing = payload.activegame.finishing
       state.myphrase = payload.myphrase
     },
 
