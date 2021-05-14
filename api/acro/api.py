@@ -96,6 +96,34 @@ def start_game(request, slug):
   return JsonResponse(response)
 
 
+def get_activegame(request, slug):
+
+  try:
+    activegame = ActiveGame.objects.get(room__slug=slug)
+
+    result = {
+      'result': 'ok',
+      'id': activegame.id,
+      'acronym': activegame.acronym.acronym,
+      'started': activegame.started,
+      'finishing': activegame.finishing
+    }
+
+    # see if we have a phrase for this user yet
+    latest = LatestPhrase.objects                   \
+                         .filter(game=activegame)   \
+                         .filter(user=request.user) \
+                         .first()
+
+    if latest:
+      result.update({'myphrase': latest.phrase})
+
+    return JsonResponse(result)
+
+  except ActiveGame.DoesNotExist:
+    return JsonResponse({'result': 'no game'})
+
+
 # generate and return a new Acronym object if it's a newly-seen acronym
 # or return the record of the existing one
 def generate_acronym():
@@ -181,34 +209,6 @@ def get_final_phrases(request, game_id):
               'phrases': data}
 
   return JsonResponse(response)
-
-
-def get_activegame(request, slug):
-
-  try:
-    activegame = ActiveGame.objects.get(room__slug=slug)
-
-    result = {
-      'result': 'ok',
-      'id': activegame.id,
-      'acronym': activegame.acronym.acronym,
-      'started': activegame.started,
-      'finishing': activegame.finishing
-    }
-
-    # see if we have a phrase for this user yet
-    latest = LatestPhrase.objects                   \
-                         .filter(game=activegame)   \
-                         .filter(user=request.user) \
-                         .first()
-
-    if latest:
-      result.update({'myphrase': latest.phrase})
-
-    return JsonResponse(result)
-
-  except ActiveGame.DoesNotExist:
-    return JsonResponse({'result': 'no game'})
 
 
 @login_required
