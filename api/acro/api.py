@@ -67,26 +67,31 @@ def signup_user(request):
 #- Game API -#
 
 @login_required
-def new_game(request, room_id):
+def start_game(request, slug):
 
   try:
+    room = Room.objects.get(slug=slug)
+
     with transaction.atomic():
       acronym = generate_acronym();
       finishing = datetime.datetime.now() + datetime.timedelta(hours=1)
 
-      active_game = ActiveGame.objects.create(room_id=room_id,
+      active_game = ActiveGame.objects.create(room=room,
                                               acronym=acronym,
                                               finishing=finishing)
 
       response = {
+        'result': 'ok',
         'game_id': active_game.id,
-        'acronym': acronym.acronym
+        'acronym': acronym.acronym,
+        'finishing': finishing.strftime("%Y-%m-%d %H:%M:%S"),
       }
 
+  except Room.DoesNotExist:
+    response = { 'error': 'no room' }
+
   except IntegrityError:
-    response = {
-      'error': 'Game already in progress',
-    }
+    response = { 'error': 'Game already in progress' }
 
   return JsonResponse(response)
 

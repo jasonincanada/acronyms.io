@@ -14,6 +14,24 @@ async function apiGetActiveGame(slug) {
   return response
 }
 
+async function apiStartNewGame(slug) {
+
+  axios.defaults.withCredentials = true
+
+  const cookies = new Cookies()
+  const options = {
+    headers: {
+      'X-CSRFToken': cookies.get('csrftoken')
+    }
+  }
+
+  // TODO: hard-coded endpoint
+  const url = '/api/activegame/' + slug + '/start'
+  const response = await axios.post(url, {}, options)
+
+  return response
+}
+
 async function apiGetFinishedGames(slug) {
 
   axios.defaults.withCredentials = true
@@ -92,6 +110,7 @@ async function apiGetVotes(game_id) {
 }
 
 export { apiGetActiveGame,
+         apiStartNewGame,
          apiGetFinishedGames,
          apiGetPhrases,
          apiGetVotes,

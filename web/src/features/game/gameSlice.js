@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { apiGetActiveGame, apiPostPhrase } from './gameAPI'
+import { apiGetActiveGame, apiPostPhrase, apiStartNewGame } from './gameAPI'
 
 const initialState = {
   id: null,
@@ -23,6 +23,33 @@ export const getActiveGame = createAsyncThunk(
                    acronym: response.data.acronym,
                    finishing: response.data.finishing,
                    myphrase: response.data.myphrase,
+                 }
+        } else {
+          return thunkAPI.rejectWithValue(response.data.errorMessage)
+        }
+
+      } else {
+        return thunkAPI.rejectWithValue('todo')
+      }
+    } catch (e) {
+      console.log('Error', e.response.data)
+      thunkAPI.rejectWithValue(e.response.data)
+    }
+  }
+)
+
+export const startNewGame = createAsyncThunk(
+  'activegame/start',
+  async (slug, thunkAPI) => {
+    try {
+      const response = await apiStartNewGame(slug)
+
+      if (response.status === 200) {
+        if (response.data.result === 'ok') {
+          return { id: response.data.game_id,
+                   acronym: response.data.acronym,
+                   finishing: response.data.finishing,
+                   myphrase: null
                  }
         } else {
           return thunkAPI.rejectWithValue(response.data.errorMessage)
@@ -82,6 +109,14 @@ export const activeGameSlice = createSlice({
     [getActiveGame.rejected]: (state, {payload}) => {
       return initialState
     },
+
+    [startNewGame.fulfilled]: (state, {payload}) => {
+      state.id = payload.id
+      state.acronym = payload.acronym
+      state.finishing = payload.finishing
+      state.myphrase = payload.myphrase
+    },
+
     [postPhrase.fulfilled]: (state, {payload}) => {
       state.myphrase = payload.phrase
       state.error = null
