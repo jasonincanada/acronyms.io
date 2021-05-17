@@ -16,29 +16,10 @@ const phrasesAdapter = createEntityAdapter({})
 
 /* Thunks */
 
-// get finished games for a particular room
-export const getFinishedGames = createAcroThunk(
-  'finishedgames/get',
-  apiGetFinishedGames
-)
-
-// get phrases and current vote counts for a particular finishedgame
-export const getPhrases = createAcroThunk(
-  'phrases/get',
-  apiGetPhrases
-)
-
-// vote for a particular phrase
-export const voteFor = createAcroThunk(
-  'phrases/vote',
-  apiVoteFor
-)
-
-export const getVotes = createAcroThunk(
-  'phrases/get-votes',
-  apiGetVotes
-)
-
+export const getFinishedGames = createAcroThunk('finishedgames/get', apiGetFinishedGames)
+export const getPhrases       = createAcroThunk('phrases/get', apiGetPhrases)
+export const voteFor          = createAcroThunk('phrases/vote', apiVoteFor)
+export const getVotes         = createAcroThunk('phrases/get-votes', apiGetVotes)
 
 
 /* Slices */
