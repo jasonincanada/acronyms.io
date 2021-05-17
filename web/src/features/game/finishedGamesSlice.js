@@ -66,28 +66,10 @@ export const getPhrases = createAcroThunk(
   apiGetPhrases
 )
 
-export const voteFor = createAsyncThunk(
+// vote for a particular phrase
+export const voteFor = createAcroThunk(
   'phrases/vote',
-  async (phrase, thunkAPI) => {
-    try {
-      const response = await apiVoteFor(phrase.id)
-
-      if (response.status === 200) {
-        if (response.data.result === 'ok') {
-          return { tally: response.data.tally,
-                   phrase }
-        } else {
-          return thunkAPI.rejectWithValue('todo')
-        }
-
-      } else {
-        return thunkAPI.rejectWithValue('todo')
-      }
-    } catch (e) {
-      console.log('Error', e.response.data)
-      thunkAPI.rejectWithValue(e.response.data)
-    }
-  }
+  apiVoteFor
 )
 
 export const getVotes = createAsyncThunk(
@@ -166,9 +148,11 @@ export const phrasesSlice = createSlice({
 
     [voteFor.fulfilled]: (state, {payload}) => {
 
+        const phrase = payload.arg
+
         // remember the phrase that we voted for, we'll specifically set this phrase
         // as having been voted for by us, and the rest to not
-        const voted_phrase_id = payload.phrase.id
+        const voted_phrase_id = phrase.id
 
         // build the object containing update instructions for the phrases adapter
         const update = ({phrase_id, votes}) => {
