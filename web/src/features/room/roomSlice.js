@@ -1,6 +1,7 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import { apiGetRoom } from './roomAPI'
 import { getFinishedGames } from '../game/finishedGamesSlice'
+import { createAcroThunk } from '../common'
 
 
 const initialState = {
@@ -12,30 +13,7 @@ const initialState = {
 
 /* Thunks */
 
-export const getRoom = createAsyncThunk(
-  'room/get',
-  async (slug, thunkAPI) => {
-    try {
-      const response = await apiGetRoom(slug)
-
-      if (response.status === 200) {
-        if (response.data.result === 'ok') {
-          return { slug: response.data.slug,
-                   description: response.data.description,
-                 }
-        } else {
-          return thunkAPI.rejectWithValue('no room')
-        }
-
-      } else {
-        return thunkAPI.rejectWithValue('todo')
-      }
-    } catch (e) {
-      console.log('Error', e.response.data)
-      thunkAPI.rejectWithValue(e.response.data)
-    }
-  }
-)
+export const getRoom = createAcroThunk('room/get', apiGetRoom)
 
 
 /* Slices */
