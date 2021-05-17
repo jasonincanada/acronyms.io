@@ -61,29 +61,9 @@ export const getFinishedGames = createAcroThunk(
 
 // get phrases and current vote counts for a particular finishedgame
 //
-export const getPhrases = createAsyncThunk(
+export const getPhrases = createAcroThunk(
   'phrases/get',
-  async (game, thunkAPI) => {
-    try {
-      const response = await apiGetPhrases(game.id)
-
-      if (response.status === 200) {
-        if (response.data.result === 'ok') {
-          return { phrases: response.data.phrases,
-                   game:    game,
-                 }
-        } else {
-          return thunkAPI.rejectWithValue(response.data.errorMessage)
-        }
-
-      } else {
-        return thunkAPI.rejectWithValue('todo')
-      }
-    } catch (e) {
-      console.log('Error', e.response.data)
-      thunkAPI.rejectWithValue(e.response.data)
-    }
-  }
+  apiGetPhrases
 )
 
 export const voteFor = createAsyncThunk(
@@ -159,8 +139,9 @@ export const finishedGamesSlice = createSlice({
     },
 
     [getPhrases.fulfilled]: (state, {payload}) => {
-      const id  = payload.game.id
-      const ids = payload.phrases.map(p => p.id)
+      const game = payload.arg
+      const id   = game.id
+      const ids  = payload.phrases.map(p => p.id)
 
       // updateOne is a helper method defined in EntityStateAdapter<T>
       // see: https://redux-toolkit.js.org/api/createEntityAdapter#return-value

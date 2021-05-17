@@ -43,12 +43,12 @@ async function apiGetFinishedGames(slug) {
   return response
 }
 
-async function apiGetPhrases(game_id) {
+async function apiGetPhrases(game) {
 
   axios.defaults.withCredentials = true
 
   // TODO: hard-coded endpoint
-  const url = '/api/finalphrases/' + game_id + '/get'
+  const url = '/api/finalphrases/' + game.id + '/get'
   const response = await axios.get(url)
 
   return response
