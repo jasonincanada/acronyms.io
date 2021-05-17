@@ -15,6 +15,34 @@ const phrasesAdapter = createEntityAdapter({})
 
 /* Thunks */
 
+// get finished games for a particular room
+export const getFinishedGames = createAcroThunk(
+  'finishedgames/get',
+  apiGetFinishedGames
+)
+
+// get phrases and current vote counts for a particular finishedgame
+export const getPhrases = createAcroThunk(
+  'phrases/get',
+  apiGetPhrases
+)
+
+// vote for a particular phrase
+export const voteFor = createAcroThunk(
+  'phrases/vote',
+  apiVoteFor
+)
+
+export const getVotes = createAcroThunk(
+  'phrases/get-votes',
+  apiGetVotes
+)
+
+
+// our common thunk creator that calls a particular async API function to
+// request something from the server. if the API response contains a property
+// .result that is 'ok' the thunk promise is fulfilled, otherwise it's rejected
+//
 const createAcroThunk = (name, apiCall) => {
   return createAsyncThunk(
     name,
@@ -52,30 +80,6 @@ const createAcroThunk = (name, apiCall) => {
   )
 }
 
-// get finished games for a particular room
-export const getFinishedGames = createAcroThunk(
-  'finishedgames/get',
-  apiGetFinishedGames
-)
-
-
-// get phrases and current vote counts for a particular finishedgame
-//
-export const getPhrases = createAcroThunk(
-  'phrases/get',
-  apiGetPhrases
-)
-
-// vote for a particular phrase
-export const voteFor = createAcroThunk(
-  'phrases/vote',
-  apiVoteFor
-)
-
-export const getVotes = createAcroThunk(
-  'phrases/get-votes',
-  apiGetVotes
-)
 
 
 /* Slices */
