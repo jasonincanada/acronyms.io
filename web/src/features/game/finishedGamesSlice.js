@@ -16,8 +16,21 @@ const phrasesAdapter = createEntityAdapter({})
 
 /* Thunks */
 
+
+// if we already have the phrases for a given finished game, don't bother retrieving
+// them again, since they don't change after a game has finished
+//
+// the second argument for this callback would be the getState() function, but we
+// already have what we need in the game object, so we leave it out for this condition
+//
+const checkPhrases = (game) => {
+  if (game.phrases.length > 0) {
+    return false
+  }
+}
+
 export const getFinishedGames = createAcroThunk('finishedgames/get', apiGetFinishedGames)
-export const getPhrases       = createAcroThunk('phrases/get', apiGetPhrases)
+export const getPhrases       = createAcroThunk('phrases/get', apiGetPhrases, checkPhrases)
 export const voteFor          = createAcroThunk('phrases/vote', apiVoteFor)
 export const getVotes         = createAcroThunk('phrases/get-votes', apiGetVotes)
 
