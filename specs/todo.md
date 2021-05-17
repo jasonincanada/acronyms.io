@@ -8,5 +8,5 @@
   - [ ] api.vote (can only vote on games you took part in)
 - [ ] better error messages
   - [ ] show /signup errors
-- [ ] consolidate createAsyncThunk repetition
+- [x] consolidate createAsyncThunk repetition
 
