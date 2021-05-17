@@ -15,30 +15,49 @@ const phrasesAdapter = createEntityAdapter({})
 
 /* Thunks */
 
-// get finished games for a particular room
-//
-export const getFinishedGames = createAsyncThunk(
-  'finishedgames/get',
-  async (slug, thunkAPI) => {
-    try {
-      const response = await apiGetFinishedGames(slug)
+const createAcroThunk = (name, apiCall) => {
+  return createAsyncThunk(
+    name,
+    async (arg, thunkAPI) => {
+      try {
+        const response = await apiCall(arg)
 
-      if (response.status === 200) {
-        if (response.data.result === 'ok') {
-          return response.data.finishedgames
-        } else {
-          return thunkAPI.rejectWithValue(response.data.errorMessage)
+        if (response.status === 200) {
+
+          // our django API code sets .result to 'ok' to signal success
+          if (response.data.result === 'ok') {
+
+            // attach the argument that was passed to this thunk
+            response.data.arg = arg
+            return response.data
+          }
+
+          // if unsuccessful the django API code will describe why in .error
+          else {
+            return thunkAPI.rejectWithValue(response.data.error)
+          }
         }
 
-      } else {
-        return thunkAPI.rejectWithValue('todo')
+        // API call status code was something other than 200
+        else {
+          return thunkAPI.rejectWithValue('API Request Error ' + response.status)
+        }
       }
-    } catch (e) {
-      console.log('Error', e.response.data)
-      thunkAPI.rejectWithValue(e.response.data)
+
+      // unhandled exception with the API call
+      catch (e) {
+        thunkAPI.rejectWithValue(e.response.data)
+      }
     }
-  }
+  )
+}
+
+// get finished games for a particular room
+export const getFinishedGames = createAcroThunk(
+  'finishedgames/get',
+  apiGetFinishedGames
 )
+
 
 // get phrases and current vote counts for a particular finishedgame
 //
@@ -134,9 +153,9 @@ export const finishedGamesSlice = createSlice({
       // will only retrieve updated vote counts (since that's the only thing about a
       // finished game that changes over time)
       //
-      payload.forEach(game => game.phrases = [])
+      payload.finishedgames.forEach(game => game.phrases = [])
 
-      finishedGamesAdapter.addMany(state, payload)
+      finishedGamesAdapter.addMany(state, payload.finishedgames)
     },
 
     [getPhrases.fulfilled]: (state, {payload}) => {

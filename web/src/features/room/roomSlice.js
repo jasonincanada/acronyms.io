@@ -53,8 +53,8 @@ export const roomSlice = createSlice({
 
     // whenever a request for a list of games is returned, extract the IDs
     // and store them as room.finishedgames
-    [getFinishedGames.fulfilled]: (state, {payload: games}) => {
-      state.finishedgames = games.map(g => g.id)
+    [getFinishedGames.fulfilled]: (state, {payload}) => {
+      state.finishedgames = payload.finishedgames.map(g => g.id)
     }
   },
 })
