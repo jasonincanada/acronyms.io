@@ -1,5 +1,6 @@
-import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit'
+import { createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 import { apiGetFinishedGames, apiGetPhrases, apiGetVotes, apiVoteFor } from './gameAPI'
+import { createAcroThunk } from '../common'
 
 
 /* Adapters */
@@ -37,48 +38,6 @@ export const getVotes = createAcroThunk(
   'phrases/get-votes',
   apiGetVotes
 )
-
-
-// our common thunk creator that calls a particular async API function to
-// request something from the server. if the API response contains a property
-// .result that is 'ok' the thunk promise is fulfilled, otherwise it's rejected
-//
-const createAcroThunk = (name, apiCall) => {
-  return createAsyncThunk(
-    name,
-    async (arg, thunkAPI) => {
-      try {
-        const response = await apiCall(arg)
-
-        if (response.status === 200) {
-
-          // our django API code sets .result to 'ok' to signal success
-          if (response.data.result === 'ok') {
-
-            // attach the argument that was passed to this thunk
-            response.data.arg = arg
-            return response.data
-          }
-
-          // if unsuccessful the django API code will describe why in .error
-          else {
-            return thunkAPI.rejectWithValue(response.data.error)
-          }
-        }
-
-        // API call status code was something other than 200
-        else {
-          return thunkAPI.rejectWithValue('API Request Error ' + response.status)
-        }
-      }
-
-      // unhandled exception with the API call
-      catch (e) {
-        thunkAPI.rejectWithValue(e.response.data)
-      }
-    }
-  )
-}
 
 
 
