@@ -91,7 +91,7 @@ async function apiVoteFor(phrase) {
   return response
 }
 
-async function apiGetVotes(game_id) {
+async function apiGetVotes(game) {
 
   axios.defaults.withCredentials = true
 
@@ -103,7 +103,7 @@ async function apiGetVotes(game_id) {
   }
 
   // TODO: hard-coded endpoint
-  const url = '/api/votes/' + game_id + '/get';
+  const url = '/api/votes/' + game.id + '/get';
   const response = await axios.post(url, {}, options)
 
   return response

@@ -72,27 +72,9 @@ export const voteFor = createAcroThunk(
   apiVoteFor
 )
 
-export const getVotes = createAsyncThunk(
+export const getVotes = createAcroThunk(
   'phrases/get-votes',
-  async (game, thunkAPI) => {
-    try {
-      const response = await apiGetVotes(game.id)
-
-      if (response.status === 200) {
-        if (response.data.result === 'ok') {
-          return { phrases: response.data.phrases }
-        } else {
-          return thunkAPI.rejectWithValue('todo')
-        }
-
-      } else {
-        return thunkAPI.rejectWithValue('todo')
-      }
-    } catch (e) {
-      console.log('Error', e.response.data)
-      thunkAPI.rejectWithValue(e.response.data)
-    }
-  }
+  apiGetVotes
 )
 
 
