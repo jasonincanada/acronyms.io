@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import { apiGetActiveGame, apiPostPhrase, apiStartNewGame } from './gameAPI'
 import { createAcroThunk } from '../common'
 
@@ -13,41 +13,9 @@ const initialState = {
 
 /* Thunks */
 
-export const getActiveGame = createAcroThunk(
-  'activegame/get',
-  apiGetActiveGame
-)
-
-export const startNewGame = createAcroThunk(
-  'activegame/start',
-  apiStartNewGame
-)
-
-export const postPhrase = createAsyncThunk(
-  'activegame/post-phrase',
-  async (phrase, thunkAPI) => {
-    try {
-      const gameID = thunkAPI.getState().activegame.id
-      const response = await apiPostPhrase(gameID, phrase)
-
-      if (response.status === 200) {
-        const result = response.data.result
-
-        if (result === 'ok') {
-          return {result, phrase}
-        } else {
-          return thunkAPI.rejectWithValue(result)
-        }
-
-      } else {
-        return thunkAPI.rejectWithValue('todo')
-      }
-    } catch (e) {
-      console.log('Error', e.response.data)
-      thunkAPI.rejectWithValue(e.response.data)
-    }
-  }
-)
+export const getActiveGame = createAcroThunk('activegame/get', apiGetActiveGame)
+export const startNewGame  = createAcroThunk('activegame/start', apiStartNewGame)
+export const postPhrase    = createAcroThunk('activegame/post-phrase', apiPostPhrase)
 
 
 /* Slices */
@@ -78,7 +46,7 @@ export const activeGameSlice = createSlice({
     },
 
     [postPhrase.fulfilled]: (state, {payload}) => {
-      state.myphrase = payload.phrase
+      state.myphrase = payload.arg.phrase
       state.error = null
     },
     [postPhrase.rejected]: (state, {payload}) => {

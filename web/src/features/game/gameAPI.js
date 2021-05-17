@@ -54,7 +54,7 @@ async function apiGetPhrases(game) {
   return response
 }
 
-async function apiPostPhrase(gameID, phrase) {
+async function apiPostPhrase({game, phrase}) {
 
   axios.defaults.withCredentials = true
 
@@ -66,8 +66,8 @@ async function apiPostPhrase(gameID, phrase) {
   }
 
   // TODO: hard-coded endpoint
-  const url = '/api/activegame/' + gameID + '/phrase/post';
-  const data = qs.stringify({gameID, phrase})
+  const url = '/api/activegame/' + game.id + '/phrase/post';
+  const data = qs.stringify({gameID: game.id, phrase})
   const response = await axios.post(url, data, options)
 
   return response

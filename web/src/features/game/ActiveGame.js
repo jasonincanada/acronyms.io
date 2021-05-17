@@ -5,14 +5,16 @@ import { activeGameSelector, postPhrase, startNewGame } from './gameSlice'
 
 const ActiveGame = () => {
 
-  const { id, acronym, started, finishing, myphrase, error } = useSelector(activeGameSelector)
+  const dispatch = useDispatch()
+  const game     = useSelector(activeGameSelector)
+
+  const { id, acronym, started, finishing, myphrase, error } = game
   const { slug } = useParams()
   const [ phrase, setPhrase ] = useState('');
-  const dispatch = useDispatch();
 
   const keyDown = (key) => {
     if (key === "Enter") {
-      dispatch(postPhrase(phrase))
+      dispatch(postPhrase({game, phrase}))
     }
   }
 
