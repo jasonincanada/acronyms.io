@@ -6,7 +6,7 @@ const url_login = '/api/login'
 const url_signup = '/api/signup'
 const url_csrf  = '/api/csrf/get'
 
-async function apiLogin(username, password) {
+async function apiLogin({username, password}) {
 
   axios.defaults.withCredentials = true
 
@@ -37,7 +37,7 @@ async function apiLogin(username, password) {
   return response
 }
 
-async function apiSignUpUser(username, display_name, email, password1, password2) {
+async function apiSignUpUser({username, display_name, email, password1, password2}) {
 
   axios.defaults.withCredentials = true
 
