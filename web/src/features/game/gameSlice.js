@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { apiGetActiveGame, apiPostPhrase, apiStartNewGame } from './gameAPI'
+import { createAcroThunk } from '../common'
 
 const initialState = {
   id: null,
@@ -12,54 +13,14 @@ const initialState = {
 
 /* Thunks */
 
-export const getActiveGame = createAsyncThunk(
+export const getActiveGame = createAcroThunk(
   'activegame/get',
-  async (slug, thunkAPI) => {
-    try {
-      const response = await apiGetActiveGame(slug)
-
-      if (response.status === 200) {
-        if (response.data.result === 'ok') {
-          return { activegame: response.data.activegame,
-                   myphrase: response.data.myphrase,
-                 }
-        } else {
-          return thunkAPI.rejectWithValue(response.data.error)
-        }
-
-      } else {
-        return thunkAPI.rejectWithValue('todo')
-      }
-    } catch (e) {
-      console.log('Error', e.response.data)
-      thunkAPI.rejectWithValue(e.response.data)
-    }
-  }
+  apiGetActiveGame
 )
 
-export const startNewGame = createAsyncThunk(
+export const startNewGame = createAcroThunk(
   'activegame/start',
-  async (slug, thunkAPI) => {
-    try {
-      const response = await apiStartNewGame(slug)
-
-      if (response.status === 200) {
-        if (response.data.result === 'ok') {
-          return { activegame: response.data.activegame,
-                   myphrase: response.data.myphrase
-                 }
-        } else {
-          return thunkAPI.rejectWithValue(response.data.error)
-        }
-
-      } else {
-        return thunkAPI.rejectWithValue('todo')
-      }
-    } catch (e) {
-      console.log('Error', e.response.data)
-      thunkAPI.rejectWithValue(e.response.data)
-    }
-  }
+  apiStartNewGame
 )
 
 export const postPhrase = createAsyncThunk(
