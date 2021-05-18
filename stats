@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# show container volume sizes
+
+for volume in acronymsio_postgres-data      \
+              acronymsio_nodemodules-hosted \
+              acronymsio_pgadmin-data ;     \
+do
+  docker volume inspect "$volume" \
+    | fx .[0].Mountpoint          \
+    | sudo xargs du -s
+done
+
