@@ -40,6 +40,25 @@ services:
       acro_net:
         ipv4_address: 172.16.1.4
 
+  # python/django background task processor
+  bg-tasks:
+    build:
+      context: api
+      dockerfile: Dockerfile.bg-tasks
+    depends_on:
+      - 'postgres'
+    volumes:
+      - type: bind
+        source: ./api
+        target: /api
+
+        # we're sharing the same bind-mount with the API server
+        # so make sure we can't make changes to it
+        read_only: true
+    networks:
+      acro_net:
+        ipv4_address: 172.16.1.8
+
   # react frontend ui
   web:
     build:

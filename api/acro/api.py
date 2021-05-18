@@ -10,6 +10,7 @@ from .forms  import SignUpForm
 from .models import ActiveGame, FinishedGame,  \
                     LatestPhrase, FinalPhrase, \
                     Acronym, Room, User, Vote
+from .methods import finish_game
 
 import datetime
 import random
@@ -78,7 +79,7 @@ def start_game(request, slug):
 
     with transaction.atomic():
       acronym = generate_acronym();
-      finishing = datetime.datetime.now() + datetime.timedelta(hours=1)
+      finishing = datetime.datetime.now() + datetime.timedelta(minutes=1)
 
       activegame = ActiveGame.objects.create(room=room,
                                              acronym=acronym,
@@ -94,6 +95,10 @@ def start_game(request, slug):
         },
         'myphrase': None,
       }
+
+    # finish the game later in a background task
+    finish_game(activegame.id)
+
 
   except Room.DoesNotExist:
     response = { 'result': 'error',

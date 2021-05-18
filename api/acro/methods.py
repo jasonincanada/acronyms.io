@@ -1,3 +1,4 @@
+from background_task import background
 from django.db import transaction
 from .models   import ActiveGame, FinishedGame, LatestPhrase, FinalPhrase
 
@@ -6,7 +7,8 @@ from .models   import ActiveGame, FinishedGame, LatestPhrase, FinalPhrase
 # phrases for it into FinalPhrase. this is meant to be called internally by
 # triggers (django_background_tasks) and not from a user-accessible API
 #
-def close_game(game_id):
+@background(schedule=60)
+def finish_game(game_id):
   game = ActiveGame.objects.get(pk=game_id)
 
   with transaction.atomic():
