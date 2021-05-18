@@ -145,3 +145,10 @@ CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS   = [ 'http://192.168.0.16:3000' ]
 CORS_ALLOW_CREDENTIALS = True
 
+# Run django background tasks up to this many seconds
+MAX_RUN_TIME = 10
+
+# This should be ok for now because we're only operating on
+# activegames and they don't share latest phrases
+BACKGROUND_TASK_RUN_ASYNC = True
+
