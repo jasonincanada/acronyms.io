@@ -66,7 +66,7 @@ async function apiPostPhrase({game, phrase}) {
   }
 
   // TODO: hard-coded endpoint
-  const url = '/api/activegame/' + game.id + '/phrase/post';
+  const url = '/api/activegame/' + game.id + '/phrase/post'
   const data = qs.stringify({gameID: game.id, phrase})
   const response = await axios.post(url, data, options)
 
@@ -85,7 +85,7 @@ async function apiVoteFor(phrase) {
   }
 
   // TODO: hard-coded endpoint
-  const url = '/api/phrase/' + phrase.id + '/vote/';
+  const url = '/api/phrase/' + phrase.id + '/vote/'
   const response = await axios.post(url, {}, options)
 
   return response
@@ -103,7 +103,7 @@ async function apiGetVotes(game) {
   }
 
   // TODO: hard-coded endpoint
-  const url = '/api/votes/' + game.id + '/get';
+  const url = '/api/votes/' + game.id + '/get'
   const response = await axios.post(url, {}, options)
 
   return response

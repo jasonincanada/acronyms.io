@@ -10,7 +10,7 @@ const ActiveGame = () => {
 
   const { id, acronym, started, finishing, myphrase, error } = game
   const { slug } = useParams()
-  const [ phrase, setPhrase ] = useState('');
+  const [ phrase, setPhrase ] = useState('')
 
   const keyDown = (key) => {
     if (key === "Enter") {

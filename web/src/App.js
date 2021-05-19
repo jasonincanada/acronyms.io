@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { createAction } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
-import './App.css';
+import './App.css'
 import { Login, Logout } from './features/user/Login'
 import Room from './features/room/Room'
 import SignUp from './features/user/SignUp'
@@ -62,7 +62,7 @@ function App() {
         </div>
       </div>
     </Router>
-  );
+  )
 }
 
 const Home = () => {
@@ -77,4 +77,4 @@ const About = () => {
   )
 }
 
-export default App;
+export default App
