@@ -38,7 +38,7 @@ export const userSlice = createSlice({
 
     /* user login */
     [loginUser.fulfilled]: (state, {payload}) => {
-      state.username = payload.username
+      state.username = payload.arg.username
       state.displayname = payload.displayname
       state.isFetching = false
       state.isSuccess = true
