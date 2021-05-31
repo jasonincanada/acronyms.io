@@ -24,6 +24,7 @@ export const activeGameSlice = createSlice({
   name: 'activegame',
   initialState,
   reducers: {
+    finishGame: () => { return initialState },
   },
   extraReducers: {
     [getActiveGame.fulfilled]: (state, {payload}) => {
@@ -54,6 +55,8 @@ export const activeGameSlice = createSlice({
     },
   },
 })
+
+export const { finishGame } = activeGameSlice.actions
 
 
 /* Selectors */
