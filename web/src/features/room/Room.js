@@ -22,6 +22,20 @@ const Room = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug])
 
+
+  // timers
+  useEffect(() => {
+
+    // refresh our list of finished games every 5 seconds
+    // note this causes a lot of redundant querying on the server for now
+    const timer = setInterval(() => {
+      dispatch(getFinishedGames(slug))
+    }, 5000);
+
+    return () => clearTimeout(timer)
+  })
+
+
   return (
     <Fragment>
       <div>

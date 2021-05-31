@@ -24,7 +24,7 @@ const phrasesAdapter = createEntityAdapter({})
 // already have what we need in the game object, so we leave it out for this condition
 //
 const checkPhrases = (game) => {
-  if (game.phrases.length > 0) {
+  if (game.phrases) {
     return false
   }
 }
@@ -48,15 +48,8 @@ export const finishedGamesSlice = createSlice({
       // the finished games arrive without their phrases, and we retrieve them when the
       // player clicks to view that particular game (minimized to start), rather than
       // getting them up front with this game list, which could be wasteful
-      //
-      // this line adds a temporarily empty phrase list to each game. it will be populated
-      // once when the user clicks on that game. after that, future API hits for that game
-      // will only retrieve updated vote counts (since that's the only thing about a
-      // finished game that changes over time)
-      //
-      payload.finishedgames.forEach(game => game.phrases = [])
 
-      finishedGamesAdapter.addMany(state, payload.finishedgames)
+      finishedGamesAdapter.upsertMany(state, payload.finishedgames)
     },
 
     [getPhrases.fulfilled]: (state, {payload}) => {

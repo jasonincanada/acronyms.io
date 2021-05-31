@@ -9,4 +9,7 @@
 - [ ] better error messages
   - [ ] show /signup errors
 - [x] consolidate createAsyncThunk repetition
+- [ ] api.get_activegame shouldn't check for phrase if user not logged in
+- [ ] normalize finishedgames on client-side
+  - [ ] only request finishedgames greater than the last known pk
 

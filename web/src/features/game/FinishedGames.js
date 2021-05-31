@@ -52,11 +52,14 @@ const FinishedGame = ({game}) => {
           <Fragment>
             <button onClick={refreshVotes}>Refresh Votes</button>
 
-            <ul>
-              { game.phrases.map(id => <li key={id}>
-                                         <Phrase phrase={phrases[id]} />
-                                       </li>) }
-            </ul>
+            { game.phrases &&
+
+              <ul>
+                { game.phrases.map(id => <li key={id}>
+                                           <Phrase phrase={phrases[id]} />
+                                         </li>) }
+              </ul>
+            }
           </Fragment>
       }
     </Fragment>
