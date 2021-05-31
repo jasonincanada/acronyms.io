@@ -6,11 +6,11 @@
   - [ ] Minimum initial deployment
     - [x] Set up dev environment
     - [x] User registration / login
-    - [ ] Three-phase rounds
-      - [ ] User submissions
-      - [ ] Voting period
-      - [ ] Game finished
-    - [ ] Start new game
+    - [x] Three-phase rounds
+      - [x] User submissions
+      - [x] Voting period
+      - [x] Game finished
+    - [x] Start new game
     - [ ] Styling/graphics
   - [ ] Show users in room
   - [ ] Moderators
