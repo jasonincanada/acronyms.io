@@ -1,3 +1,4 @@
+import Button from 'react-bootstrap/Button'
 import { Fragment, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { roomSelector } from '../room/roomSlice'
@@ -45,12 +46,12 @@ const FinishedGame = ({game}) => {
     <Fragment>
       <h4>Game {game.id}: {game.acronym}</h4>
 
-      <button onClick={expand}>View</button>
+      <Button onClick={expand}>View</Button>
 
       { expanded &&
 
           <Fragment>
-            <button onClick={refreshVotes}>Refresh Votes</button>
+            <Button onClick={refreshVotes}>Refresh Votes</Button>
 
             { game.phrases &&
 
@@ -86,7 +87,7 @@ const VoteButton = ({phrase}) => {
   const dispatch = useDispatch()
 
   return (
-    <button onClick={() => dispatch(voteFor(phrase))}>Vote</button>
+    <Button onClick={() => dispatch(voteFor(phrase))}>Vote</Button>
   )
 }
 

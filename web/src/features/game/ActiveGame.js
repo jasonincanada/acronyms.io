@@ -1,3 +1,4 @@
+import Button from 'react-bootstrap/Button'
 import { Fragment, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
@@ -81,7 +82,7 @@ const ActiveGame = () => {
   else {
     return (
       <Fragment>
-        <button onClick={startNew}>Start New Game</button>
+        <Button onClick={startNew}>Start New Game</Button>
       </Fragment>
     )
   }
