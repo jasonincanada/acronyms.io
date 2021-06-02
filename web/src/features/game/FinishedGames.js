@@ -78,7 +78,7 @@ const FinishedGame = ({game}) => {
   // get the highest number of votes for a phrase in this game
   const winningVotes = game.phrases
                           ?.map(phrase => phrases[phrase]?.votes ?? 0)
-                           .reduce(Math.max, 0)
+                           .reduce((a,b) => Math.max(a,b), 0)
 
                            ?? 0
 
