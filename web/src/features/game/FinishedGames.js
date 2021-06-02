@@ -81,11 +81,11 @@ const FinishedGame = ({game}) => {
 
         { game.phrases &&
 
-          <ul>
-            { game.phrases.map(id => <li key={id}>
+          <ListGroup>
+            { game.phrases.map(id => <ListGroup.Item key={id}>
                                        <Phrase phrase={phrases[id]} />
-                                     </li>) }
-          </ul>
+                                     </ListGroup.Item>) }
+          </ListGroup>
         }
       </Fragment>
     </Fragment>
