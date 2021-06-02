@@ -60,15 +60,15 @@ const ActiveGame = () => {
 
     return (
       <Fragment>
-        <div>Room Slug: { slug }</div>
-        <div>Acronym: { acronym }</div>
-        <div>Started: { started }</div>
-        <div>Finishing: { finishing }</div>
+        <Acronym acronym={acronym} />
+
         <div>Time Left: { timeLeft }</div>
         <div>My phrase: { myphrase }</div>
+
         { error &&
           <div>Error: { error }</div>
         }
+
         <div><input type="text"
                     autoFocus
                     onChange={ (ev) => setPhrase(ev.target.value)}
@@ -87,5 +87,20 @@ const ActiveGame = () => {
     )
   }
 }
+
+const Acronym = ({acronym}) => {
+
+  const styles = {
+    fontSize: '3rem',
+    letterSpacing: '0.5rem'
+  }
+
+  return (
+    <div>
+      <span style={styles}>{acronym}</span>
+    </div>
+  )
+}
+
 
 export default ActiveGame
