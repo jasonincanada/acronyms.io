@@ -104,12 +104,15 @@ const Phrase = ({phrase}) => {
   return (
     <div onClick={clickPhrase} style={{ cursor: 'pointer' }}>
 
-      {phrase.phrase} - {phrase.author} {phrase.votes}
+      { phrase.votes > 0 && <span className="mr-2">{phrase.votes}</span> }
+
+      {phrase.phrase} - {phrase.author}
 
       { phrase.playervoted &&
 
         <FontAwesomeIcon icon={['fas', 'check']}
-                         color="limegreen" />
+                         color="limegreen"
+                         className="ml-2" />
       }
 
     </div>
