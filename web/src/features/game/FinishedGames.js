@@ -18,11 +18,17 @@ import { finishedGamesSelectors,
 const gameKey   = (game) => '#game-' + game.id
 const gameTitle = (game) => game.id + ' - ' + game.acronym
 
-
 const FinishedGames = () => {
 
   const games           = useSelector(finishedGamesSelectors.selectEntities)
   const {finishedgames} = useSelector(roomSelector)
+  const dispatch        = useDispatch()
+
+  const clickGame = (game) => {
+    return (ev) => {
+      dispatch(getPhrases(game))
+    }
+  }
 
   return (
     <Fragment>
@@ -35,6 +41,7 @@ const FinishedGames = () => {
               { finishedgames.map(id => <ListGroup.Item
                                           key={id}
                                           action
+                                          onClick={clickGame(games[id])}
                                           href={gameKey(games[id])}>
                                             {gameTitle(games[id])}
                                         </ListGroup.Item> )}
@@ -60,12 +67,6 @@ const FinishedGame = ({game}) => {
 
   const phrases  = useSelector(phrasesSelectors.selectEntities)
   const dispatch = useDispatch()
-  const [expanded, setExpanded] = useState(false)
-
-  const expand = () => {
-    dispatch(getPhrases(game))
-    setExpanded(true)
-  }
 
   const refreshVotes = () => {
     dispatch(getVotes(game))
@@ -75,23 +76,18 @@ const FinishedGame = ({game}) => {
     <Fragment>
       <h4>Game {game.id}: {game.acronym}</h4>
 
-      <Button onClick={expand}>View</Button>
+      <Fragment>
+        <Button onClick={refreshVotes}>Refresh Votes</Button>
 
-      { expanded &&
+        { game.phrases &&
 
-          <Fragment>
-            <Button onClick={refreshVotes}>Refresh Votes</Button>
-
-            { game.phrases &&
-
-              <ul>
-                { game.phrases.map(id => <li key={id}>
-                                           <Phrase phrase={phrases[id]} />
-                                         </li>) }
-              </ul>
-            }
-          </Fragment>
-      }
+          <ul>
+            { game.phrases.map(id => <li key={id}>
+                                       <Phrase phrase={phrases[id]} />
+                                     </li>) }
+          </ul>
+        }
+      </Fragment>
     </Fragment>
   )
 }
