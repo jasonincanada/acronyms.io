@@ -45,6 +45,8 @@ const Room = () => {
 
         <ActiveGame />
 
+        <hr />
+
         <FinishedGames />
       </div>
     </Fragment>
