@@ -11,7 +11,7 @@ const ActiveGame = () => {
   const dispatch = useDispatch()
   const game     = useSelector(activeGameSelector)
 
-  const { id, acronym, started, finishing, myphrase, error } = game
+  const { id, acronym, finishing, myphrase, error } = game
   const { slug } = useParams()
   const [ phrase, setPhrase ] = useState('')
   const [ timeLeft, setTimeLeft ] = useState('')

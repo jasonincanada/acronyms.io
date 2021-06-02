@@ -114,7 +114,7 @@ const Phrase = ({phrase, winningVotes}) => {
 
       { phrase.votes > 0 && <span className="mr-2">{phrase.votes}</span> }
 
-      { phrase.votes > 0 && phrase.votes == winningVotes &&
+      { phrase.votes > 0 && phrase.votes === winningVotes &&
 
         <FontAwesomeIcon icon={['fas', 'trophy']}
                          color="gold"
