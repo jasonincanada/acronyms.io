@@ -1,4 +1,5 @@
 import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
 import { Fragment, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
@@ -69,11 +70,17 @@ const ActiveGame = () => {
           <div>Error: { error }</div>
         }
 
-        <div><input type="text"
-                    autoFocus
-                    onChange={ (ev) => setPhrase(ev.target.value)}
-                    onKeyDown={(ev) => keyDown(ev.key)}
-                    placeholder="my phrase" /></div>
+        <Form onSubmit={(ev) => ev.preventDefault()}>
+          <Form.Group>
+            <Form.Control type="text"
+                          size="lg"
+                          autoFocus
+                          onChange={ (ev) => setPhrase(ev.target.value)}
+                          onKeyDown={(ev) => keyDown(ev.key)}
+                          placeholder="my phrase" />
+            <Form.Text>Enter your phrase and hit enter. You can change it as many times as you want</Form.Text>
+          </Form.Group>
+        </Form>
       </Fragment>
     )
   }
