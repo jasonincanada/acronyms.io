@@ -3,7 +3,7 @@ import Col from 'react-bootstrap/Col'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Row from 'react-bootstrap/Row'
 import Tab from 'react-bootstrap/Tab'
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { roomSelector } from '../room/roomSlice'
 import { finishedGamesSelectors,
