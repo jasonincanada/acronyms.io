@@ -87,8 +87,6 @@ const FinishedGame = ({game}) => {
       <h4>Game {game.id}: {game.acronym}</h4>
 
       <Fragment>
-        <Button onClick={refreshVotes}>Refresh Votes</Button>
-
         { game.phrases &&
 
           <ListGroup>
@@ -98,6 +96,8 @@ const FinishedGame = ({game}) => {
                                      </ListGroup.Item>) }
           </ListGroup>
         }
+
+        <Button onClick={refreshVotes} className="mt-2">Refresh Votes</Button>
       </Fragment>
     </Fragment>
   )
