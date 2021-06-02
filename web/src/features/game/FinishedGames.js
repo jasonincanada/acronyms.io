@@ -75,6 +75,13 @@ const FinishedGame = ({game}) => {
     dispatch(getVotes(game))
   }
 
+  // get the highest number of votes for a phrase in this game
+  const winningVotes = game.phrases
+                          ?.map(phrase => phrases[phrase]?.votes ?? 0)
+                           .reduce(Math.max, 0)
+
+                           ?? 0
+
   return (
     <Fragment>
       <h4>Game {game.id}: {game.acronym}</h4>
@@ -86,7 +93,8 @@ const FinishedGame = ({game}) => {
 
           <ListGroup>
             { game.phrases.map(id => <ListGroup.Item key={id}>
-                                       <Phrase phrase={phrases[id]} />
+                                       <Phrase phrase={phrases[id]}
+                                               winningVotes={winningVotes} />
                                      </ListGroup.Item>) }
           </ListGroup>
         }
@@ -95,7 +103,7 @@ const FinishedGame = ({game}) => {
   )
 }
 
-const Phrase = ({phrase}) => {
+const Phrase = ({phrase, winningVotes}) => {
   const dispatch = useDispatch()
 
   // clicking a phrase casts the player's vote for it
@@ -105,6 +113,13 @@ const Phrase = ({phrase}) => {
     <div onClick={clickPhrase} style={{ cursor: 'pointer' }}>
 
       { phrase.votes > 0 && <span className="mr-2">{phrase.votes}</span> }
+
+      { phrase.votes > 0 && phrase.votes == winningVotes &&
+
+        <FontAwesomeIcon icon={['fas', 'trophy']}
+                         color="gold"
+                         className="mr-2" />
+      }
 
       {phrase.phrase} - {phrase.author}
 
