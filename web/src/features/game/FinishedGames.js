@@ -84,7 +84,7 @@ const FinishedGame = ({game}) => {
 
   return (
     <Fragment>
-      <h4>Game {game.id}: {game.acronym}</h4>
+      <h3>{game.acronym}</h3>
 
       <Fragment>
         { game.phrases &&
