@@ -1,4 +1,8 @@
 import Button from 'react-bootstrap/Button'
+import Col from 'react-bootstrap/Col'
+import ListGroup from 'react-bootstrap/ListGroup'
+import Row from 'react-bootstrap/Row'
+import Tab from 'react-bootstrap/Tab'
 import { Fragment, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { roomSelector } from '../room/roomSlice'
@@ -10,6 +14,11 @@ import { finishedGamesSelectors,
        } from './finishedGamesSlice'
 
 
+// used in Tab.Container to key/label games
+const gameKey   = (game) => '#game-' + game.id
+const gameTitle = (game) => game.id + ' - ' + game.acronym
+
+
 const FinishedGames = () => {
 
   const games           = useSelector(finishedGamesSelectors.selectEntities)
@@ -18,10 +27,30 @@ const FinishedGames = () => {
   return (
     <Fragment>
       <h3>Finished Games</h3>
+
+      <Tab.Container>
+        <Row>
+          <Col sm={3}>
+            <ListGroup>
+              { finishedgames.map(id => <ListGroup.Item
+                                          key={id}
+                                          action
+                                          href={gameKey(games[id])}>
+                                            {gameTitle(games[id])}
+                                        </ListGroup.Item> )}
+            </ListGroup>
+          </Col>
+          <Col>
+            <Tab.Content>
+              { finishedgames.map(id => <Tab.Pane key={id} eventKey={gameKey(games[id])}>
+                                          <FinishedGame game={games[id]} />
+                                        </Tab.Pane>) }
+            </Tab.Content>
+          </Col>
+        </Row>
+      </Tab.Container>
+
       <ul>
-        { finishedgames.map(id => <li key={id}>
-                                    <FinishedGame game={games[id]} />
-                                  </li>) }
       </ul>
     </Fragment>
   )
