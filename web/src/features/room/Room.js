@@ -41,7 +41,7 @@ const Room = () => {
       <div>
         <h2>r/{slug}</h2>
 
-        <p>Description: {description}</p>
+        <p>{description}</p>
 
         <ActiveGame />
 
