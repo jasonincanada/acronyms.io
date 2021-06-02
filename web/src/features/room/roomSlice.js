@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { apiGetRoom } from './roomAPI'
 import { getFinishedGames } from '../game/finishedGamesSlice'
-import { createAcroThunk } from '../common'
+import { createAcroThunk } from '../../common'
 
 
 const initialState = {

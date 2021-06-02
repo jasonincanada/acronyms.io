@@ -1,6 +1,6 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit'
 import { apiGetFinishedGames, apiGetPhrases, apiGetVotes, apiVoteFor } from './gameAPI'
-import { createAcroThunk } from '../common'
+import { createAcroThunk } from '../../common'
 
 
 /* Adapters */

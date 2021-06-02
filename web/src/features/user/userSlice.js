@@ -3,7 +3,7 @@
 import { createAction, createSlice } from '@reduxjs/toolkit'
 import { apiLogin, apiSignUpUser } from './userAPI'
 import Cookies from 'universal-cookie'
-import { createAcroThunk } from '../common'
+import { createAcroThunk } from '../../common'
 
 
 const initialState = {

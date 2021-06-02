@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { apiGetActiveGame, apiPostPhrase, apiStartNewGame } from './gameAPI'
-import { createAcroThunk } from '../common'
+import { createAcroThunk } from '../../common'
 
 const initialState = {
   id: null,
