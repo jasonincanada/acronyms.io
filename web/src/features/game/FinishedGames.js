@@ -96,11 +96,15 @@ const FinishedGame = ({game}) => {
 }
 
 const Phrase = ({phrase}) => {
-  return (
-    <div>
-      {phrase.phrase} - {phrase.author} {phrase.votes}
+  const dispatch = useDispatch()
 
-      <VoteButton phrase={phrase} />
+  // clicking a phrase casts the player's vote for it
+  const clickPhrase = () => dispatch(voteFor(phrase))
+
+  return (
+    <div onClick={clickPhrase} style={{ cursor: 'pointer' }}>
+
+      {phrase.phrase} - {phrase.author} {phrase.votes}
 
       { phrase.playervoted &&
 
@@ -109,14 +113,6 @@ const Phrase = ({phrase}) => {
       }
 
     </div>
-  )
-}
-
-const VoteButton = ({phrase}) => {
-  const dispatch = useDispatch()
-
-  return (
-    <Button onClick={() => dispatch(voteFor(phrase))}>Vote</Button>
   )
 }
 
