@@ -13,6 +13,9 @@ import { finishedGamesSelectors,
          voteFor
        } from './finishedGamesSlice'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import '../../fontAwesome'
+
 
 // used in Tab.Container to key/label games
 const gameKey   = (game) => '#game-' + game.id
@@ -95,13 +98,14 @@ const FinishedGame = ({game}) => {
 const Phrase = ({phrase}) => {
   return (
     <div>
-      Phrase {phrase.id} by {phrase.author}: {phrase.phrase} ({phrase.votes})
+      {phrase.phrase} - {phrase.author} {phrase.votes}
 
       <VoteButton phrase={phrase} />
 
       { phrase.playervoted &&
 
-        <span>I voted for this phrase</span>
+        <FontAwesomeIcon icon={['fas', 'check']}
+                         color="limegreen" />
       }
 
     </div>
