@@ -8,7 +8,14 @@ const User = () => {
 
   return (
     <Fragment>
-      <div>{ username } / { displayname }</div>
+      { username &&
+
+        <div>
+          { username } / { displayname } / <a href="/logout">Logout</a>
+        </div> }
+
+      { !username && <a href="/login">Login</a> }
+
     </Fragment>
   )
 }

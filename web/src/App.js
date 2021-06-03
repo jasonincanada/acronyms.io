@@ -37,7 +37,6 @@ function App() {
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="mr-auto">
                 <Nav.Link href="/">Home</Nav.Link>
-                <Nav.Link href="/login">Log In</Nav.Link>
 
                 <NavDropdown title="Rooms">
                   <NavDropdown.Item href="/r/room-with-game">r/room-with-game</NavDropdown.Item>
@@ -53,24 +52,12 @@ function App() {
 
           <div className="mt-3">
             <Switch>
-              <Route exact path="/">
-                <Home />
-              </Route>
-              <Route path="/r/:slug">
-                <Room />
-              </Route>
-              <Route path="/login">
-                <Login />
-              </Route>
-              <Route path="/logout">
-                <Logout />
-              </Route>
-              <Route path="/signup">
-                <SignUp />
-              </Route>
-              <Route path="/about">
-                <About />
-              </Route>
+              <Route exact path="/" ><Home /></Route>
+              <Route path="/r/:slug"><Room /></Route>
+              <Route path="/login"  ><Login /></Route>
+              <Route path="/logout" ><Logout /></Route>
+              <Route path="/signup" ><SignUp /></Route>
+              <Route path="/about"  ><About /></Route>
             </Switch>
           </div>
         </div>
