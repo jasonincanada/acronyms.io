@@ -8,8 +8,7 @@ const User = () => {
 
   return (
     <Fragment>
-      <div>Username: { username }</div>
-      <div>Display name: { displayname }</div>
+      <div>{ username } / { displayname }</div>
     </Fragment>
   )
 }
