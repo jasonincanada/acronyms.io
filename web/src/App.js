@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
+import Nav from 'react-bootstrap/Nav'
+import Navbar from 'react-bootstrap/Navbar'
+import NavDropdown from 'react-bootstrap/NavDropdown'
 import Row from 'react-bootstrap/Row'
 import { createAction } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
@@ -28,44 +31,47 @@ function App() {
         <Col>
 
         <div className="App">
-          <header className="App-header">
-            acronyms.io
-          </header>
+          <Navbar bg="light">
+            <Navbar.Brand href="/">acronyms.io</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="mr-auto">
+                <Nav.Link href="/">Home</Nav.Link>
+                <Nav.Link href="/login">Log In</Nav.Link>
 
-          <User />
+                <NavDropdown title="Rooms">
+                  <NavDropdown.Item href="/r/room-with-game">r/room-with-game</NavDropdown.Item>
+                  <NavDropdown.Item href="/r/room-no-game">r/room-no-game</NavDropdown.Item>
+                </NavDropdown>
+              </Nav>
+            </Navbar.Collapse>
 
-          <nav>
-            <ul>
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/r/room-with-game">Room With Game</Link></li>
-              <li><Link to="/r/room-no-game">Room Without Game</Link></li>
-              <li><Link to="/login">Login</Link></li>
-              <li><Link to="/logout">Logout</Link></li>
-              <li><Link to="/about">About</Link></li>
-            </ul>
-          </nav>
+            <div style={{ textAlign: 'right'}}>
+              <User />
+            </div>
+          </Navbar>
 
-          <div>
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route path="/r/:slug">
-              <Room />
-            </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/logout">
-              <Logout />
-            </Route>
-            <Route path="/signup">
-              <SignUp />
-            </Route>
-            <Route path="/about">
-              <About />
-            </Route>
-          </Switch>
+          <div className="mt-3">
+            <Switch>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route path="/r/:slug">
+                <Room />
+              </Route>
+              <Route path="/login">
+                <Login />
+              </Route>
+              <Route path="/logout">
+                <Logout />
+              </Route>
+              <Route path="/signup">
+                <SignUp />
+              </Route>
+              <Route path="/about">
+                <About />
+              </Route>
+            </Switch>
           </div>
         </div>
 
