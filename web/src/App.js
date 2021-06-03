@@ -1,4 +1,7 @@
 import React, { useEffect } from 'react'
+import Col from 'react-bootstrap/Col'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
 import { createAction } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
@@ -20,47 +23,55 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
-        <header className="App-header">
-          acronyms.io
-        </header>
+      <Container>
+      <Row>
+        <Col>
 
-        <User />
+        <div className="App">
+          <header className="App-header">
+            acronyms.io
+          </header>
 
-        <nav>
-          <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/r/room-with-game">Room With Game</Link></li>
-            <li><Link to="/r/room-no-game">Room Without Game</Link></li>
-            <li><Link to="/login">Login</Link></li>
-            <li><Link to="/logout">Logout</Link></li>
-            <li><Link to="/about">About</Link></li>
-          </ul>
-        </nav>
+          <User />
 
-        <div>
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/r/:slug">
-            <Room />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/logout">
-            <Logout />
-          </Route>
-          <Route path="/signup">
-            <SignUp />
-          </Route>
-          <Route path="/about">
-            <About />
-          </Route>
-        </Switch>
+          <nav>
+            <ul>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/r/room-with-game">Room With Game</Link></li>
+              <li><Link to="/r/room-no-game">Room Without Game</Link></li>
+              <li><Link to="/login">Login</Link></li>
+              <li><Link to="/logout">Logout</Link></li>
+              <li><Link to="/about">About</Link></li>
+            </ul>
+          </nav>
+
+          <div>
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/r/:slug">
+              <Room />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/logout">
+              <Logout />
+            </Route>
+            <Route path="/signup">
+              <SignUp />
+            </Route>
+            <Route path="/about">
+              <About />
+            </Route>
+          </Switch>
+          </div>
         </div>
-      </div>
+
+        </Col>
+      </Row>
+      </Container>
     </Router>
   )
 }
