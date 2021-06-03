@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { activeGameSelector, postPhrase,
          finishGame, getActiveGame, startNewGame } from './gameSlice'
+import { useTimers } from '../../timers'
 
 const ActiveGame = () => {
 
@@ -28,6 +29,7 @@ const ActiveGame = () => {
 
   // timers
   useEffect(() => {
+    if (!useTimers) return
 
     // run every second
     const timer = setInterval(() => {

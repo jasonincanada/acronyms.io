@@ -6,6 +6,7 @@ import { getFinishedGames } from '../game/finishedGamesSlice'
 import { getActiveGame } from '../game/gameSlice'
 import ActiveGame from '../game/ActiveGame'
 import FinishedGames from '../game/FinishedGames'
+import { useTimers } from '../../timers'
 
 
 const Room = () => {
@@ -25,6 +26,7 @@ const Room = () => {
 
   // timers
   useEffect(() => {
+    if (!useTimers) return
 
     // refresh our list of finished games every 5 seconds
     // note this causes a lot of redundant querying on the server for now
