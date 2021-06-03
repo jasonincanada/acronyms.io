@@ -266,7 +266,8 @@ def post_phrase(request, game_id):
       return JsonResponse({'result': 'ok'})
 
     else:
-      return JsonResponse({'result': result})
+      return JsonResponse({'result': 'error',
+                           'error': result})
 
   # ActiveGame.DoesNotExist will be thrown if the initial game fetch fails
   # ValueError will be thrown if the initial fetch succeeds but the game ends

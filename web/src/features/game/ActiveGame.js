@@ -69,7 +69,7 @@ const ActiveGame = () => {
         <div>My phrase: { myphrase }</div>
 
         { error &&
-          <div>Error: { error }</div>
+          <div className="text-danger">Error: { error }</div>
         }
 
         <Form onSubmit={(ev) => ev.preventDefault()}>
