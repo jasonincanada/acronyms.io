@@ -44,7 +44,7 @@ export const userSlice = createSlice({
       state.isSuccess = true
       state.isError = false
 
-      localStorage.setItem('user.username', payload.username)
+      localStorage.setItem('user.username', payload.arg.username)
       localStorage.setItem('user.displayname', payload.displayname)
     },
     [loginUser.rejected]: (state, {payload}) => {
