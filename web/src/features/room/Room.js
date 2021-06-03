@@ -16,7 +16,6 @@ const Room = () => {
   const { description } = useSelector(roomSelector)
 
   useEffect(() => {
-    console.log('room init')
     dispatch(getRoom(slug))
     dispatch(getActiveGame(slug))
     dispatch(getFinishedGames(slug))
