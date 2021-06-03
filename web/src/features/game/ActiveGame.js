@@ -100,14 +100,14 @@ const ActiveGame = () => {
 const Acronym = ({acronym}) => {
 
   const styles = {
-    fontSize: '3rem',
-    letterSpacing: '0.5rem'
+    fontSize: '4rem',
+    letterSpacing: '0.5rem',
+    textAlign: 'center',
+    marginBottom: '2rem'
   }
 
   return (
-    <div>
-      <span style={styles}>{acronym}</span>
-    </div>
+    <div style={styles}>{acronym}</div>
   )
 }
 
