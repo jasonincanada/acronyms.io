@@ -121,7 +121,7 @@ const Phrase = ({phrase, winningVotes}) => {
                          className="mr-2" />
       }
 
-      {phrase.phrase} - {phrase.author}
+      {phrase.phrase} <Author author={phrase.author} />
 
       { phrase.playervoted &&
 
@@ -133,5 +133,10 @@ const Phrase = ({phrase, winningVotes}) => {
     </div>
   )
 }
+
+const Author = ({author}) => {
+  return ( <span className="text-muted ml-3">[ {author} ]</span> )
+}
+
 
 export default FinishedGames
