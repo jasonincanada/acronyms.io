@@ -69,15 +69,27 @@ services:
     depends_on:
       - 'api'
     volumes:
-      - type: bind
-        source: ./web
-        target: /web
+      - web-root:/usr/share/nginx/html
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - /home/ubuntu/acronyms.io/dhparam:/etc/ssl/certs
     ports:
       - '80:80'
       - '443:443'
     networks:
       acro_net:
         ipv4_address: 172.16.1.6
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - web-root:/var/www/html
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+    depends_on:
+      - 'nginx'
+    command: certonly --webroot --webroot-path=/var/www/html --email nirgle@gmail.com --agree-tos --no-eff-email -d acronyms.io  -d www.acronyms.io
 
 
 # define our subnet 172.16.1.*
@@ -96,4 +108,7 @@ volumes:
   postgres-data:
   pgadmin-data:
   nodemodules-hosted:
+  web-root:
+  certbot-etc:
+  certbot-var:
 
