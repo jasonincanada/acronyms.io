@@ -2,8 +2,8 @@
 
 - [x] Buy `acronyms.io`
 
-- [ ] python/django version on existing vps
-  - [ ] Minimum initial deployment
+- [ ] python/django version
+  - [x] Minimum initial deployment to AWS EC2 instance
     - [x] Set up dev environment
     - [x] User registration / login
     - [x] Three-phase rounds
@@ -11,7 +11,7 @@
       - [x] Voting period
       - [x] Game finished
     - [x] Start new game
-    - [ ] Styling/graphics
+    - [x] Styling/graphics
   - [ ] Show users in room
   - [ ] Moderators
   - [ ] New room creation
