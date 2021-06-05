@@ -82,7 +82,6 @@ services:
 
   certbot:
     image: certbot/certbot
-    container_name: certbot
     volumes:
       - web-root:/var/www/html
       - certbot-etc:/etc/letsencrypt
