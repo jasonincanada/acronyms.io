@@ -1,0 +1,27 @@
+
+# get a pre-built server from the docker hub with only node installed
+FROM node:lts-buster-slim AS build
+
+# this is bind-mounted (in docker-compose.yml) to our local ~/acronyms.io/web
+WORKDIR /web
+
+# npm dependencies
+COPY package*.json ./
+RUN npm install
+
+COPY . ./
+RUN npm run build
+
+
+# start again with a new nginx image
+FROM nginx:stable-alpine
+
+# copy our production react code to nginx's doc root
+COPY --from=build /web/build /usr/share/nginx/html
+
+# copy our custom network config
+COPY nginx.prod.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+EXPOSE 443
+
