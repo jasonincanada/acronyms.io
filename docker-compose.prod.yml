@@ -89,6 +89,9 @@ services:
       - certbot-var:/var/lib/letsencrypt
     depends_on:
       - 'nginx'
+    networks:
+      acro_net:
+        ipv4_address: 172.16.1.9
     command: certonly --webroot --webroot-path=/var/www/html --email nirgle@gmail.com --agree-tos --no-eff-email -d acronyms.io  -d www.acronyms.io
 
 
