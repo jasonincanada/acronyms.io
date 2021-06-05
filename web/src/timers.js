@@ -1,3 +1,3 @@
 
-export const useTimers = false
+export const useTimers = true
 
