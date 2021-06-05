@@ -2,7 +2,8 @@
 # get a pre-built server from the docker hub with only node installed
 FROM node:lts-buster-slim AS build
 
-# this is bind-mounted (in docker-compose.yml) to our local ~/acronyms.io/web
+# this is no longer bind-mounted (in docker-compose.yml) to our local ~/acronyms.io/web
+# but /web/build is copied to the next phase (the nginx image)
 WORKDIR /web
 
 # npm dependencies
