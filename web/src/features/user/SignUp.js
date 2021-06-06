@@ -43,8 +43,8 @@ const SignUp = () => {
             <div>Username: <input {...register('username')} placeholder="login" /></div>
             <div>Display Name: <input {...register('display_name')} placeholder="in-game name" /></div>
             <div>Email: <input {...register('email')} placeholder="login" /></div>
-            <div>Password: <input {...register('password1')} placeholder="enter password" /></div>
-            <div>Password: <input {...register('password2')} placeholder="enter it again" /></div>
+            <div>Password: <input {...register('password1')} type="password" placeholder="enter password" /></div>
+            <div>Password: <input {...register('password2')} type="password" placeholder="enter it again" /></div>
 
             <input type="submit" />
 
