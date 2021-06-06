@@ -81,19 +81,17 @@ const FinishedGame = ({game}) => {
     <Fragment>
       <h3>{game.acronym}</h3>
 
-      <Fragment>
-        { game.phrases &&
+      { game.phrases &&
 
-          <ListGroup>
-            { game.phrases.map(id => <ListGroup.Item key={id}>
-                                       <Phrase phrase={phrases[id]}
-                                               winningVotes={winningVotes} />
-                                     </ListGroup.Item>) }
-          </ListGroup>
-        }
+        <ListGroup>
+          { game.phrases.map(id => <ListGroup.Item key={id}>
+                                     <Phrase phrase={phrases[id]}
+                                             winningVotes={winningVotes} />
+                                   </ListGroup.Item>) }
+        </ListGroup>
+      }
 
-        <Button onClick={refreshVotes} className="mt-2">Refresh Votes</Button>
-      </Fragment>
+      <Button onClick={refreshVotes} className="mt-2">Refresh Votes</Button>
     </Fragment>
   )
 }
