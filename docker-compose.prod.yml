@@ -35,6 +35,10 @@ services:
     container_name: acro-api
     build:
       context: api
+      dockerfile: Dockerfile.prod
+    expose:
+      - 8000
+    command: gunicorn acronyms.wsgi:application --bind 0.0.0.0:8000
     depends_on:
       - 'postgres'
     volumes:
