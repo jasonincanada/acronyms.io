@@ -8,6 +8,7 @@ services:
   # tiny linux distro for poking around the network
   alpine:
     image: alpine
+    container_name: acro-alpine
     command: ifconfig
     networks:
       acro_net:
@@ -16,6 +17,7 @@ services:
   # database server
   postgres:
     image: postgres:9.6-alpine
+    container_name: acro-postgres
     environment: 
       POSTGRES_DB: acro_dev
       POSTGRES_USER: acro_dev
@@ -28,6 +30,7 @@ services:
 
   # python/django api
   api:
+    container_name: acro-api
     build:
       context: api
     depends_on:
@@ -42,6 +45,7 @@ services:
 
   # python/django background task processor
   bg-tasks:
+    container_name: acro-bg-tasks
     build:
       context: api
       dockerfile: Dockerfile.bg-tasks
@@ -61,6 +65,7 @@ services:
 
   # react frontend ui
   web:
+    container_name: acro-web
     build:
       context: web
     depends_on:
@@ -78,6 +83,7 @@ services:
 
   # nginx web proxy
   nginx:
+    container_name: acro-nginx
     build:
       context: nginx
     depends_on:
@@ -91,6 +97,7 @@ services:
 
   # postgres admin interface
   pgadmin:
+    container_name: acro-pgadmin
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: example@gmail.com
