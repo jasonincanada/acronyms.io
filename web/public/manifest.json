@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "acronyms.io",
+  "name": "acronyms.io - Web based acronym game for multiple players",
   "icons": [
     {
       "src": "favicon.ico",
