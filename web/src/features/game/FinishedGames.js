@@ -35,8 +35,6 @@ const FinishedGames = () => {
 
   return (
     <Fragment>
-      <h3>Finished Games</h3>
-
       <Tab.Container>
         <Row>
           <Col sm={3}>
