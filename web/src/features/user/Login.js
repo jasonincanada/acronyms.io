@@ -43,7 +43,7 @@ export const Login = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
 
             <div>Username: <input {...register('username')} placeholder="login" /></div>
-            <div>Password: <input {...register('password')} placeholder="password" /></div>
+            <div>Password: <input {...register('password')} type="password" placeholder="password" /></div>
 
             <input type="submit" />
 
