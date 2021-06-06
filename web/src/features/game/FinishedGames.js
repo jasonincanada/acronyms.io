@@ -57,9 +57,6 @@ const FinishedGames = () => {
           </Col>
         </Row>
       </Tab.Container>
-
-      <ul>
-      </ul>
     </Fragment>
   )
 }
