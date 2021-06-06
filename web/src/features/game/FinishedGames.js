@@ -91,7 +91,10 @@ const FinishedGame = ({game}) => {
         </ListGroup>
       }
 
-      <Button onClick={refreshVotes} className="mt-2">Refresh Votes</Button>
+      <Button onClick={refreshVotes}
+              variant="outline-secondary"
+              size="sm"
+              className="mt-2">Refresh Votes</Button>
     </Fragment>
   )
 }
