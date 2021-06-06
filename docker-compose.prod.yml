@@ -78,10 +78,26 @@ services:
     depends_on:
       - 'api'
     volumes:
-      - web-root:/usr/share/nginx/html
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
-      - /home/ubuntu/acronyms.io/dhparam:/etc/ssl/certs
+      - type: bind
+        source: /home/ubuntu/acronyms.io/dhparam
+        target: /etc/ssl/certs
+
+      # the web server never changes our react code once it's deployed
+      - type: volume
+        source: web-root
+        target: /usr/share/nginx/html
+        read_only: true
+
+      # nginx reads the certbot output but never needs to modify it
+      - type: volume
+        source: certbot-etc
+        target: /etc/letsencrypt
+        read_only: true
+
+      - type: volume
+        source: certbot-var
+        target: /var/lib/letsencrypt
+        read_only: true
     ports:
       - '80:80'
       - '443:443'
