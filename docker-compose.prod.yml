@@ -119,8 +119,6 @@ networks:
 # docker-managed local volumes that will persist between restarts of the containers
 volumes:
   postgres-data:
-  pgadmin-data:
-  nodemodules-hosted:
   web-root:
   certbot-etc:
   certbot-var:
