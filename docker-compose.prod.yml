@@ -81,6 +81,7 @@ services:
       - type: bind
         source: /home/ubuntu/acronyms.io/dhparam
         target: /etc/ssl/certs
+        read_only: true
 
       # the web server never changes our react code once it's deployed
       - type: volume
