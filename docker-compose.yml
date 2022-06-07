@@ -70,10 +70,10 @@ services:
       context: web
     depends_on:
       - 'api'
-    volumes:
-      - type: bind
-        source: ./web
-        target: /web
+        # volumes:
+        # - type: bind
+        # source: ./web
+        # target: /web
     networks:
       acro_net:
         ipv4_address: 172.16.1.5
