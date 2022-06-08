@@ -110,12 +110,12 @@ python manage.py migrate
 
 If you got a bunch of green OKs, the round trip to the database is working and the app's structure is set up!
 
-Let's add two test users from the fixture data included in the repo:
+Let's add two test users and two rooms from the fixture data included in the repo:
 
 ```bash
-python manage.py loaddata acro/fixtures/users.json
+python manage.py loaddata acro/fixtures/users.json acro/fixtures/rooms.json
 
-# Installed 2 object(s) from 1 fixture(s)
+# Installed 4 object(s) from 2 fixture(s)
 ```
 
 You should now be able to hit your server's IP in a web browser and see the dev home page. Click the login link and use `test`/`testtest123` to log in. You're in! You should be able to change code in `~/acronyms.io/web/src/App.js` (try changing the title) and see your changes reflect in the browser right away
