@@ -1,7 +1,7 @@
 
 # Install development environment
 
-Install a fresh [Ubuntu 20 Server](https://releases.ubuntu.com/20.04/) server (20GB disk, 2GB ram) and get the latest updates:
+Install a fresh [Ubuntu 20 Server](https://releases.ubuntu.com/20.04/) server (20GB disk, 4GB ram) and get the latest updates:
 
 ```bash
 # update the OS
@@ -99,6 +99,7 @@ python3 -m venv env
 # activate the virtual environment and install python modules
 source env/bin/activate
 
+pip install wheel
 pip install -r requirements.txt
 ```
 
@@ -117,6 +118,8 @@ python manage.py loaddata acro/fixtures/users.json acro/fixtures/rooms.json
 
 # Installed 4 object(s) from 2 fixture(s)
 ```
+
+Bring down docker-compose with ^C and bring it back up with `docker-compose up`
 
 You should now be able to hit your server's IP in a web browser and see the dev home page. Click the login link and use `test`/`testtest123` to log in. You're in! You should be able to change code in `~/acronyms.io/web/src/App.js` (try changing the title) and see your changes reflect in the browser right away
 
