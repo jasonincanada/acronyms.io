@@ -61,7 +61,21 @@ git clone https://github.com/jasonincanada/acronyms.io.git
 cd acronyms.io
 ```
 
-Now for the magic! Run `docker-compose` to fetch and build the OS images according to the architecture specified in `docker-compose.yml`. Each component of the project runs in an isolated container: web UI, backend API, database server, and a web proxy to route traffic around. After building the containers, docker sets up an internal subnetwork, again according to our specification, and launches each container into the network
+Build the docker images:
+
+```bash
+~/acronyms.io$ docker-compose build
+```
+
+Before we can use the web image, we need to install the node modules. Bind-mount the local web folder to have the node_modules folders written on the host, outside the container, when running `npm install`
+
+```bash
+~/acronyms.io$ cd web
+~/acronyms.io/web$ docker run --rm -v $(pwd):/web acronymsio_web npm install
+~/acronyms.io/web$ cd ..
+```
+
+Now for the magic! Run `docker-compose` to run the OS images according to the architecture specified in `docker-compose.yml`. Each component of the project runs in an isolated container: web UI, backend API, database server, and a web proxy to route traffic around. After building the containers, docker sets up an internal subnetwork, again according to our specification, and launches each container into the network
 
 ```bash
 # hold on to your keyboards!
